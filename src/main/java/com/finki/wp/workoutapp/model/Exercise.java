@@ -20,24 +20,23 @@ public class Exercise {
 
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private Level level;
-
-    // Potentially to be changed because is more logic and practical every exercise to be in one category
-    // For example when we would like to search exercises by their categories
-    @ManyToMany
-    private List<Category> categories;
+    @ManyToOne
+    private Category category;
 
     @ManyToMany
     private List<Repeats> repeats;
 
+    @ManyToMany
+    private List<Workouts> workouts;
 
-    public Exercise(String name, String image, String description, Level level, List<Category> categories, List<Repeats> repeats) {
+
+    public Exercise(String name, String image, String description, Category category, List<Repeats> repeats,
+                    List<Workouts> workouts) {
         this.name = name;
         this.image = image;
         this.description = description;
-        this.level = level;
-        this.categories = categories;
+        this.category = category;
         this.repeats = repeats;
+        this.workouts = workouts;
     }
 }

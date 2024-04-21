@@ -6,6 +6,8 @@ import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @NoArgsConstructor
 @Data
@@ -16,11 +18,13 @@ public class Goal {
 
     private  String name;
 
+    private Date goalDate;
     @OneToOne
-    private Merenja merenja;
+    private Measurement measurement;
 
-    public Goal(String name, Merenja merenja) {
+    public Goal(String name, Measurement measurement, Date goalDate) {
         this.name = name;
-        this.merenja = merenja;
+        this.measurement = measurement;
+        this.goalDate = goalDate;
     }
 }

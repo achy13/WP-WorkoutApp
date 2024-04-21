@@ -29,7 +29,7 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                  <h5 class="mb-0 font-weight-normal"></h5>
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -81,7 +81,7 @@
               <span class="menu-title">Home</span>
             </a>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" href="pages/forms/basic_elements.html">
               <span class="menu-icon">
                 <i class="mdi mdi-calendar-blank-outline"></i>
@@ -89,7 +89,7 @@
               <span class="menu-title">My calendar</span>
             </a>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" href="pages/forms/basic_elements.html">
               <span class="menu-icon">
                 <i class="mdi mdi-dumbbell"></i>
@@ -97,7 +97,7 @@
               <span class="menu-title">My Workouts</span>
             </a>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" href="pages/tables/basic-table.html">
               <span class="menu-icon">
                 <i class="mdi mdi-weight-kilogram"></i>
@@ -105,7 +105,7 @@
               <span class="menu-title">Exercises</span>
             </a>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" href="pages/charts/chartjs.html">
               <span class="menu-icon">
                 <i class="mdi mdi-ruler"></i>
@@ -113,7 +113,7 @@
               <span class="menu-title">My measurements</span>
             </a>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" href="pages/charts/chartjs.html">
               <span class="menu-icon">
                 <i class="mdi mdi-star-box"></i>
@@ -122,7 +122,7 @@
             </a>
           </li>
 
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" th:href="@{measurementsHelp}">
               <span class="menu-icon">
                 <i class="mdi mdi-help-circle"></i>
@@ -281,7 +281,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name" th:text="${#authentication.name}"></p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
@@ -299,14 +299,24 @@
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="/logout" sec:authorize="isAuthenticated()">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-logout text-danger"></i>
                       </div>
                     </div>
                     <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Log out</p>
+                      <p class="preview-subject mb-1">Logout</p>
+                    </div>
+                  </a>
+                  <a class="dropdown-item preview-item" href="/login" sec:authorize="isAnonymous()">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-logout text-danger"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="preview-subject mb-1">Login</p>
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>

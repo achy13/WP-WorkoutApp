@@ -1,9 +1,6 @@
 package com.finki.wp.workoutapp.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,16 +19,12 @@ public class Category {
     @Column(length = 4000)
     private String description;
 
-    @ManyToMany
+    @OneToMany
     private List<Exercise> exercises;
 
-    @ManyToMany
-    private List<User> users;
-
-    public Category(String name, String description, List<Exercise> exercises, List<User> users) {
+    public Category(String name, String description, List<Exercise> exercises) {
         this.name = name;
         this.description = description;
         this.exercises = exercises;
-        this.users = users;
     }
 }

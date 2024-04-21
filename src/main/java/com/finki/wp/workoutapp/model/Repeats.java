@@ -23,6 +23,7 @@ public class Repeats {
     @ManyToMany
     private List<Exercise> exercises;
 
+
     public Repeats(int series, int numOfRepeats, List<Exercise> exercises) {
         this.series = series;
         this.numOfRepeats = numOfRepeats;
