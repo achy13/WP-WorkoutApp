@@ -1,6 +1,5 @@
 package com.finki.wp.workoutapp.service.impl;
 
-import com.finki.wp.workoutapp.model.UserDto;
 import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.enums.Role;
 import com.finki.wp.workoutapp.model.exceptions.InvalidUsernameOrPasswordException;
@@ -12,10 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService  {

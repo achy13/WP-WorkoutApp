@@ -1,6 +1,5 @@
 package com.finki.wp.workoutapp.controller;
 
-import com.finki.wp.workoutapp.model.UserDto;
 import com.finki.wp.workoutapp.model.exceptions.InvalidArgumentsException;
 import com.finki.wp.workoutapp.model.exceptions.PasswordsDoNotMatchException;
 import com.finki.wp.workoutapp.model.exceptions.UsernameAlreadyExistsException;

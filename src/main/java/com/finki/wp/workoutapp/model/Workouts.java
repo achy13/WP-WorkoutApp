@@ -34,4 +34,5 @@ public class Workouts {
         this.exercises = exercises;
         this.user = user;
     }
+
 }
