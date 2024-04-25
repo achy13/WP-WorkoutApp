@@ -1,0 +1,92 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <div class="container text-center">
+        <h2>Add your current measurements here!</h2>
+    </div>
+
+    <div class="container">
+        <form action="/measurement/add" method="POST">
+            <input id="id" type="hidden" name="id" th:value="(${mea} != null ? ${mea.getId()} : '')">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="weight">Weight</label>
+                        <input type="text" class="form-control" id="weight" name="weight"
+                               th:value="(${mea} != null ? ${mea.getWeight()} : '')" required
+                               placeholder="Enter weight">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="height">Height</label>
+                        <input type="text" class="form-control" id="height" name="height"
+                               th:value="(${mea} != null ? ${mea.getHeight()} : '')" required
+                               placeholder="Enter height">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="years">Years</label>
+                        <input type="text" class="form-control" id="years" name="years"
+                               th:value="(${mea} != null ? ${mea.getYears()} : '')" required
+                               placeholder="Enter years">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shouldersSize">Shoulders Size</label>
+                        <input type="text" class="form-control" id="shouldersSize" name="shouldersSize"
+                               th:value="(${mea} != null ? ${mea.getShouldersSize()} : '')" required
+                               placeholder="Enter shoulders size">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="chestSize">Chest Size</label>
+                        <input type="text" class="form-control" id="chestSize" name="chestSize"
+                               th:value="(${mea} != null ? ${mea.getChestSize()} : '')" required
+                               placeholder="Enter chest size">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="hand">Hand size</label>
+                        <input type="text" class="form-control" id="hand" name="hand"
+                               th:value="(${mea} != null ? ${mea.getHand()} : '')" required
+                               placeholder="Enter hand size">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="waist">Waist</label>
+                        <input type="text" class="form-control" id="waist" name="waist"
+                               th:value="(${mea} != null ? ${mea.getWaist()} : '')" required
+                               placeholder="Enter waist size">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="abdomen">Abdomen</label>
+                        <input type="text" class="form-control" id="abdomen" name="abdomen"
+                               th:value="(${mea} != null ? ${mea.getAbdomen()} : '')" required
+                               placeholder="Enter abdomen size">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hip">Hips size</label>
+                        <input type="text" class="form-control" id="hip" name="hip"
+                               th:value="(${mea} != null ? ${mea.getHip()} : '')" required
+                               placeholder="Enter hip size">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="leg">Leg size</label>
+                        <input type="text" class="form-control" id="leg" name="leg"
+                               th:value="(${mea} != null ? ${mea.getLeg()} : '')" required
+                               placeholder="Enter leg size">
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-left">
+                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                <a type="button" class="btn btn-secondary" href="/measurement">Back</a>
+            </div>
+        </form>
+    </div>
+</div>

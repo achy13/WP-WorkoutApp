@@ -1,0 +1,120 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <div class="container text-center">
+        <h1 class="jumbotron-heading">Workout Application</h1>
+        <h2>Edit your current measurements here!</h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form th:action="'/measurement/edit/' +${measurements.getId()}" method="POST">
+                    <input id="id" type="hidden" name="id"
+                           th:value="(${measurements} != null ? ${measurements.getId()} : '')">
+                    <div class="form-group">
+                        <label for="weight">Weight</label>
+                        <input type="text"
+                               class="form-control"
+                               id="weight"
+                               name="weight"
+                               th:value="(${measurements} != null ? ${measurements.getWeight()} : '')"
+                               required
+                               placeholder="Enter m weight">
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height</label>
+                        <input type="text"
+                               class="form-control"
+                               id="height"
+                               name="height"
+                               th:value="(${measurements} != null ? ${measurements.getHeight()} : '')"
+                               required
+                               placeholder="Enter m height">
+                    </div>
+                    <div class="form-group">
+                        <label for="years">Years</label>
+                        <input type="text"
+                               class="form-control"
+                               id="years"
+                               name="years"
+                               th:value="(${measurements} != null ? ${measurements.getYears()} : '')"
+                               required
+                               placeholder="Enter m years">
+                    </div>
+                    <div class="form-group">
+                        <label for="shouldersSize">Shoulders Size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="shouldersSize"
+                               name="shouldersSize"
+                               th:value="(${measurements} != null ? ${measurements.getShouldersSize()} : '')"
+                               required
+                               placeholder="Enter m shouldersSize">
+                    </div>
+                    <div class="form-group">
+                        <label for="chestSize">Chest Size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="chestSize"
+                               name="chestSize"
+                               th:value="(${measurements} != null ? ${measurements.getChestSize()} : '')"
+                               required
+                               placeholder="Enter m chestSize">
+                    </div>
+                    <div class="form-group">
+                        <label for="hand">Hand size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="hand"
+                               name="hand"
+                               th:value="(${measurements} != null ? ${measurements.getHand()} : '')"
+                               required
+                               placeholder="Enter m hand">
+                    </div>
+                    <div class="form-group">
+                        <label for="waist">Waist</label>
+                        <input type="text"
+                               class="form-control"
+                               id="waist"
+                               name="waist"
+                               th:value="(${measurements} != null ? ${measurements.getWaist()} : '')"
+                               required
+                               placeholder="Enter m waist">
+                    </div>
+                    <div class="form-group">
+                        <label for="abdomen">Abdomen</label>
+                        <input type="text"
+                               class="form-control"
+                               id="abdomen"
+                               name="abdomen"
+                               th:value="(${measurements} != null ? ${measurements.getAbdomen()} : '')"
+                               required
+                               placeholder="Enter m abdomen">
+                    </div>
+                    <div class="form-group">
+                        <label for="hip">Hips size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="hip"
+                               name="hip"
+                               th:value="(${measurements} != null ? ${measurements.getHip()} : '')"
+                               required
+                               placeholder="Enter m hip">
+                    </div>
+                    <div class="form-group">
+                        <label for="leg">Leg size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="leg"
+                               name="leg"
+                               th:value="(${measurements} != null ? ${measurements.getLeg()} : '')"
+                               required
+                               placeholder="Enter m leg">
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-secondary" href="/measurement">Back</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
