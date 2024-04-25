@@ -1,4 +1,4 @@
-package com.finki.wp.workoutapp.controller;
+package com.finki.wp.workoutapp.web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;

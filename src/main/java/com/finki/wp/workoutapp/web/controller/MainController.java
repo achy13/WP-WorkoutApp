@@ -1,4 +1,4 @@
-package com.finki.wp.workoutapp.controller;
+package com.finki.wp.workoutapp.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ public class MainController {
     }
 
     //MeasurementsHelp
-    @GetMapping("/measurementsHelp")
+    @GetMapping("/help")
     public String getMeasurementsHelp(Model model) {
         model.addAttribute("bodyContent", "measurements-help");
         return "index";

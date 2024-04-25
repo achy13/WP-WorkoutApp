@@ -1,6 +1,7 @@
 package com.finki.wp.workoutapp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Measurement {
 
@@ -40,6 +42,11 @@ public class Measurement {
         this.hip = hip;
         this.leg = leg;
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Measurement{id=" + id + ", weight=" + weight + ", height=" + height + "}";
     }
 }
 

@@ -1,4 +1,4 @@
-package com.finki.wp.workoutapp.controller;
+package com.finki.wp.workoutapp.web.controller;
 
 import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.exceptions.InvalidArgumentsException;
