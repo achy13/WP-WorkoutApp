@@ -44,6 +44,9 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Workouts> workouts;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Goal> goals;
+
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired =  true;

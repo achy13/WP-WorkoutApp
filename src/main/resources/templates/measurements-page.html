@@ -15,6 +15,7 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
 <div xmlns:th="http://www.thymeleaf.org">
     <div class="container text-center mt-5">
         <h3 class="jumbotron-heading">All Measurements</h3>
@@ -33,48 +34,42 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" th:if="${measurement != null}">
         <div class="row">
             <div class="col-md-6">
-                <div th:each="mea : ${measurements}" class="measurement" style="margin-bottom: 20px;">
-                    <p>Weight: <span th:text="${mea.getWeight()}"></span></p>
-                    <p>Height: <span th:text="${mea.getHeight()}"></span></p>
-                    <p>Years: <span th:text="${mea.getYears()}"></span></p>
-                    <p>Shoulders Size: <span th:text="${mea.getShouldersSize()}"></span></p>
-                    <p>Chest Size: <span th:text="${mea.getChestSize()}"></span></p>
+                <div class="measurement" style="margin-bottom: 20px;">
+                    <p><img src="/icons/scales.png" alt="Arm icon" width="20" height="20">  Weight: <span th:text="${measurement.getWeight()}"></span></p>
+                    <p><img src="/icons/height.png" alt="Height icon" width="20" height="20">   Height: <span th:text="${measurement.getHeight()}"></span></p>
+                    <p><img src="/icons/years.png" alt="Years icon" width="20" height="20">   Years: <span th:text="${measurement.getYears()}"></span></p>
+                    <p><img src="/icons/shoulder.png" alt="Shoulders icon" width="20" height="20">  Shoulders Size: <span th:text="${measurement.getShouldersSize()}"></span></p>
+                    <p><img src="/icons/chest.png" alt="Chest icon" width="20" height="20">   Chest Size: <span th:text="${measurement.getChestSize()}"></span></p>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <div th:each="mea : ${measurements}" class="measurement" style="margin-bottom: 20px;">
-                    <p>Hand: <span th:text="${mea.getHand()}"></span></p>
-                    <p>Waist: <span th:text="${mea.getWaist()}"></span></p>
-                    <p>Abdomen: <span th:text="${mea.getAbdomen()}"></span></p>
-                    <p>Hip: <span th:text="${mea.getHip()}"></span></p>
-                    <p>Leg: <span th:text="${mea.getLeg()}"></span></p>
+                <div class="measurement" style="margin-bottom: 20px;">
+                    <p><img src="/icons/arm.png" alt="Arm icon" width="20" height="20">   Arm: <span th:text="${measurement.getHand()}"></span></p>
+                    <p><img src="/icons/waist.png" alt="Waist icon" width="20" height="20">   Waist: <span th:text="${measurement.getWaist()}"></span></p>
+                    <p><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20">   Abdomen: <span th:text="${measurement.getAbdomen()}"></span></p>
+                    <p>Hip: <span th:text="${measurement.getHip()}"></span></p>
+                    <p><img src="/icons/leg.png" alt="Leg icon" width="20" height="20">   Leg: <span th:text="${measurement.getLeg()}"></span></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container mt-3">
-        <a th:href="@{/measurement/add-form}" th:if="${measurements.size() == 0}"
-           class="btn btn-light add-measurement-btn">Add new measurement</a>
+    <div class="container mt-3" th:if="${measurement == null}">
+        <a th:href="@{/measurement/add-form}"
+           class="btn btn-light add-measurement-btn">Add new measurement   <img src="/icons/add.png" alt="Add icon" width="20" height="20"></a>
+    </div>
 
-        <button onclick="myFunction()" href="#" th:if="${measurements.size() > 0}"
-           class="btn btn-block btn-dark " >Add new measurement</button>
-
-        <div th:each="mea : ${measurements}" class="btn-group" >
-            <a th:href="@{'/measurement/edit-form/{id}' (id = ${mea.getId()})}" class="btn btn-light">Edit Measurements</a>
-            <form th:action="@{'/measurement/delete/{id}' (id = ${mea.getId()})}" th:method="DELETE" style="display: inline;">
-                <button type="submit" class="btn btn-light ml-4">Delete All Measurements</button>
+    <div class="container mt-3" th:if="${measurement != null}">
+        <div class="btn-group" >
+            <a th:href="@{'/measurement/edit-form/{id}' (id = ${measurement.getId()})}" class="btn btn-light">Edit measurement</a>
+            <form th:action="@{'/measurement/delete/{id}' (id = ${measurement.getId()})}" th:method="DELETE" style="display: inline;">
+                <button type="submit" class="btn btn-light ml-4">Delete measurement</button>
             </form>
         </div>
     </div>
 </div>
 
-<script>
-    function myFunction() {
-        alert("You already have measurements!");
-    }
-</script>

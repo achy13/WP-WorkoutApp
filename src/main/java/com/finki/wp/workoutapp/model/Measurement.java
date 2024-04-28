@@ -1,5 +1,6 @@
 package com.finki.wp.workoutapp.model;
 
+import com.finki.wp.workoutapp.model.enums.MeasurementType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,11 +27,13 @@ public class Measurement {
     private double abdomen;
     private double hip;
     private double leg;
+    @Enumerated(EnumType.STRING)
+    private MeasurementType type;
     @ManyToOne
     private User user;
 
     public Measurement(double weight, double height, int years, double shouldersSize, double chestSize, double hand,
-                       double waist, double abdomen, double hip, double leg, User user) {
+                       double waist, double abdomen, double hip, double leg, MeasurementType type, User user) {
         this.weight = weight;
         this.height = height;
         this.years = years;
@@ -41,6 +44,7 @@ public class Measurement {
         this.abdomen = abdomen;
         this.hip = hip;
         this.leg = leg;
+        this.type = type;
         this.user = user;
     }
 

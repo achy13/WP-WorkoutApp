@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Calendar;
+
 @Controller
 @RequestMapping("/logout")
 public class LogoutController {
@@ -15,5 +17,6 @@ public class LogoutController {
         request.getSession().invalidate();
         return "redirect:/login";
     }
+
 }
 

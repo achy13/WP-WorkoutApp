@@ -31,8 +31,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((auth) ->
                         auth.requestMatchers("/").permitAll()
                                 .requestMatchers("/register/**").permitAll()
-                                //.requestMatchers("/node/*").permitAll()
-                                //.requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/goals/**").authenticated()
+                                .requestMatchers("/measurement/**").authenticated()
+                                .requestMatchers("/exercise/**").authenticated()
+                                .requestMatchers("/workouts/**").authenticated()
                                 .anyRequest().permitAll()
 
                 ).formLogin(
@@ -50,7 +52,7 @@ public class WebSecurityConfig {
                                 .logoutSuccessUrl("/login")
                 )
                 .exceptionHandling((ex) -> ex
-                        .accessDeniedPage("/node/access_denied")
+                        .accessDeniedPage("/login")
                 );
 
         return http.build();
