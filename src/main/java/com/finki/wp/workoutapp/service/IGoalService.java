@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface IGoalService {
 
     List<Goal> findAllGoals();
+    List<Goal> findAllGoalsByUser(User user);
     Optional<Goal> findGoalById(Long id);
     List<Goal> findGoalByUser(User user);
     Optional<Goal> findGoalByMeasurement(Measurement measurement);

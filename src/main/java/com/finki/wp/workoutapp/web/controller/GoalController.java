@@ -39,9 +39,10 @@ public class GoalController {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        List<Goal> goals = this.goalService.findAllGoals();
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<Measurement> optionalMeasurement = this.measurementService.findMeasurementByUserAndType(userService.findUserByUsername(userDetails.getUsername()), MeasurementType.MEASUREMENT);
+        User user = userService.findUserByUsername(userDetails.getUsername());
+        List<Goal> goals = this.goalService.findGoalByUser(user);
+        Optional<Measurement> optionalMeasurement = this.measurementService.findMeasurementByUserAndType(user, MeasurementType.MEASUREMENT);
         if (optionalMeasurement.isPresent()){
             Measurement measurement = optionalMeasurement.get();
             model.addAttribute("measurement", measurement);

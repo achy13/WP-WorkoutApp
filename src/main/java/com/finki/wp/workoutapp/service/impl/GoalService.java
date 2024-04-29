@@ -38,6 +38,11 @@ public class GoalService implements IGoalService {
     }
 
     @Override
+    public List<Goal> findAllGoalsByUser(User user) {
+        return goalRepository.findAllByUser(user);
+    }
+
+    @Override
     public Optional<Goal> findGoalById(Long id) {
         return goalRepository.findById(id);
     }
