@@ -1,0 +1,95 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="text-center">
+        <div class="container mt-4" style="font-size: 20px">
+            <!-- Breadcrumb navigation -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{/category}">Exercises</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" th:text="${selectedCategoryName}"></li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <div class="container mb-3" >
+        <div class="row">
+            <div class="col-md-2">
+                <img class="img-fluid" th:src="@{'/img/' + ${#strings.toLowerCase(selectedCategoryName)} + '_img.png'}" alt="Selected Category Image" style="height: 120px; width: 120px">
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                <h4 class="mt-5 text-center" th:text="${selectedCategoryName}"></h4>
+            </div>
+            <div class="col-md-4 d-flex align-items-center justify-content-end">
+                <a th:href="@{/category}" class="btn btn-light">
+                    <span class="mdi mdi-arrow-left align-middle">  </span> Go Back
+                </a>
+            </div>
+
+        </div>
+        <h3 class="jumbotron-heading mt-4 mb-5">All Exercises in this category</h3>
+        <form th:action="@{/exercises/search}" method="get">
+            <input type="hidden" name="categoryId" th:value="${selectedCategoryId}" />
+            <div class="input-group">
+                <input type="text" class="form-control" name="name" placeholder="Search exercises..." />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div th:each="e : ${exercises}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card border-white h-100">
+                            <img th:src="@{/img/exercises/{filename}.png(filename=${e.getImage()})}" class="card-img-top" alt="Exercise Image" style="height: 250px">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title" th:text="${e.getName()}"></h5>
+                                <p class="card-text flex-grow-1" th:text="${e.getDescription()}"></p>
+                                <!--<p class="card-text" th:text="${e.getCategory() != null ? e.getCategory().getName() : 'No Category'}"></p> -->
+                                <div class="text-right mt-auto">
+                                    <div class="d-flex">
+                                        <form th:action="@{'/exercises/delete/{id}' (id=${e.getId()})}" th:method="DELETE">
+                                            <button type="submit" class="btn btn-sm btn-danger delete-product mr-2">
+                                                <i class="fas fa-trash-alt"></i> Delete
+                                            </button>
+                                        </form>
+                                        <a th:href="@{'/exercises/edit-form/{id}' (id=${e.getId()})}" class="btn btn-sm btn-info edit-product">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of card iteration -->
+                </div>
+            </div>
+            <div class="col mb-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <a href="/exercises/add-form" class="btn btn-block btn-dark add-product-btn">
+                            Add new exercise
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function clearPlaceholder(input) {
+        input.placeholder = '';
+    }
+
+    function restorePlaceholder(input) {
+        input.placeholder = '  Search..';
+    }
+</script>
