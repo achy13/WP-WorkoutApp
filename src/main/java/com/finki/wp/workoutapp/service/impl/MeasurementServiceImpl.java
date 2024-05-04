@@ -74,9 +74,8 @@ public class MeasurementServiceImpl implements MeasurementService {
             User user = measurement.getUser();
             if (user != null) {
                 user.getMeasurements().remove(measurement);
-                userRepository.save(user); // Update the user to reflect the removal of the measurement
             }
-            measurementRepository.deleteById(id); // Delete the measurement
+            measurementRepository.deleteById(id);
         } else {
             throw new RuntimeException("Measurement not found with id: " + id);
         }

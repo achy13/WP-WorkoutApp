@@ -1,0 +1,64 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <div class="container text-center">
+        <h1 class="jumbotron-heading">Workout Application</h1>
+        <h2>Edit the selected exercise</h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form th:action="'/exercises/edit/'+${exercise.getId()}" method="POST">
+                    <input id="id" type="hidden" name="id"
+                           th:value="(${exercise} != null ? ${exercise.getId()} : '')">
+                    <div class="form-group">
+                        <label for="name">Exercise name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               th:value="(${exercise} != null ? ${exercise.getName()} : '')"
+                               required
+                               placeholder="Enter exercise name">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="text"
+                               class="form-control"
+                               id="image"
+                               name="image"
+                               th:value="(${exercise} != null ? ${exercise.getImage()} : '')"
+                               placeholder="image">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text"
+                               class="form-control"
+                               id="description"
+                               name="description"
+                               th:value="(${exercise} != null ? ${exercise.getDescription()} : '')"
+                               placeholder="description">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="categoryId" class="form-control">
+                            <option th:if="${exercise} != null"
+                                    th:selected="${exercise.getCategory() != null &&
+                                exercise.getCategory().getId() == cat.getId()}"
+                                    th:each="cat : ${categories}"
+                                    th:value="${cat.getId()}"
+                                    th:text="${cat.getName()}">
+                            </option>
+                            <option th:if="${exercise} == null"
+                                    th:each="cat : ${categories}"
+                                    th:value="${cat.getId()}"
+                                    th:text="${cat.getName()}">
+                            </option>
+                        </select>
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-secondary" th:href="@{'/exercises?categoryId=' + ${categoryId}}">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Data
 public class Exercise {
 
@@ -30,6 +29,16 @@ public class Exercise {
     @ManyToMany
     private List<Workouts> workouts;
 
+    public Exercise() {
+
+    }
+
+    public Exercise(String name, String image, String description, Category category) {
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        this.category = category;
+    }
 
     public Exercise(String name, String image, String description, Category category, List<Repeats> repeats,
                     List<Workouts> workouts) {
