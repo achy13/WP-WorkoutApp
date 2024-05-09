@@ -52,6 +52,9 @@ public class ExerciseService implements IExerciseService {
         Category category = this.categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
 
+        if(image == null || image.isEmpty()) {
+            image = category.getImagePath();
+        }
         Exercise exercise = new Exercise(name, image, description, category);
         Exercise savedExercise = exerciseRepository.save(exercise);
         category.getExercises().add(savedExercise);

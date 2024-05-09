@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/exercises")
@@ -56,6 +57,7 @@ public class ExerciseController {
         model.addAttribute("selectedCategoryName", selectedCategoryName);
         model.addAttribute("categories", iCategoryService.findAllCategories());
         model.addAttribute("exercises", exercises);
+        model.addAttribute("selectedCategoryId", categoryId);
         model.addAttribute("bodyContent","exercises-page");
         return "index";
     }
@@ -93,12 +95,22 @@ public class ExerciseController {
     }
 
     @GetMapping("/add-form")
-    public String addExercisePage(Model model) {
+    public String addExercisePage(@RequestParam Long categoryId, Model model) {
         List<Category> categories = this.iCategoryService.findAllCategories();
+        String selectedCategoryName = null;
+        if (categoryId != null) {
+            Category category = iCategoryService.findCategoryById(categoryId);
+            if (category != null) {
+                selectedCategoryName = category.getName();
+            }
+        }
         model.addAttribute("categories", categories);
+        model.addAttribute("selectedCategoryName", selectedCategoryName);
+        model.addAttribute("selectedCategoryId", categoryId);
         model.addAttribute("bodyContent", "add-exercise");
         return "index";
     }
+
 
     @GetMapping("/edit-form/{id}")
     public String editExercisePage(@PathVariable Long id, Model model) {
@@ -116,7 +128,9 @@ public class ExerciseController {
     }
 
     @PostMapping("/add")
-    public String saveExercise (@RequestParam String name, @RequestParam String image, @RequestParam String description, @RequestParam Long categoryId) {
+    public String saveExercise (@RequestParam String name, String image, @RequestParam String description, @RequestParam Long categoryId) {
+        //Category categoryOptional = iCategoryService.findCategoryById(categoryId);
+        //String categoryImage = categoryOptional.getImagePath();
         this.iExerciseService.save(name, image, description, categoryId);
         return "redirect:/exercises?categoryId=" + categoryId;
     }
