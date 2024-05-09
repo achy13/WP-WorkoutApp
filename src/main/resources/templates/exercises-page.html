@@ -14,7 +14,7 @@
     <div class="container mb-3" >
         <div class="row">
             <div class="col-md-2">
-                <img class="img-fluid" th:src="@{'/img/' + ${#strings.toLowerCase(selectedCategoryName)} + '_img.png'}" alt="Selected Category Image" style="height: 120px; width: 120px">
+                <img class="img-fluid" th:src="@{'/img/exercises/' + ${#strings.toLowerCase(selectedCategoryName)} + '_img.png'}" alt="Selected Category Image" style="height: 120px; width: 120px">
             </div>
             <div class="col-md-6 d-flex align-items-center">
                 <h4 class="mt-5 text-center" th:text="${selectedCategoryName}"></h4>
@@ -27,6 +27,7 @@
 
         </div>
         <h3 class="jumbotron-heading mt-4 mb-5">All Exercises in this category</h3>
+        <!--
         <form th:action="@{/exercises/search}" method="get">
             <input type="hidden" name="categoryId" th:value="${selectedCategoryId}" />
             <div class="input-group">
@@ -36,7 +37,7 @@
                 </div>
             </div>
         </form>
-
+-->
 
 
     </div>
@@ -74,7 +75,7 @@
             <div class="col mb-3">
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <a href="/exercises/add-form" class="btn btn-block btn-dark add-product-btn">
+                        <a th:href="@{'/exercises/add-form?categoryId=' + ${selectedCategoryId}}"  class="btn btn-block btn-dark add-product-btn">
                             Add new exercise
                         </a>
                     </div>

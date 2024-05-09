@@ -1,7 +1,7 @@
 <div xmlns:th="http://www.thymeleaf.org">
-    <section class="jumbotron text-center">
+    <section class="text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">Add exercise</h1>
+            <h1 class="jumbotron-heading">Add new exercise</h1>
         </div>
     </section>
 
@@ -9,8 +9,8 @@
         <div class="row">
             <div class="col-md-5">
                 <form action="/exercises/add" method="POST">
-                    <input id="id" type="hidden" name="id"
-                           th:value="(${e} != null ? ${e.getId()} : '')">
+                    <input id="id" type="hidden" name="id" th:value="(${e} != null ? ${e.getId()} : '')">
+                    <input type="hidden" name="categoryId" th:value="${selectedCategoryId}">
                     <div class="form-group">
                         <label for="name">Exercise name</label>
                         <input type="text"
@@ -19,47 +19,37 @@
                                name="name"
                                th:value="(${e} != null ? ${e.getName()} : '')"
                                required
-                               placeholder="Enter e name">
+                               placeholder="Enter name">
                     </div>
                     <div class="form-group">
-                        <label for="image">Image</label>
-                        <input type="text"
-                               class="form-control"
-                               id="image"
-                               name="image"
-                               th:value="(${e} != null ? ${e.getImage()} : '')"
-                               placeholder="image">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">description</label>
+                        <label for="description">Description</label>
                         <input type="text"
                                class="form-control"
                                id="description"
                                name="description"
                                th:value="(${e} != null ? ${e.getDescription()} : '')"
-                               placeholder="description">
+                               placeholder="Description">
                     </div>
                     <div class="form-group">
-                        <label>Category</label>
-                        <select name="categoryId" class="form-control">
-                            <option th:if="${e} != null"
-                                    th:selected="${e.getCategory() != null &&
-                                e.getCategory().getId() == cat.getId()}"
-                                    th:each="cat : ${categories}"
-                                    th:value="${cat.getId()}"
-                                    th:text="${cat.getName()}">
-                            </option>
-                            <option th:if="${e} == null"
-                                    th:each="cat : ${categories}"
-                                    th:value="${cat.getId()}"
-                                    th:text="${cat.getName()}">
-                            </option>
-                        </select>
+                        <label for="category">Category</label>
+                        <input type="text"
+                               class="form-control"
+                               id="category"
+                               name="category"
+                               disabled>
                     </div>
                     <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-                    <a name="categoryId" type="button" class="btn btn-secondary" th:href="@{'/exercises?categoryId=' + ${categoryId}}">Back</a>
+                    <a type="button" class="btn btn-secondary" th:href="@{'/exercises?categoryId=' + ${selectedCategoryId}}">Back</a>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var selectedCategoryName = /*[[${selectedCategoryName}]]*/ '';
+    document.getElementById("category").value = selectedCategoryName;
+    /*]]>*/
+</script>
