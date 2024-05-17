@@ -7,6 +7,5 @@ import java.util.Optional;
 
 public interface ICategoryService {
     List<Category> findAllCategories();
-
-   Category findCategoryById(Long id);
+    Category findCategoryById(Long id);
 }

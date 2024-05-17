@@ -7,15 +7,61 @@ color: whitesmoke;
 font-size: 18px;
 margin-top: 20px;
 }
+#quoteDiv{
+    margin-top: -200px;
+}
+#quote{
+    font-size: 20px;
+}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
 <div xmlns:th="http://www.thymeleaf.org">
-    <div class="container text-center" style="margin-top: 100px" sec:authorize="isAnonymous()">
+    <div class="container text-center" style="margin-top: 150px" sec:authorize="isAnonymous()">
         <h1>Hello, welcome to your Workout App!</h1>
         <p>This app helps you keep track of your workouts, exercises, and measurements.</p>
         <p>Start by logging in to access your personalized dashboard.</p>
         <a href="/login" class="btn btn-primary btn-lg">Login</a>
         <p>If you don't have an account yet, <a href="/register" >Sign up here</a></p>
     </div>
+    <div id="motivationDiv" class="position-relative justify-content-center" sec:authorize="isAuthenticated()">
+        <figure class="text-center position-absolute translate-middle mx-auto">
+            <blockquote class="blockquote">
+                <p id="quote"></p>
+            </blockquote>
+            <figcaption class="blockquote-footer" id="author"></figcaption>
+        </figure>
+    </div>
+
 
 </div>
+
+<script th:inline="javascript">
+    fetch("https://type.fit/api/quotes")
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            //const motivationSection = document.getElementById('motivationDiv');
+            const quoteElement = document.getElementById('quote');
+            const authorElement = document.getElementById('author');
+
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const quote = data[randomIndex].text;
+            let author = data[randomIndex].author;
+
+            if (author.endsWith("type.fit")) {
+                author = author.substring(0, author.length - 11).trim(); // Отстранува последните 9 карактери (делот "type.fit") и било кои празни места од почетокот и крајот
+            }
+
+            quoteElement.textContent = `"${quote}"`;
+            authorElement.textContent = `- ${author}`;
+
+            motivationSection.appendChild(quoteElement);
+            motivationSection.appendChild(authorElement);
+        })
+        .catch(function(error) {
+            console.error("Error " + error);
+        });
+</script>

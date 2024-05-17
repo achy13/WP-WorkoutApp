@@ -35,6 +35,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/measurement/**").authenticated()
                                 .requestMatchers("/exercise/**").authenticated()
                                 .requestMatchers("/workouts/**").authenticated()
+                                .requestMatchers("/calendar/**").authenticated()
                                 .anyRequest().permitAll()
 
                 ).formLogin(

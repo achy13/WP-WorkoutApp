@@ -1,0 +1,233 @@
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.11.3/main.min.js'></script>
+  <style>
+    #eventForm {
+      display: none;
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+<div id='calendar'></div>
+
+<div id="eventForm">
+  <form id="eventFormElement">
+    <label for="selectedDate">Selected Date:</label>
+    <input type="text" id="selectedDate" readonly><br>
+    <label for="events">Choose an event:</label>
+    <select id="events">
+      <option th:each="workout : ${workouts}" th:value="${workout.getId()}" th:text="${workout.getWorkoutName()}"></option>
+    </select>
+    <input type="submit" value="Save">
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    $.ajax({
+      url: '/events',
+      type: 'GET',
+      success: function(data) {
+        initializeCalendar(data);
+        console.log(data);
+      },
+      error: function(xhr, status, error) {
+        console.error('Error fetching events:', error);
+      }
+    });
+
+    function initializeCalendar(events) {
+      var jsonFormat = JSON.parse(events);
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,dayGridWeek,dayGridDay'
+        },
+        selectable: true,
+        events: jsonFormat,
+        dateClick: function(info) {
+          showEventForm(info);
+        }
+      });
+      calendar.render();
+    }
+
+    function showEventForm(info) {
+      var eventForm = document.getElementById('eventForm');
+      var eventFormElement = document.getElementById('eventFormElement');
+      var selectedDateInput = document.getElementById('selectedDate');
+
+      // Постави го датумот во полето
+      selectedDateInput.value = info.dateStr;
+
+      // Прикажи ја формата
+      eventForm.style.display = 'block';
+      eventForm.style.top = info.jsEvent.pageY + 'px';
+      eventForm.style.left = info.jsEvent.pageX + 'px';
+
+      eventFormElement.onsubmit = function(event) {
+        event.preventDefault();
+        var selectedEvent = document.getElementById('events').value;
+
+        fetch('/saveEvent', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            date: info.dateStr,
+            event: selectedEvent
+          })
+        })
+                .then(response => response.text())
+                .then(data => {
+                  alert(data);
+                  eventForm.style.display = 'none';
+                })
+                .catch((error) => {
+                  alert('Error saving event!');
+                });
+      };
+    }
+
+  });
+</script>
+
+
+<!--
+<title>Calendar</title>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.11/index.global.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+
+    $.ajax({
+      url: '/events',
+      type: 'GET',
+      success: function(data) {
+        initializeCalendar(data)
+        console.log(data)
+      },
+      error: function(xhr, status, error) {
+        console.error('Error fetching events:', error);
+      }
+    });
+
+
+    function initializeCalendar(events) {
+      var jsonFormat = JSON.parse(events);
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,dayGridWeek,dayGridDay'
+        },
+        selectable : true,
+        events: jsonFormat
+      });
+      calendar.render();
+    }
+
+  });
+
+</script>
+<style>
+
+  body {
+    margin-top: 40px;
+    font-size: 14px;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  }
+
+  #external-events {
+    position: relative;
+    width: 25px;
+    height: 220px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    text-align: left;
+    margin-top: 88px;
+  }
+
+  #external-events h4 {
+    font-size: 16px;
+    margin-top: 0;
+    padding-top: 1em;
+    color: black;
+  }
+
+  #external-events .fc-event {
+    margin: 3px 0;
+    cursor: move;
+  }
+
+  #external-events p {
+    margin: 1.5em 0;
+    font-size: 11px;
+    color: #666;
+  }
+
+  #external-events p input {
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  #calendar-wrap {
+    margin-left: 20px;
+  }
+
+  #calendar {
+    max-width: 1100px;
+  }
+  .fc-event-main{
+    padding: 2px 8px;
+  }
+
+</style>
+
+<div id='wrap' class="row container">
+
+  <div id='external-events' class="col-2">
+    <h4>Your Workouts</h4>
+
+
+    <div id='external-events-list'>
+      <div th:if="${workouts.size() > 0}">
+        <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event' th:each="workout : ${workouts}">
+          <div class='fc-event-main' th:title="${workout.getId()}" th:text="${workout.getWorkoutName()}"></div>
+        </div>
+      </div>
+
+      <div th:if="${workouts.size() == 0}">
+        <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+          <div class='fc-event-main'><a href="#">Create your workout</a></div>
+        </div>
+      </div>
+    </div>
+
+
+    <p>
+      <input type='checkbox' id='drop-remove' />
+      <label for='drop-remove'>remove after drop</label>
+    </p>
+  </div>
+
+  <div id='calendar-wrap' class="col">
+    <div id='calendar'></div>
+  </div>
+
+</div>
+-->

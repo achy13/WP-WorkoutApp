@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,11 +27,15 @@ public class Workouts {
     @ManyToOne
     private User user;
 
+    @ManyToMany
+    private List<TrainingDay> trainingDays;
+
     public Workouts(String workoutName, Date workoutDate, List<Exercise> exercises, User user) {
         this.workoutName = workoutName;
         this.workoutDate = workoutDate;
         this.exercises = exercises;
         this.user = user;
+        this.trainingDays = new ArrayList<>();
     }
 
 }

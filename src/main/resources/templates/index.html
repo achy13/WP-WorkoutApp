@@ -82,7 +82,7 @@
             </a>
           </li>
           <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" th:href="@{/calendar}">
               <span class="menu-icon">
                 <i class="mdi mdi-calendar-blank-outline"></i>
               </span>

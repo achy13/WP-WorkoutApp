@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -47,6 +48,9 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Goal> goals;
 
+    @OneToMany
+    private List<TrainingDay> trainingDays;
+
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired =  true;
@@ -60,6 +64,7 @@ public class User implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+        this.trainingDays = new ArrayList<>();
     }
 
     @Override
