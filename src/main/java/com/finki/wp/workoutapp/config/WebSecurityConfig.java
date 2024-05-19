@@ -30,12 +30,14 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) ->
                         auth.requestMatchers("/").permitAll()
-                                .requestMatchers("/register/**").permitAll()
+                                .requestMatchers("/login").anonymous()
+                                .requestMatchers("/register/**").anonymous()
                                 .requestMatchers("/goals/**").authenticated()
                                 .requestMatchers("/measurement/**").authenticated()
                                 .requestMatchers("/exercise/**").authenticated()
                                 .requestMatchers("/workouts/**").authenticated()
                                 .requestMatchers("/calendar/**").authenticated()
+                                .requestMatchers("/user/**").authenticated()
                                 .anyRequest().permitAll()
 
                 ).formLogin(
@@ -53,7 +55,7 @@ public class WebSecurityConfig {
                                 .logoutSuccessUrl("/login")
                 )
                 .exceptionHandling((ex) -> ex
-                        .accessDeniedPage("/login")
+                        .accessDeniedPage("/")
                 );
 
         return http.build();

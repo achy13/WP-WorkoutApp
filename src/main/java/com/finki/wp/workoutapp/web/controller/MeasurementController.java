@@ -3,15 +3,15 @@ package com.finki.wp.workoutapp.web.controller;
 import com.finki.wp.workoutapp.model.Measurement;
 import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.enums.MeasurementType;
+import com.finki.wp.workoutapp.service.ITrainingDayService;
 import com.finki.wp.workoutapp.service.IUserService;
 import com.finki.wp.workoutapp.service.MeasurementService;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,20 +20,21 @@ public class MeasurementController {
 
     private final MeasurementService measurementService;
     private final IUserService userService;
+    private final ITrainingDayService trainingDayService;
 
-    public MeasurementController(MeasurementService measurementService, IUserService userService) {
+    public MeasurementController(MeasurementService measurementService, IUserService userService, ITrainingDayService trainingDayService) {
         this.measurementService = measurementService;
         this.userService = userService;
+        this.trainingDayService = trainingDayService;
     }
 
     @GetMapping
-    public String getMeasurementPage(@RequestParam(required = false) String error, Model model) {
+    public String getMeasurementPage(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(required = false) String error, Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findUserByUsername(userDetails.getUsername());
         System.out.println(user.getId());
 
@@ -46,6 +47,8 @@ public class MeasurementController {
             model.addAttribute("measurement", null);
             model.addAttribute("bodyContent", "measurements-page");
         }
+
+        model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
         return "index";
     }
 
@@ -56,17 +59,19 @@ public class MeasurementController {
     }
 
     @GetMapping("/add-form")
-    public String addMeasurementPage(Model model) {
+    public String addMeasurementPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         model.addAttribute("bodyContent", "add-measurement");
+        model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
         return "index";
     }
 
     @GetMapping("/edit-form/{id}")
-    public String editMeasurementPage(@PathVariable Long id, Model model) {
+    public String editMeasurementPage(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id, Model model) {
         if (this.measurementService.findMeasurementById(id).isPresent()) {
             Measurement measurements = this.measurementService.findMeasurementById(id).get();
             model.addAttribute("measurements", measurements);
             model.addAttribute("bodyContent", "edit-measurement");
+            model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
             return "index";
         }
         return "redirect:/measurement?error=ProductNotFound";

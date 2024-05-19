@@ -5,10 +5,11 @@ import com.finki.wp.workoutapp.model.Measurement;
 import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.enums.MeasurementType;
 import com.finki.wp.workoutapp.service.IGoalService;
+import com.finki.wp.workoutapp.service.ITrainingDayService;
 import com.finki.wp.workoutapp.service.IUserService;
 import com.finki.wp.workoutapp.service.MeasurementService;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -26,20 +27,22 @@ public class GoalController {
     private final IGoalService goalService;
     private final MeasurementService measurementService;
     private final IUserService userService;
+    private final ITrainingDayService trainingDayService;
 
-    public GoalController(IGoalService goalService, MeasurementService measurementService, IUserService userService) {
+    public GoalController(IGoalService goalService, MeasurementService measurementService, IUserService userService, ITrainingDayService trainingDayService) {
         this.goalService = goalService;
         this.measurementService = measurementService;
         this.userService = userService;
+        this.trainingDayService = trainingDayService;
     }
 
     @GetMapping
-    public String getGoalPage(@RequestParam(required = false) String error, Model model) {
+    public String getGoalPage(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(required = false) String error, Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         User user = userService.findUserByUsername(userDetails.getUsername());
         List<Goal> goals = this.goalService.findGoalByUser(user);
         Optional<Measurement> optionalMeasurement = this.measurementService.findMeasurementByUserAndType(user, MeasurementType.MEASUREMENT);
@@ -52,6 +55,7 @@ public class GoalController {
         }
         model.addAttribute("goals", goals);
         model.addAttribute("bodyContent", "goals-page");
+        model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
         return "index";
     }
 
@@ -62,16 +66,16 @@ public class GoalController {
     }
 
     @GetMapping("/add-form")
-    public String addGoalPage(Model model) {
+    public String addGoalPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         model.addAttribute("bodyContent", "goals-add");
+        model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
         return "index";
     }
 
     @GetMapping("/edit-form/{id}")
-    public String editGoalPage(@PathVariable Long id, Model model) {
+    public String editGoalPage(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id, Model model) {
         if (this.goalService.findGoalById(id).isPresent()) {
             Goal goal = this.goalService.findGoalById(id).get();
-            UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Optional<Measurement> optionalMeasurement = this.measurementService.findMeasurementByUserAndType(userService.findUserByUsername(userDetails.getUsername()), MeasurementType.MEASUREMENT);
             if (optionalMeasurement.isPresent()){
                 Measurement measurement = optionalMeasurement.get();
@@ -82,6 +86,7 @@ public class GoalController {
             }
             model.addAttribute("goal", goal);
             model.addAttribute("bodyContent", "goals-add");
+            model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
             return "index";
         }
         return "redirect:/goals?error=GoalNotFound";

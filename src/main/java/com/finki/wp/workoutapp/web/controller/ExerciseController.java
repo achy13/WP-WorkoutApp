@@ -1,20 +1,17 @@
 package com.finki.wp.workoutapp.web.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finki.wp.workoutapp.model.Category;
 import com.finki.wp.workoutapp.model.Exercise;
-import com.finki.wp.workoutapp.model.Measurement;
 import com.finki.wp.workoutapp.service.ICategoryService;
 import com.finki.wp.workoutapp.service.IExerciseService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.finki.wp.workoutapp.service.ITrainingDayService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/exercises")
@@ -22,14 +19,17 @@ public class ExerciseController {
 
     private final IExerciseService iExerciseService;
     private final ICategoryService iCategoryService;
+    private final ITrainingDayService trainingDayService;
 
-    public ExerciseController(IExerciseService iExerciseService, ICategoryService iCategoryService) {
+    public ExerciseController(IExerciseService iExerciseService, ICategoryService iCategoryService, ITrainingDayService trainingDayService) {
         this.iExerciseService = iExerciseService;
         this.iCategoryService = iCategoryService;
+        this.trainingDayService = trainingDayService;
     }
 
     @GetMapping
-    public String getProductPage(@RequestParam(required = false) String error,
+    public String getProductPage(@AuthenticationPrincipal UserDetails userDetails,
+                                 @RequestParam(required = false) String error,
                                  @RequestParam(required = false) Long categoryId,
                                  Model model) {
         if (error != null && !error.isEmpty()) {
@@ -59,6 +59,7 @@ public class ExerciseController {
         model.addAttribute("exercises", exercises);
         model.addAttribute("selectedCategoryId", categoryId);
         model.addAttribute("bodyContent","exercises-page");
+        model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
         return "index";
     }
 
@@ -95,7 +96,8 @@ public class ExerciseController {
     }
 
     @GetMapping("/add-form")
-    public String addExercisePage(@RequestParam Long categoryId, Model model) {
+    public String addExercisePage(@AuthenticationPrincipal UserDetails userDetails,
+                                  @RequestParam Long categoryId, Model model) {
         List<Category> categories = this.iCategoryService.findAllCategories();
         String selectedCategoryName = null;
         if (categoryId != null) {
@@ -108,12 +110,14 @@ public class ExerciseController {
         model.addAttribute("selectedCategoryName", selectedCategoryName);
         model.addAttribute("selectedCategoryId", categoryId);
         model.addAttribute("bodyContent", "add-exercise");
+        model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
         return "index";
     }
 
 
     @GetMapping("/edit-form/{id}")
-    public String editExercisePage(@PathVariable Long id, Model model) {
+    public String editExercisePage(@AuthenticationPrincipal UserDetails userDetails,
+                                   @PathVariable Long id, Model model) {
         if (this.iExerciseService.findExerciseById(id).isPresent()) {
             Exercise exercise = this.iExerciseService.findExerciseById(id).get();
             List<Category> categories = this.iCategoryService.findAllCategories();
@@ -122,6 +126,7 @@ public class ExerciseController {
             model.addAttribute("categories", categories);
             model.addAttribute("exercise", exercise);
             model.addAttribute("bodyContent", "edit-exercise");
+            model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
             return "index";
         }
         return "redirect:/exercises?error=ProductNotFound";

@@ -45,7 +45,7 @@
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item preview-item">
+                <a href="/user/changePassword" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-onepassword  text-info"></i>
@@ -231,12 +231,12 @@
                   <p class="p-3 mb-0 text-center">4 new messages</p>
                 </div>
               </li>
-              <li class="nav-item dropdown border-left">
+              <li class="nav-item dropdown border-left" sec:authorize="isAuthenticated()">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                   <i class="mdi mdi-bell"></i>
-                  <span class="count bg-danger"></span>
+                  <span th:if="${hasEvent != true}" id="notif" class="count bg-danger"></span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" th:if="${hasEvent != true}">
                   <h6 class="p-3 mb-0">Notifications</h6>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item preview-item">
@@ -245,50 +245,30 @@
                         <i class="mdi mdi-calendar text-success"></i>
                       </div>
                     </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Event today</p>
-                      <p class="text-muted ellipsis mb-0"> Just a reminder to do your workout today! </p>
+                    <div class="preview-item-content" style="width: 280px; white-space: normal; word-wrap: break-word; overflow-wrap: break-word; ">
+                      <p class="preview-subject mb-1">Reminder</p>
+                      <p class="text-muted mb-4"> Just a reminder to do your workout today! </p>
                     </div>
                   </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-settings text-danger"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Settings</p>
-                      <p class="text-muted ellipsis mb-0"> Update dashboard </p>
+                </div>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" th:if="${hasEvent == true}">
+                    <div class="preview-item-content" style="width: 280px; white-space: normal; word-wrap: break-word; overflow-wrap: break-word; ">
+                      <p class="text-muted mb-4"> No new notifications </p>
                     </div>
                   </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-link-variant text-warning"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Launch Admin</p>
-                      <p class="text-muted ellipsis mb-0"> New admin wow! </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">See all notifications</p>
                 </div>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name" th:text="${#authentication.name}"></p>
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name" sec:authorize="isAuthenticated()" th:text="${#authentication.name}"></p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" sec:authorize="isAuthenticated()">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
@@ -312,7 +292,8 @@
                   <a class="dropdown-item preview-item" href="/login" sec:authorize="isAnonymous()">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-logout text-danger"></i>
+
+                        <i class="mdi mdi-login text-success"></i>
                       </div>
                     </div>
                     <div class="preview-item-content">
@@ -348,5 +329,8 @@
     <script src="/assets/js/settings.js"></script>
     <script src="/assets/js/todolist.js"></script>
     <script src="/assets/js/dashboard.js"></script>
+
+
+
   </body>
 </html>

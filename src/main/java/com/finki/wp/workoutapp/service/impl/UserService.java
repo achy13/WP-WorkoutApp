@@ -4,6 +4,7 @@ import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.enums.Role;
 import com.finki.wp.workoutapp.model.exceptions.InvalidUsernameOrPasswordException;
 import com.finki.wp.workoutapp.model.exceptions.PasswordsDoNotMatchException;
+import com.finki.wp.workoutapp.model.exceptions.SamePasswordException;
 import com.finki.wp.workoutapp.model.exceptions.UsernameAlreadyExistsException;
 import com.finki.wp.workoutapp.repository.UserRepository;
 import com.finki.wp.workoutapp.service.IUserService;
@@ -58,6 +59,24 @@ public class UserService implements IUserService  {
     @Override
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
+    }
+
+    @Override
+    public User changePassword(String username, String oldPassword, String newPassword, String repeatedPassword) {
+        Optional<User> user = userRepository.findByUsernameAndPassword(username, oldPassword);
+        if (user.isPresent()){
+            if (!newPassword.equals(repeatedPassword) ){
+                throw new PasswordsDoNotMatchException();
+            }
+            if (newPassword.equals(oldPassword)){
+                throw new SamePasswordException();
+            }
+        }
+        else {
+            throw new UsernameNotFoundException(username);
+        }
+        user.get().setPassword(passwordEncoder.encode(newPassword));
+        return userRepository.save(user.get());
     }
 
 }

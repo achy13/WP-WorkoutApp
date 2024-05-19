@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface IAuthService {
     User login(String username, String password);
-
 }

@@ -6,6 +6,7 @@ import com.finki.wp.workoutapp.model.Workouts;
 import com.finki.wp.workoutapp.service.ITrainingDayService;
 import com.finki.wp.workoutapp.service.IUserService;
 import com.finki.wp.workoutapp.service.IWorkoutsService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,6 @@ public class CalendarController {
 
     private final IWorkoutsService workoutsService;
     private final IUserService userService;
-
     private final ITrainingDayService trainingDayService;
 
     public CalendarController(IWorkoutsService workoutsService, IUserService userService, ITrainingDayService trainingDayService) {
@@ -30,8 +30,7 @@ public class CalendarController {
     }
 
     @GetMapping
-    public String getCalendarPage(Model model) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String getCalendarPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         User user = userService.findUserByUsername(userDetails.getUsername());
         List<Workouts> workouts = workoutsService.findAllWorkoutsByUser(user);
         List<TrainingDay> events = trainingDayService.findAllByUser(user);
@@ -39,6 +38,7 @@ public class CalendarController {
         model.addAttribute("bodyContent", "calendar");
         model.addAttribute("workouts", workouts);
         model.addAttribute("events", events);
+        model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
 
         return "index";
     }

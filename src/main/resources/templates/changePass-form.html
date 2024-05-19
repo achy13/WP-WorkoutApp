@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change password</title>
+</head>
+<body>
+
+<div class="container col-6 my-5">
+  <form  th:method="post"
+         role="form"
+         th:action="@{/user/save}">
+
+    <h2 class="form-signup-heading">Change your password</h2>
+
+    <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+
+    <!-- First name input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+      <input hidden type="text" id="username" name="username" th:value="${username}" class="form-control"  required/>
+    </div>
+
+    <!-- Password input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+      <input type="password" id="oldPassword" name="oldPassword" class="form-control" required/>
+      <label class="form-label" for="oldPassword" name="oldPassword">Old Password</label>
+    </div>
+
+    <!-- Password input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+      <input type="password" id="newPassword" name="newPassword" class="form-control" required/>
+      <label class="form-label" for="newPassword" name="newPassword">New Password</label>
+    </div>
+
+    <!-- Repeated password -->
+    <div data-mdb-input-init class="form-outline mb-4">
+      <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control" required/>
+      <label class="form-label" for="repeatedPassword" name="repeatedPassword">Repeat password</label>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Change</button>
+
+  </form>
+
+  <a href="/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
+</div>
+
+</body>
+</html>

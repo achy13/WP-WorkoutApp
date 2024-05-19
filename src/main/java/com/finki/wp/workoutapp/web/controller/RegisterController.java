@@ -60,7 +60,6 @@ public class RegisterController {
         } catch (InvalidArgumentsException | PasswordsDoNotMatchException | UsernameAlreadyExistsException exception) {
             return "redirect:/register?error=" + exception.getMessage();
         }
-
     }
 
 }

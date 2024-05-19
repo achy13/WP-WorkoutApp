@@ -32,36 +32,4 @@ public class TrainingDay {
         this.workouts = workouts;
     }
 
-    @Override
-    public String toString() {
-        if (workouts.size() == 1){
-            return "{" +
-                    "\"id\":" + id +
-                    "\"start\":" + date +
-                    "\"title\":" + workouts.get(0).getWorkoutName() +
-                    '}';
-        }
-        else if (workouts.size() > 1){
-            String str = "";
-            for (int i = 0; i < workouts.size(); i++){
-                if (i == workouts.size()-1){
-                    str += "{" +
-                            "\"id\":" + id +
-                            "\"start\":" + date +
-                            "\"title\":" + workouts.get(i).getWorkoutName() +
-                            "}";
-                }
-                else {
-                    str += "{" +
-                            "\"id\":" + id +
-                            "\"start\":" + date +
-                            "\"title\":" + workouts.get(i).getWorkoutName() +
-                            "},";
-                }
-            }
-            return str;
-        }
-        else return "Error";
-
-    }
 }

@@ -1,19 +1,19 @@
 package com.finki.wp.workoutapp.model.DTO;
 
 public class TrainingDayDTO {
-    private String event;
+    private String title;
     private String date;
 
-    public String getEvent() {
-        return event;
+    public String getTitle() {
+        return title;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setEvent(String event) {
-        this.event = event;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setDate(String date) {

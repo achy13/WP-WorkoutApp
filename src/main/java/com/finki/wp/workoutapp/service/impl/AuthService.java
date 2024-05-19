@@ -3,6 +3,7 @@ package com.finki.wp.workoutapp.service.impl;
 import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.exceptions.InvalidArgumentsException;
 import com.finki.wp.workoutapp.model.exceptions.InvalidUserCredentialsException;
+import com.finki.wp.workoutapp.model.exceptions.PasswordsDoNotMatchException;
 import com.finki.wp.workoutapp.repository.UserRepository;
 import com.finki.wp.workoutapp.service.IAuthService;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -12,6 +12,7 @@ import com.finki.wp.workoutapp.service.IUserService;
 import com.finki.wp.workoutapp.service.IWorkoutsService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,7 @@ public class EventController {
                 for (Workouts wo : event.getWorkouts()){
                     ObjectNode eventJson = objectMapper.createObjectNode();
                     eventJson.put("title", wo.getWorkoutName());
-                    eventJson.put("start", event.getDate().toString()); // Да се претвори во стринг, можете да го користите SimpleDateFormat
+                    eventJson.put("start", event.getDate().toString());
                     jsonArray.add(eventJson);
                 }
             }
@@ -58,7 +59,6 @@ public class EventController {
         }
     }
 
-
     @GetMapping("/events")
     @ResponseBody
     public String getEvents() {
@@ -66,36 +66,36 @@ public class EventController {
         User user = userService.findUserByUsername(userDetails.getUsername());
         List<TrainingDay> events = trainingDayService.findAllByUser(user);
         String jsonEvents = convertEventsToJson(events);
+        System.out.println(jsonEvents);
         return jsonEvents;
     }
 
     @PostMapping("/saveEvent")
-    public void saveEvent(@RequestBody Map<String, String> payload,
+    public void saveEvent(@AuthenticationPrincipal UserDetails userDetails,
+                          @RequestBody Map<String, String> payload,
                           HttpServletResponse response) throws IOException {
         String date = payload.get("date");
         String event = payload.get("event");
-
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findUserByUsername(userDetails.getUsername());
-
         Workouts workout = workoutsService.findWorkoutById(Long.valueOf(event)).get();
         TrainingDay trainingDay = trainingDayService.findTrainingDayByDateAndUser(Date.valueOf(date), user);
 
         if (trainingDay != null){
             trainingDay.getWorkouts().add(workout);
+            trainingDayService.save(trainingDay);
         }
         else {
             List<Workouts> newWorkouts = new ArrayList<>();
             newWorkouts.add(workout);
-            TrainingDay newTrainingDay = new TrainingDay(user, Date.valueOf(date), newWorkouts);
-            trainingDayService.save(newTrainingDay);
+            TrainingDay newTrainingDay = new TrainingDay();
             user.getTrainingDays().add(newTrainingDay);
             workout.getTrainingDays().add(newTrainingDay);
-        }
 
-        //  -----------   VAZNO  -----------
-        //      Tabelite za workout_users_training_day i workout_trainig_days
-        //      ne se popolnuvaat koga se dodava nov trening  :(
+            newTrainingDay.setUser(user);
+            newTrainingDay.setDate(Date.valueOf(date));
+            newTrainingDay.setWorkouts(newWorkouts);
+            trainingDayService.save(newTrainingDay);
+        }
 
         response.setContentType("text/plain");
         response.getWriter().write("Event saved successfully!");
