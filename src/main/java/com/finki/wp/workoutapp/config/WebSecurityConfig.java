@@ -42,7 +42,7 @@ public class WebSecurityConfig {
 
                 ).formLogin(
                         form -> form
-                                .loginPage("/login").permitAll()
+                                .loginPage("/login")
                                 .failureUrl("/login?error=BadCredentials")
                                 .defaultSuccessUrl("/homePage", true)
                                 .permitAll()

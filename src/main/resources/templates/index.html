@@ -34,7 +34,7 @@
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
               <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                <a href="#" class="dropdown-item preview-item">
+                <a th:href="@{/user/accout-settings}" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-settings text-primary"></i>
@@ -268,7 +268,7 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item" sec:authorize="isAuthenticated()">
+                  <a class="dropdown-item preview-item" th:href="@{/user/account-settings}" sec:authorize="isAuthenticated()">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
@@ -300,8 +300,8 @@
                       <p class="preview-subject mb-1">Login</p>
                     </div>
                   </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">Advanced settings</p>
+                  <div class="dropdown-divider" sec:authorize="isAuthenticated()"></div>
+                  <p class="p-3 mb-0 text-center" sec:authorize="isAuthenticated()">Advanced settings</p>
                 </div>
               </li>
             </ul>

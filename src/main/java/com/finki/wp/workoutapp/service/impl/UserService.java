@@ -2,10 +2,7 @@ package com.finki.wp.workoutapp.service.impl;
 
 import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.enums.Role;
-import com.finki.wp.workoutapp.model.exceptions.InvalidUsernameOrPasswordException;
-import com.finki.wp.workoutapp.model.exceptions.PasswordsDoNotMatchException;
-import com.finki.wp.workoutapp.model.exceptions.SamePasswordException;
-import com.finki.wp.workoutapp.model.exceptions.UsernameAlreadyExistsException;
+import com.finki.wp.workoutapp.model.exceptions.*;
 import com.finki.wp.workoutapp.repository.UserRepository;
 import com.finki.wp.workoutapp.service.IUserService;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -63,8 +60,12 @@ public class UserService implements IUserService  {
 
     @Override
     public User changePassword(String username, String oldPassword, String newPassword, String repeatedPassword) {
-        Optional<User> user = userRepository.findByUsernameAndPassword(username, oldPassword);
-        if (user.isPresent()){
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if (!userOptional.isEmpty()){
+            User user = userOptional.get();
+            if (!passwordEncoder.matches(oldPassword, user.getPassword())){
+                throw new InvalidPasswordException();
+            }
             if (!newPassword.equals(repeatedPassword) ){
                 throw new PasswordsDoNotMatchException();
             }
@@ -75,8 +76,8 @@ public class UserService implements IUserService  {
         else {
             throw new UsernameNotFoundException(username);
         }
-        user.get().setPassword(passwordEncoder.encode(newPassword));
-        return userRepository.save(user.get());
+        userOptional.get().setPassword(passwordEncoder.encode(newPassword));
+        return userRepository.save(userOptional.get());
     }
 
 }

@@ -1,8 +1,7 @@
 package com.finki.wp.workoutapp.web.controller;
 
-import com.finki.wp.workoutapp.model.exceptions.InvalidArgumentsException;
-import com.finki.wp.workoutapp.model.exceptions.PasswordsDoNotMatchException;
-import com.finki.wp.workoutapp.model.exceptions.UsernameAlreadyExistsException;
+import com.finki.wp.workoutapp.model.User;
+import com.finki.wp.workoutapp.model.exceptions.*;
 import com.finki.wp.workoutapp.service.IUserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,7 +32,8 @@ public class UserController {
         String username = userDetails.getUsername();
 
         model.addAttribute("username", username);
-        return "changePass-form";
+        model.addAttribute("bodyContent", "changePass-form");
+        return "account";
     }
 
     @PostMapping("/save")
@@ -41,9 +41,19 @@ public class UserController {
                                      @RequestParam String newPassword, @RequestParam String repeatedPassword){
         try{
             this.userService.changePassword(username, oldPassword, newPassword, repeatedPassword);
-            return "redirect:/user/save";
-        } catch (PasswordsDoNotMatchException exception) {
-            return "redirect:/user/save?error=" + exception.getMessage();
+            return "redirect:/user/changePassword";
+        } catch (PasswordsDoNotMatchException | InvalidPasswordException | SamePasswordException exception) {
+            return "redirect:/user/changePassword?error=" + exception.getMessage();
         }
+    }
+
+    @GetMapping("/account-settings")
+    public String getAccountSettings(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        String username = userDetails.getUsername();
+        User user = userService.findUserByUsername(username);
+
+        model.addAttribute("user", user);
+        model.addAttribute("bodyContent", "account-settings");
+        return "account";
     }
 }

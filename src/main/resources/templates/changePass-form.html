@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Change password</title>
-</head>
-<body>
-
-<div class="container col-6 my-5">
+<div>
   <form  th:method="post"
          role="form"
          th:action="@{/user/save}">
@@ -39,12 +31,9 @@
     </div>
 
     <!-- Submit button -->
-    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Change</button>
-
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <a href="/" class="btn btn-primary active" role="button" aria-pressed="true">Back</a>
+      <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary active">Change</button>
+    </div>
   </form>
-
-  <a href="/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
 </div>
-
-</body>
-</html>
