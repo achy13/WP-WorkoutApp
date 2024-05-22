@@ -23,10 +23,17 @@ public class UserController {
     }
 
     @GetMapping("/changePassword")
-    public String getChangePasswordForm(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(required = false) String error, Model model){
+    public String getChangePasswordForm(@AuthenticationPrincipal UserDetails userDetails,
+                                        @RequestParam(required = false) String error,
+                                        @RequestParam(required = false) String success,
+                                        Model model){
         if(error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
+        }
+        if (success != null && !success.isEmpty()){
+            model.addAttribute("hasError", false);
+            model.addAttribute("success", "Changes have been saved successfully!");
         }
 
         String username = userDetails.getUsername();
@@ -41,7 +48,7 @@ public class UserController {
                                      @RequestParam String newPassword, @RequestParam String repeatedPassword){
         try{
             this.userService.changePassword(username, oldPassword, newPassword, repeatedPassword);
-            return "redirect:/user/changePassword";
+            return "redirect:/user/changePassword?success=Changes have been saved successfully!";
         } catch (PasswordsDoNotMatchException | InvalidPasswordException | SamePasswordException exception) {
             return "redirect:/user/changePassword?error=" + exception.getMessage();
         }
@@ -54,6 +61,16 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("bodyContent", "account-settings");
+        return "account";
+    }
+
+    @GetMapping("/profile-info")
+    public String getProfileInfo(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        String username = userDetails.getUsername();
+        User user = userService.findUserByUsername(username);
+
+        model.addAttribute("user", user);
+        model.addAttribute("bodyContent", "profile-info");
         return "account";
     }
 }

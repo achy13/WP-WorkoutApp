@@ -10,6 +10,10 @@ margin-top: 20px;
 #quote{
     font-size: 20px;
 }
+#motivationDiv{
+    width: 50%;
+    border-width: medium;
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
@@ -48,7 +52,7 @@ margin-top: 20px;
             let author = data[randomIndex].author;
 
             if (author.endsWith("type.fit")) {
-                author = author.substring(0, author.length - 11).trim(); // Отстранува последните 9 карактери (делот "type.fit") и било кои празни места од почетокот и крајот
+                author = author.substring(0, author.length - 11).trim();
             }
 
             quoteElement.textContent = `"${quote}"`;

@@ -28,24 +28,6 @@ public class RegisterController {
         return "index";
     }
 
-    /*
-    @PostMapping("/save")
-    public String registration(@ModelAttribute("user") UserDto userDto,
-                               Model model){
-        User existingUser = userService.findUserByUsername(userDto.getUsername());
-
-        if(existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()){
-            model.addAttribute("user", userDto);
-            model.addAttribute("error", "There is already an account registered with the same username");
-            model.addAttribute("bodyContent", "register");
-            return "index";
-        }
-
-        userService.create(userDto);
-        return "redirect:/register?success";
-    }
-    */
-
     @PostMapping
     public String registration(@RequestParam String username,
                                @RequestParam String password,

@@ -1,39 +1,43 @@
-<div>
-  <form  th:method="post"
-         role="form"
-         th:action="@{/user/save}">
+<div class="container tab-pane" id="account">
+  <h6>CHANGE YOUR PASSWORD</h6>
+  <hr>
+  <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+  <div th:if="${param.success}" th:text="${param.success}" class="text-success"></div>
+  <form>
+    <div class="form-group">
+      <form  th:method="post"
+             role="form"
+             th:action="@{/user/save}">
 
-    <h2 class="form-signup-heading">Change your password</h2>
-
-    <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
-
-    <!-- First name input -->
-    <div data-mdb-input-init class="form-outline mb-4">
+      </form>
       <input hidden type="text" id="username" name="username" th:value="${username}" class="form-control"  required/>
-    </div>
 
-    <!-- Password input -->
-    <div data-mdb-input-init class="form-outline mb-4">
-      <input type="password" id="oldPassword" name="oldPassword" class="form-control" required/>
-      <label class="form-label" for="oldPassword" name="oldPassword">Old Password</label>
-    </div>
+      <label for="oldPassword">Old password</label>
+      <input type="password" class="form-control" id="oldPassword" placeholder="Enter your password">
 
-    <!-- Password input -->
-    <div data-mdb-input-init class="form-outline mb-4">
-      <input type="password" id="newPassword" name="newPassword" class="form-control" required/>
-      <label class="form-label" for="newPassword" name="newPassword">New Password</label>
-    </div>
+      <label for="newPassword">New password</label>
+      <input type="password" class="form-control" id="newPassword" placeholder="Enter your new password">
 
-    <!-- Repeated password -->
-    <div data-mdb-input-init class="form-outline mb-4">
-      <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control" required/>
-      <label class="form-label" for="repeatedPassword" name="repeatedPassword">Repeat password</label>
+      <label for="repeatedPassword">Repeat password</label>
+      <input type="password" class="form-control" id="repeatedPassword" placeholder="Repeat your new password">
     </div>
-
-    <!-- Submit button -->
+    <hr>
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <a href="/" class="btn btn-primary active" role="button" aria-pressed="true">Back</a>
-      <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary active">Change</button>
+      <a href="/" class="btn btn-primary" role="button" aria-pressed="true">Back</a>
+      <button class="btn btn-primary" type="button">Save changes</button>
     </div>
   </form>
 </div>
+
+<style>
+  body{
+    margin-top:20px;
+    color: #1a202c;
+    text-align: left;
+    background-color: #e2e8f0;
+  }
+  .container{
+    width: 50%;
+  }
+</style>
+
