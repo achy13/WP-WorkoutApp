@@ -1,8 +1,8 @@
-<style>
+<style xmlns="http://www.w3.org/1999/html">
   body {
     margin-top: 20px;
     color: #bcd0f7;
-    background: #1A233A;
+    background: #e2e8f0;
   }
   .account-settings .user-profile {
     margin: 0 0 1rem 0;
@@ -48,7 +48,7 @@
     overflow: hidden;
     display: inline-block;
   }
-  .btn {
+  .btn1 {
     border: 2px solid gray;
     color: white;
     background-color: #272E48;
@@ -64,104 +64,82 @@
     top: 0;
     opacity: 0;
   }
+  input{
+    background-color: #1a233a;
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <!-- Profile Card -->
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <div class="user-profile">
-            <div class="user-avatar">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="User Avatar">
-            </div>
-            <h5 class="user-name" th:text="${user.getFirstName() + ' ' + user.getLastName()}"></h5>
-            <h6 class="user-email" th:text="${user.getEmail()}"></h6>
-            <div class="upload-btn-wrapper mt-3">
-              <button class="btn">Upload a picture</button>
-              <input type="file" name="myfile" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Form Card -->
-    <div class="col-md-8">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-2 text-primary">Personal Details</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" class="form-control" id="fullName" placeholder="Enter full name">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="eMail">Email</label>
-                <input type="email" class="form-control" id="eMail" placeholder="Enter email ID">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="website">Website URL</label>
-                <input type="url" class="form-control" id="website" placeholder="Website url">
+<form th:method="post" role="form" th:action="@{/user/save/update}">
+  <div class="container">
+    <div class="row">
+          <!-- Profile Card -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="user-profile">
+                  <div class="user-avatar">
+                    <img src="/img/prof.png" alt="User Avatar">
+                  </div>
+                  <h5 class="user-name" th:text="${user.getFirstName() + ' ' + user.getLastName()}"></h5>
+                  <h6 class="user-email" th:text="${user.getEmail()}"></h6>
+                  <div class="upload-btn-wrapper mt-3">
+                    <button class="btn btn1">Upload a picture</button>
+                    <input type="file" name="myfile" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mt-3 mb-2 text-primary">Address</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="Street">Street</label>
-                <input type="name" class="form-control" id="Street" placeholder="Enter Street">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="ciTy">City</label>
-                <input type="name" class="form-control" id="ciTy" placeholder="Enter City">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="sTate">State</label>
-                <input type="text" class="form-control" id="sTate" placeholder="Enter State">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="zIp">Zip Code</label>
-                <input type="text" class="form-control" id="zIp" placeholder="Zip Code">
-              </div>
-            </div>
-          </div>
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="text-right">
-                <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
-                <button type="button" id="submit" name="submit" class="btn btn-primary">Update</button>
+          <!-- Form Card -->
+          <div class="col-md-8">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="row gutters">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+                    <div th:if="${param.success}" th:text="${param.success}" class="text-success"></div>
+                    <h6 class="mb-2 text-primary">Personal Details</h6>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="lastName">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" name="lastName" th:value = "${user.getLastName()}" >
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="username">Username</label>
+                      <input type="text" class="form-control" id="username" name="username" th:value = "${user.getUsername()}" >
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="firstName">First Name</label>
+                      <input type="text" class="form-control" id="firstName" name="firstName" th:value = "${user.getFirstName()}" >
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" th:value = "${user.getEmail()}" >
+                    </div>
+                  </div>
+                <div class="row gutters">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                      <button class="btn btn-success me-5" type="submit">Update</button>
+                      <a href="/user/profile-info" class="btn btn-primary" role="button" aria-pressed="true">Cancel</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
   </div>
-</div>
+  </div>
+</form>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

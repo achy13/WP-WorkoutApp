@@ -5,17 +5,23 @@ import com.finki.wp.workoutapp.model.enums.Role;
 import com.finki.wp.workoutapp.model.exceptions.*;
 import com.finki.wp.workoutapp.repository.UserRepository;
 import com.finki.wp.workoutapp.service.IUserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService implements IUserService  {
     final private UserRepository userRepository;
     final private PasswordEncoder passwordEncoder;
+    private static final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -77,6 +83,52 @@ public class UserService implements IUserService  {
             throw new UsernameNotFoundException(username);
         }
         userOptional.get().setPassword(passwordEncoder.encode(newPassword));
+        return userRepository.save(userOptional.get());
+    }
+
+    @Override
+    public User update(String firstName, String lastName, String username, String email) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String authUser = authentication.getName();
+
+        Optional<User> userOptional = userRepository.findByUsername(authUser);
+        if (!userOptional.isEmpty()){
+            User user = userOptional.get();
+            if (firstName == null || firstName.isEmpty()){
+                throw new CannotBeEmptyException();
+            }
+            else {
+                user.setFirstName(firstName);
+            }
+            if (lastName == null || lastName.isEmpty()){
+                throw new CannotBeEmptyException();
+            }
+            else {
+                user.setLastName(lastName);
+            }
+            if (username == null || username.isEmpty() ){
+                throw new CannotBeEmptyException();
+            }
+            else if(userRepository.findByUsername(username).isPresent() && !user.getUsername().equals(username)) {
+                throw new UsernameAlreadyExistsException(username);
+            }
+            else {
+                user.setUsername(username);
+            }
+            if (email == null || email.isEmpty()){
+                throw new CannotBeEmptyException();
+            }
+            else if (pattern.matcher(email) == null){
+                throw new InvalidArgumentsException();
+            }
+            else {
+                user.setEmail(email);
+            }
+        }
+        else {
+            throw new UsernameNotFoundException(username);
+        }
+
         return userRepository.save(userOptional.get());
     }
 

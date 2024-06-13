@@ -5,6 +5,7 @@ import com.finki.wp.workoutapp.model.exceptions.*;
 import com.finki.wp.workoutapp.service.IUserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,14 +44,26 @@ public class UserController {
         return "account";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save/changePassword")
     public String changePasswordForm(@RequestParam String username, @RequestParam String oldPassword,
                                      @RequestParam String newPassword, @RequestParam String repeatedPassword){
         try{
             this.userService.changePassword(username, oldPassword, newPassword, repeatedPassword);
             return "redirect:/user/changePassword?success=Changes have been saved successfully!";
-        } catch (PasswordsDoNotMatchException | InvalidPasswordException | SamePasswordException exception) {
+        } catch (PasswordsDoNotMatchException | InvalidPasswordException | SamePasswordException | UsernameNotFoundException exception) {
             return "redirect:/user/changePassword?error=" + exception.getMessage();
+        }
+    }
+
+    @PostMapping("/save/update")
+    public String update(@RequestParam String firstName, @RequestParam String lastName,
+                         @RequestParam String username, @RequestParam String email){
+        try{
+            this.userService.update(firstName, lastName, username, email);
+            return "redirect:/user/profile-info?success=Changes have been saved successfully!";
+        } catch (CannotBeEmptyException | InvalidArgumentsException | UsernameAlreadyExistsException |
+                 UsernameNotFoundException exception) {
+            return "redirect:/user/profile-info?error=" + exception.getMessage();
         }
     }
 
