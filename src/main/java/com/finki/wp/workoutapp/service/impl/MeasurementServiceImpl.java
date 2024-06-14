@@ -116,4 +116,18 @@ public class MeasurementServiceImpl implements MeasurementService {
         measurementRepository.save(m);
         return Optional.of(m);
     }
+
+    @Override
+    public Integer getAgeForUser(String username) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if(userOptional.isPresent()) {
+            User user = userOptional.get();
+            List<Measurement> measurements = user.getMeasurements();
+            if(!measurements.isEmpty()) {
+                Measurement mostRecent = measurements.get(0);
+                return mostRecent.getYears();
+            }
+        }
+        return null;
+    }
 }

@@ -19,4 +19,5 @@ public interface MeasurementService {
     Optional<Measurement> edit (Long id, Double weight, Double height, Integer years, Double shouldersSize, Double chestSize,
                                 Double hand, Double waist, Double abdomen, Double hip, Double leg);
 
+    Integer getAgeForUser(String username);
 }
