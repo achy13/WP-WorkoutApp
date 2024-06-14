@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -63,11 +64,23 @@ public class ExerciseController {
         return "index";
     }
 
-    /*
+
     @GetMapping("/search")
     public String searchExercisesByName(@RequestParam String name,
                                         @RequestParam(required = false) Long categoryId,
                                         Model model) {
+        String selectedCategoryName = null;
+        String selectedCategoryImage = "selectedCategoryImage.jpg";
+        if (categoryId != null) {
+            Category category = iCategoryService.findCategoryById(categoryId);
+            if (category != null) {
+                selectedCategoryName = category.getName();
+                selectedCategoryImage = category.getImagePath();
+            }
+        }
+
+        model.addAttribute("selectedCategoryImage", selectedCategoryImage);
+        model.addAttribute("selectedCategoryName", selectedCategoryName);
         model.addAttribute("selectedCategoryId", categoryId);
 
         if (categoryId == null) {
@@ -80,7 +93,7 @@ public class ExerciseController {
         model.addAttribute("categories", iCategoryService.findAllCategories());
         return "index";
     }
-*/
+
 
 
 

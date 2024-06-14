@@ -21,14 +21,26 @@ public class Workouts {
 
     private Date workoutDate;
 
+    private String level;
+
     @ManyToMany
     private List<Exercise> exercises;
 
     @ManyToOne
     private User user;
 
+
     @ManyToMany
     private List<TrainingDay> trainingDays;
+
+    public Workouts(String workoutName, Date workoutDate, String level, List<Exercise> exercises, User user) {
+        this.workoutName = workoutName;
+        this.workoutDate = workoutDate;
+        this.level = level;
+        this.exercises = exercises;
+        this.user = user;
+    }
+
 
     public Workouts(String workoutName, Date workoutDate, List<Exercise> exercises, User user) {
         this.workoutName = workoutName;

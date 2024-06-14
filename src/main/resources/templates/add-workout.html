@@ -1,0 +1,475 @@
+<style>
+        .cd-h-timeline__event-description .level-label,
+        .cd-h-timeline__button{
+            display: inline-block;
+            width: 500px;
+            height: 70px;
+            line-height: 60px;
+            text-align: center;
+            background-color: #ddd;
+            color: #333;
+            border: 1px solid #999;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 15px;
+
+        }
+
+        .cd-h-timeline__event-description .level-label:hover {
+            background-color: #ccc;
+        }
+
+        /* Custom styling for select */
+        .cat-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+            font-size: 16px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+        }
+
+        /* Styling for selected options */
+        .cat-select option:checked {
+            background-color: #ddd;
+        }
+
+        .exercise-cards {
+            width: 100%;
+        }
+
+        .exercise-cards option {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .exercise-cards option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .exercise-cards option:checked {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .exercise-cards option:checked:hover {
+            background-color: #0056b3;
+        }
+
+        /* Basic styles for the dialog */
+        .dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        /* Blind effect for show/hide */
+        .blind {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease-in-out; /* Faster transition */
+        }
+
+        .blind.open {
+            display: block;
+            max-height: 1000px; /* Large enough value to show full content */
+        }
+
+        /* Styles for the close button */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Flexbox styles for aligning radio buttons and buttons */
+        .level-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: relative;
+        }
+
+        .opener {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            margin-left: auto;
+            background-color: transparent;
+            border: 2px solid blue;
+            border-radius: 50%;
+            height: 24px;
+            width: 24px;
+            font-size: 16px;
+            color: blue;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+</style>
+
+<div xmlns:th="http://www.thymeleaf.org">
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
+    <link rel="stylesheet" href="/assetsN/css/style.css">
+    <form method="POST" th:action="@{'/workouts/add'}">
+        <section class="cd-h-timeline js-cd-h-timeline margin-bottom-md">
+            <div class="cd-h-timeline__container container">
+                <div class="cd-h-timeline__dates">
+                    <div class="cd-h-timeline__line">
+                        <ol>
+                            <li><a href="#0" data-date="16/01/2014" class="cd-h-timeline__date cd-h-timeline__date--selected"><span class="mdi mdi-gender-male-female"></span></a></li>
+                            <li><a href="#0" data-date="28/02/2014" class="cd-h-timeline__date"><span class="mdi mdi-cake"></span></a></li>
+                            <li><a href="#0" data-date="20/04/2014" class="cd-h-timeline__date"><span class="mdi mdi-flag-checkered"></span></a></li>
+                            <li><a href="#0" data-date="20/05/2014" class="cd-h-timeline__date"><span class="mdi mdi-flash"></span></a></li>
+                            <li><a href="#0" data-date="09/07/2014" class="cd-h-timeline__date"><span class="mdi mdi-dumbbell"></span></a></li>
+                            <li><a href="#0" data-date="30/08/2014" class="cd-h-timeline__date"><span class="mdi mdi-weight-lifter"></span></a></li>
+                            <li><a href="#0" data-date="1/09/2014" class="cd-h-timeline__date"><span class="mdi mdi-rename"></span></a></li>
+
+                        </ol>
+
+                        <span class="cd-h-timeline__filling-line" aria-hidden="true"></span>
+                    </div> <!-- .cd-h-timeline__line -->
+                </div> <!-- .cd-h-timeline__dates -->
+
+                <ul>
+                    <li><a href="#0" class="text-replace cd-h-timeline__navigation cd-h-timeline__navigation--prev cd-h-timeline__navigation--inactive">Prev</a></li>
+                    <li><a href="#0" class="text-replace cd-h-timeline__navigation cd-h-timeline__navigation--next">Next</a></li>
+                </ul>
+            </div> <!-- .cd-h-timeline__container -->
+
+            <div class="cd-h-timeline__events text-center">
+                <ol>
+                    <li class="cd-h-timeline__event cd-h-timeline__event--selected text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <p class="cd-h-timeline__event-title">LETS GET STARTED</p>
+                            <div class="cd-h-timeline__buttons">
+                                <button class="cd-h-timeline__button"  onclick="goToNextEvent()">Male </button> <br>
+                                <button class="cd-h-timeline__button" onclick="goToNextEvent()">Female</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">AGE</h2>
+                            <p style="font-size: 25px" class="cd-h-timeline__event-description color-contrast-medium" th:text="${age != null ? age : 'N/A'}">
+                            </p><br>
+                            <div class="cd-h-timeline__buttons">
+                                <button class="timeline_button btn btn-outline-dark" onclick="goToPreviousEvent()">Back</button>
+                                <button class="timeline_button btn btn-outline-dark" onclick="goToNextEventTwo()">Next</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">YOUR FITNESS GOAL?</h2>
+                            <p class="cd-h-timeline__event-description color-contrast-medium">
+                                <button class="cd-h-timeline__button" onclick="goToNextEventThree()">Lose Weight </button> <br>
+                                <button class="cd-h-timeline__button" onclick="goToNextEventThree()">Gain Strength</button> <br>
+                                <button class="cd-h-timeline__button" onclick="goToNextEventThree()">Gain Muscle</button>
+
+                            </p>
+                        </div>
+                    </li>
+
+
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">YOUR FITNESS LEVEL?</h2>
+                            <div class="cd-h-timeline__event-description color-contrast-medium">
+                                <input type="radio" id="level_beginner" name="level" value="beginner">
+                                <label class="level-label" for="level_beginner">
+                                        Beginner
+                                    <button type="button" class="opener">i</button>
+                                </label>
+
+                                <div class="dialog" title="Basic dialog">
+                                    <button type="button" class="close-btn">x</button>
+                                    <h4 style="font-weight: bold">Beginner</h4>
+                                    <p>The lists provided are not all-encompassing as there is large variation from person to person. Use these lists to help you get a general sense of where you stand.</p>
+                                    <ul>
+                                        <li>0-9 months in the gym</li>
+                                        <li>10 min mile</li>
+                                        <li>1-3 pushups</li>
+                                        <li>Bench Press .5x your BW</li>
+                                        <li>Squat .75x your BW</li>
+                                        <li>Deadlift 1x your BW</li>
+                                    </ul>
+                                </div>
+                                <br>
+
+                                <input type="radio" id="level_intermediate" name="level" value="intermediate">
+                                <label class="level-label" for="level_intermediate">
+                                        Intermediate
+                                    <button type="button" class="opener">i</button>
+                                </label>
+
+                                <div class="dialog" title="Basic dialog">
+                                    <button type="button" class="close-btn">x</button>
+                                    <h4 style="font-weight: bold">Intermediate</h4>
+                                    <p>Use these list to help you get a general sense of where you stand.</p>
+                                    <ul>
+                                        <li>9-24 months in the gym</li>
+                                        <li>9 min mile</li>
+                                        <li>3-8 pushups</li>
+                                        <li>Bench Press .75x your BW</li>
+                                        <li>Squat 1x your BW</li>
+                                        <li>Deadlift 1.25x your BW</li>
+                                    </ul>
+                                </div>
+
+                                <br>
+                                <input type="radio" id="level_advanced" name="level" value="advanced">
+                                <label class="level-label" for="level_advanced">
+                                        Advanced
+                                    <button type="button" class="opener">i</button>
+                                </label>
+
+                                <div class="dialog" title="Basic dialog">
+                                    <button type="button" class="close-btn">x</button>
+                                    <h4 style="font-weight: bold">Advanced</h4>
+                                    <p>Use these list to help you get a general sense of where you stand.</p>
+                                    <ul>
+                                        <li>24+ months in the gym</li>
+                                        <li>8 min mile</li>
+                                        <li>8+ pushups</li>
+                                        <li>Bench Press 1x your BW</li>
+                                        <li>Squat 1.25x your BW</li>
+                                        <li>Deadlift 1.5x your BW</li>
+                                    </ul>
+                                </div>
+                                <br>
+                                <button class="btn btn-outline-dark" onclick="goToNextEventB()">Next</button>
+                            </div>
+                        </div>
+                    </li>
+
+
+
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Categories</h2>
+                            <div class="row">
+                                <div th:each="category, rowStat : ${categories}" class="col-md-3"> <!-- Change col-md-4 to col-md-3 -->
+                                    <div class="card mb-4" style="background-color: #f8f9fa; border-radius: 10px; padding: 10px;">
+                                        <div style="background-color: #e9ecef; border-radius: 10px; padding: 10px; height: 200px">
+                                            <img class="card-img-top" th:src="@{/img/exercises/{filename}.png(filename=${category.getImagePath()})}" style="border-radius: 10px;">
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title" th:text="${category.getName()}"></h5>
+                                        </div>
+                                    </div>
+                                    <div th:if="${rowStat.index % 4 == 3}" class="clearfix"></div>
+                                </div>
+                            </div>
+
+                            <div>Select the categories from which you want exercises for your new workout</div>
+                            <select id="categorySelect" class="cat-select" multiple>
+                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                            </select>
+
+                            <button class="btn btn-outline-dark" onclick="goToNextEventC()">Next</button>
+
+                        </div>
+                    </li>
+
+
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Select exercises for your workout</h2>
+                            <p class="cd-h-timeline__event-description color-contrast-medium">
+                                <label>Exercises</label> <br>
+                                <select id="exercisesSelect" class="exercise-cards" name="exercisesId" multiple>
+                                    <option value="[exercisesId]"
+                                            th:each="exercise: ${exercises}"
+                                            th:value="${exercise.id}"
+                                            th:attr="data-category=${exercise.category.id}"
+                                            th:text="${exercise.name}">[exercise.name]</option>
+                                </select>
+                                <button class="btn btn-outline-dark" onclick="goToNextEventD()">Next</button>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Enter Workout Details</h2>
+                            <div class="form-group">
+                                <label for="workoutName">Workout Name:</label>
+                                <input type="text" id="workoutName" name="workoutName" class="form-control" th:value="${wor?.workoutName}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="workoutDate">Workout Date:</label>
+                                <input type="date" id="workoutDate" name="workoutDate" class="form-control" th:value="${wor?.workoutDate?.toString()}" required>
+                            </div>
+                            <button id="submit" type="submit" class="btn btn-outline-dark">Submit</button>
+                        </div>
+                    </li>
+
+
+                </ol>
+            </div> <!-- .cd-h-timeline__events -->
+        </section>
+    </form>
+    <script src="/assetsN/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+    <script src="/assetsN/js/swipe-content.js"></script> <!-- A Vanilla JavaScript plugin to detect touch interactions -->
+    <script src="/assetsN/js/main.js"></script>
+
+</div>
+<script>
+
+    function goToNextEvent() {
+        var eventLink = document.querySelector('[data-date="28/02/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToPreviousEvent() {
+        var eventLink = document.querySelector('[data-date="16/01/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToNextEventTwo() {
+        var eventLink = document.querySelector('[data-date="20/04/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToNextEventThree() {
+        var eventLink = document.querySelector('[data-date="20/05/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToNextEventB() {
+        var eventLink = document.querySelector('[data-date="09/07/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToNextEventC() {
+        var eventLink = document.querySelector('[data-date="30/08/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToNextEventD() {
+        var eventLink = document.querySelector('[data-date="1/09/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    document.getElementById("categorySelect").addEventListener("change", function() {
+        // Get the selected category value
+        var selectedCategory = this.value;
+
+        // Get all exercise options
+        var exerciseOptions = document.getElementById("exercisesSelect").getElementsByTagName("option");
+
+        // Show all options initially
+        for (var i = 0; i < exerciseOptions.length; i++) {
+            exerciseOptions[i].style.display = "block";
+        }
+
+        // If a category is selected, hide exercises not in that category
+        if (selectedCategory !== "") {
+            for (var i = 0; i < exerciseOptions.length; i++) {
+                var exerciseCategory = exerciseOptions[i].getAttribute("data-category");
+                if (exerciseCategory !== selectedCategory) {
+                    exerciseOptions[i].style.display = "none";
+                }
+            }
+
+            // Check if no exercises match the selected category
+            var exercisesVisible = Array.from(exerciseOptions).some(function(option) {
+                return option.style.display !== "none";
+            });
+
+            if (!exercisesVisible) {
+                alert("No exercises available for the selected category.");
+                // Optionally, you can reset the selected category to prompt the user to select a different one.
+                // document.getElementById("categorySelect").selectedIndex = 0;
+            }
+        }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var dialogs = document.getElementsByClassName('dialog');
+        var openers = document.getElementsByClassName('opener');
+        var closeBtns = document.getElementsByClassName('close-btn');
+
+        // Function to open a dialog
+        function openDialog(index) {
+            dialogs[index].style.display = 'block';
+            dialogs[index].classList.add('blind');
+            setTimeout(function() {
+                dialogs[index].classList.add('open');
+            }, 10); // Delay to ensure the transition effect
+        }
+
+        // Function to close a dialog
+        function closeDialog(index) {
+            dialogs[index].classList.remove('open');
+            setTimeout(function() {
+                dialogs[index].style.display = 'none';
+                dialogs[index].classList.remove('blind');
+            }, 500); // Match the duration of the transition
+        }
+
+        // Attach event listeners to each opener and close button
+        for (let i = 0; i < openers.length; i++) {
+            openers[i].addEventListener('click', function() {
+                openDialog(i);
+            });
+            closeBtns[i].addEventListener('click', function() {
+                closeDialog(i);
+            });
+        }
+
+        // Close the dialog when clicking outside of it
+        window.addEventListener('click', function(event) {
+            for (let i = 0; i < dialogs.length; i++) {
+                if (event.target === dialogs[i]) {
+                    closeDialog(i);
+                }
+            }
+        });
+    });
+</script>
+

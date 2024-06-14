@@ -1,0 +1,33 @@
+<style>
+    .workout-container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px #bbaab1;
+        margin-bottom: 20px;
+        padding: 20px;
+        color: black;
+    }
+
+    .exercise-list {
+        padding: 0;
+    }
+
+    .exercise-item {
+        margin-bottom: 5px;
+    }
+</style>
+
+<div xmlns:th="http://www.thymeleaf.org">
+    <div th:each="wor: ${workouts}" class="workout-container">
+        <div th:text="${wor.workoutName}" style="font-weight: bold; font-size: 20px"></div>
+        <div><strong>Exercises:</strong>
+            <ul class="exercise-list">
+                <li th:each="exercise: ${wor.exercises}" class="exercise-item" th:text="${exercise.name}"></li>
+            </ul>
+        </div>
+    </div>
+
+    <a th:href="@{'/workouts/add-form'}" class="btn btn-block btn-dark add-product-btn">
+        Add new workout
+    </a>
+</div>

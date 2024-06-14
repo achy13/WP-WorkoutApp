@@ -8,6 +8,9 @@ import com.finki.wp.workoutapp.repository.CategoryRepository;
 import com.finki.wp.workoutapp.repository.ExerciseRepository;
 import com.finki.wp.workoutapp.service.ICategoryService;
 import com.finki.wp.workoutapp.service.IExerciseService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,8 @@ public class ExerciseService implements IExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final CategoryRepository categoryRepository;
     private final ICategoryService iCategoryService;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public ExerciseService(ExerciseRepository exerciseRepository, CategoryRepository categoryRepository, ICategoryService iCategoryService) {
         this.exerciseRepository = exerciseRepository;
@@ -102,6 +107,7 @@ public class ExerciseService implements IExerciseService {
     public List<Exercise> getExercisesByCategoryId(Long categoryId) {
         return exerciseRepository.findByCategoryId(categoryId);
     }
+
 
 
 

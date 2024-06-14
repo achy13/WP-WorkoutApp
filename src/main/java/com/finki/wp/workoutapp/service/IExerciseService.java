@@ -20,4 +20,6 @@ public interface IExerciseService {
     List<Exercise> findExercisesByNameAndCategory(String name, Long categoryId);
 
     List<Exercise> getExercisesByCategoryId(Long categoryId);
+
+
 }
