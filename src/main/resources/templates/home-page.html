@@ -27,6 +27,12 @@ margin-top: 20px;
         <p>If you don't have an account yet, <a href="/register" >Sign up here</a></p>
     </div>
     <div id="motivationDiv" class="container text-center" style="margin-top: 150px" sec:authorize="isAuthenticated()">
+        <div class="container" th:if="${measurement == null}">
+            <p>The whole page works better if you add your measurements.</p>
+            <a th:href="@{/measurement/add-form}"
+               class="btn btn-light add-measurement-btn">Add new measurement </a>
+        </div>
+
         <figure >
             <blockquote class="blockquote">
                 <p id="quote"></p>

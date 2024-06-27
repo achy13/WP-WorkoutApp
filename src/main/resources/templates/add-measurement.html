@@ -1,92 +1,570 @@
+<!--<div xmlns:th="http://www.thymeleaf.org">-->
+<!--    <div class="container text-center">-->
+<!--        <h2>Add your current measurements here!</h2>-->
+<!--    </div>-->
+
+<!--    <div class="container">-->
+<!--        <form action="/measurement/add" method="POST">-->
+<!--            <input id="id" type="hidden" name="id" th:value="(${mea} != null ? ${mea.getId()} : '')">-->
+
+<!--            <div class="row">-->
+<!--                <div class="col-md-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="weight"><img src="/icons/scales.png" alt="Arm icon" width="20" height="20">  Weight</label>-->
+<!--                        <input type="text" class="form-control" id="weight" name="weight"-->
+<!--                               th:value="(${mea} != null ? ${mea.getWeight()} : '')" required-->
+<!--                               placeholder="Enter weight">-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="height"><img src="/icons/height.png" alt="Height icon" width="20" height="20">   Height</label>-->
+<!--                        <input type="text" class="form-control" id="height" name="height"-->
+<!--                               th:value="(${mea} != null ? ${mea.getHeight()} : '')" required-->
+<!--                               placeholder="Enter height">-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="years"><img src="/icons/years.png" alt="Years icon" width="20" height="20">   Years</label>-->
+<!--                        <input type="text" class="form-control" id="years" name="years"-->
+<!--                               th:value="(${mea} != null ? ${mea.getYears()} : '')" required-->
+<!--                               placeholder="Enter years">-->
+
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="shouldersSize"><img src="/icons/shoulder.png" alt="Shoulders icon" width="20" height="20">   Shoulders Size</label>-->
+<!--                        <input type="text" class="form-control" id="shouldersSize" name="shouldersSize"-->
+<!--                               th:value="(${mea} != null ? ${mea.getShouldersSize()} : '')" required-->
+<!--                               placeholder="Enter shoulders size">-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="chestSize"><img src="/icons/chest.png" alt="Chest icon" width="20" height="20">   Chest Size</label>-->
+<!--                        <input type="text" class="form-control" id="chestSize" name="chestSize"-->
+<!--                               th:value="(${mea} != null ? ${mea.getChestSize()} : '')" required-->
+<!--                               placeholder="Enter chest size">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="col-md-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="hand"><img src="/icons/arm.png" alt="Arm icon" width="20" height="20">   Arm size</label>-->
+<!--                        <input type="text" class="form-control" id="hand" name="hand"-->
+<!--                               th:value="(${mea} != null ? ${mea.getHand()} : '')" required-->
+<!--                               placeholder="Enter hand size">-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="waist"><img src="/icons/waist.png" alt="Waist icon" width="20" height="20">   Waist</label>-->
+<!--                        <input type="text" class="form-control" id="waist" name="waist"-->
+<!--                               th:value="(${mea} != null ? ${mea.getWaist()} : '')" required-->
+<!--                               placeholder="Enter waist size">-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="abdomen"><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20">   Abdomen</label>-->
+<!--                        <input type="text" class="form-control" id="abdomen" name="abdomen"-->
+<!--                               th:value="(${mea} != null ? ${mea.getAbdomen()} : '')" required-->
+<!--                               placeholder="Enter abdomen size">-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="hip">Hips size</label>-->
+<!--                        <input type="text" class="form-control" id="hip" name="hip"-->
+<!--                               th:value="(${mea} != null ? ${mea.getHip()} : '')" required-->
+<!--                               placeholder="Enter hip size">-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="leg"><img src="/icons/leg.png" alt="Leg icon" width="20" height="20">   Leg size</label>-->
+<!--                        <input type="text" class="form-control" id="leg" name="leg"-->
+<!--                               th:value="(${mea} != null ? ${mea.getLeg()} : '')" required-->
+<!--                               placeholder="Enter leg size">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="text-left">-->
+<!--                <button id="submit" type="submit" class="btn btn-primary">Submit</button>-->
+<!--                <a type="button" class="btn btn-secondary" href="/measurement">Back</a>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<style>
+    .cd-h-timeline__event-description .level-label,
+    .cd-h-timeline__button {
+        display: inline-block;
+        width: 500px;
+        height: 70px;
+        line-height: 60px;
+        text-align: center;
+        background-color: #ddd;
+        color: #333;
+        border: 1px solid #999;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 15px;
+
+    }
+
+    .cd-h-timeline__event-description .level-label:hover {
+        background-color: #ccc;
+    }
+
+    /* Custom styling for select */
+    .cat-select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        color: #333;
+        font-size: 16px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
+    }
+
+    /* Styling for selected options */
+    .cat-select option:checked {
+        background-color: #ddd;
+    }
+
+    .exercise-cards {
+        width: 100%;
+    }
+
+    .exercise-cards option {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+
+    .exercise-cards option:hover {
+        background-color: #f0f0f0;
+    }
+
+    .exercise-cards option:checked {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .exercise-cards option:checked:hover {
+        background-color: #0056b3;
+    }
+
+    /* Basic styles for the dialog */
+    .dialog {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    /* Blind effect for show/hide */
+    .blind {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.5s ease-in-out; /* Faster transition */
+    }
+
+    .blind.open {
+        display: block;
+        max-height: 1000px; /* Large enough value to show full content */
+    }
+
+    /* Styles for the close button */
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    /* Flexbox styles for aligning radio buttons and buttons */
+    .level-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        position: relative;
+    }
+
+    .opener {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        margin-left: auto;
+        background-color: transparent;
+        border: 2px solid blue;
+        border-radius: 50%;
+        height: 24px;
+        width: 24px;
+        font-size: 16px;
+        color: blue;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+</style>
+
 <div xmlns:th="http://www.thymeleaf.org">
-    <div class="container text-center">
-        <h2>Add your current measurements here!</h2>
-    </div>
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
+    <link rel="stylesheet" href="/assetsN/css/style.css">
+    <form action="/measurement/add" method="POST">
+        <section class="cd-h-timeline js-cd-h-timeline margin-bottom-md">
+            <div class="cd-h-timeline__container container">
+                <div class="cd-h-timeline__dates">
+                    <div class="cd-h-timeline__line">
+                        <ol>
+                            <li><a href="#0" data-date="5/01/2014"
+                                   class="cd-h-timeline__date cd-h-timeline__date--selected"><span
+                                    class="mdi mdi-gender-male-female"></span></a></li>
+                            <li><a href="#0" data-date="16/01/2014" class="cd-h-timeline__date"><span
+                                    class="mdi mdi-gender-male-female"></span></a></li>
+                            <li><a href="#0" data-date="28/02/2014" class="cd-h-timeline__date"><span
+                                    class="mdi mdi-cake"></span></a></li>
+                            <li><a href="#0" data-date="20/04/2014" class="cd-h-timeline__date"><span
+                                    class="mdi mdi-flag-checkered"></span></a></li>
+                            <li><a href="#0" data-date="20/05/2014" class="cd-h-timeline__date"><span
+                                    class="mdi mdi-flash"></span></a></li>
+                            <li><a href="#0" data-date="09/07/2014" class="cd-h-timeline__date"><span
+                                    class="mdi mdi-dumbbell"></span></a></li>
+                            <li><a href="#0" data-date="30/08/2014" class="cd-h-timeline__date"><span
+                                    class="mdi mdi-weight-lifter"></span></a></li>
 
-    <div class="container">
-        <form action="/measurement/add" method="POST">
-            <input id="id" type="hidden" name="id" th:value="(${mea} != null ? ${mea.getId()} : '')">
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="weight"><img src="/icons/scales.png" alt="Arm icon" width="20" height="20">  Weight</label>
-                        <input type="text" class="form-control" id="weight" name="weight"
-                               th:value="(${mea} != null ? ${mea.getWeight()} : '')" required
-                               placeholder="Enter weight">
-                    </div>
+                        </ol>
 
-                    <div class="form-group">
-                        <label for="height"><img src="/icons/height.png" alt="Height icon" width="20" height="20">   Height</label>
-                        <input type="text" class="form-control" id="height" name="height"
-                               th:value="(${mea} != null ? ${mea.getHeight()} : '')" required
-                               placeholder="Enter height">
-                    </div>
+                        <span class="cd-h-timeline__filling-line" aria-hidden="true"></span>
+                    </div> <!-- .cd-h-timeline__line -->
+                </div> <!-- .cd-h-timeline__dates -->
 
-                    <div class="form-group">
-                        <label for="years"><img src="/icons/years.png" alt="Years icon" width="20" height="20">   Years</label>
-                        <input type="text" class="form-control" id="years" name="years"
-                               th:value="(${mea} != null ? ${mea.getYears()} : '')" required
-                               placeholder="Enter years">
-                    </div>
+                <ul>
+                    <li><a href="#0"
+                           class="text-replace cd-h-timeline__navigation cd-h-timeline__navigation--prev cd-h-timeline__navigation--inactive">Prev</a>
+                    </li>
+                    <li><a href="#0"
+                           class="text-replace cd-h-timeline__navigation cd-h-timeline__navigation--next">Next</a></li>
+                </ul>
+            </div> <!-- .cd-h-timeline__container -->
 
-                    <div class="form-group">
-                        <label for="shouldersSize"><img src="/icons/shoulder.png" alt="Shoulders icon" width="20" height="20">   Shoulders Size</label>
-                        <input type="text" class="form-control" id="shouldersSize" name="shouldersSize"
-                               th:value="(${mea} != null ? ${mea.getShouldersSize()} : '')" required
-                               placeholder="Enter shoulders size">
-                    </div>
+            <div class="cd-h-timeline__events text-center">
+                <ol>
+                    <li class="cd-h-timeline__event cd-h-timeline__event--selected text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <br><br>
+                            <div class="container">Welcome to our app! <br> For the best experience, please add your measurements.<br>
+                                By providing your body measurements, you unlock personalized workout recommendations and more accurate progress tracking, <br> helping you achieve your fitness goals more effectively.</div>
 
-                    <div class="form-group">
-                        <label for="chestSize"><img src="/icons/chest.png" alt="Chest icon" width="20" height="20">   Chest Size</label>
-                        <input type="text" class="form-control" id="chestSize" name="chestSize"
-                               th:value="(${mea} != null ? ${mea.getChestSize()} : '')" required
-                               placeholder="Enter chest size">
-                    </div>
-                </div>
+                        </div>
+                    </li>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="hand"><img src="/icons/arm.png" alt="Arm icon" width="20" height="20">   Arm size</label>
-                        <input type="text" class="form-control" id="hand" name="hand"
-                               th:value="(${mea} != null ? ${mea.getHand()} : '')" required
-                               placeholder="Enter hand size">
-                    </div>
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <input id="id" type="hidden" name="id" th:value="(${mea} != null ? ${mea.getId()} : '')">
+                            <p class="cd-h-timeline__event-title">LETS GET STARTED</p>
+                            <div class="cd-h-timeline__buttons">
+                                <button class="cd-h-timeline__button" onclick="goToNextEvent()">Male</button>
+                                <br>
+                                <button class="cd-h-timeline__button" onclick="goToNextEvent()">Female</button>
+                            </div>
+                        </div>
+                    </li>
 
-                    <div class="form-group">
-                        <label for="waist"><img src="/icons/waist.png" alt="Waist icon" width="20" height="20">   Waist</label>
-                        <input type="text" class="form-control" id="waist" name="waist"
-                               th:value="(${mea} != null ? ${mea.getWaist()} : '')" required
-                               placeholder="Enter waist size">
-                    </div>
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">AGE</h2>
+                            <label for="years"></label>
+                            <input type="text" class="form-control" id="years" name="years"
+                                   th:value="(${mea} != null ? ${mea.getYears()} : '')" required
+                                   placeholder="Enter your age">
+                            <br>
+                            <div class="cd-h-timeline__buttons">
+                                <button class="timeline_button btn btn-outline-dark" onclick="goToPreviousEvent()">
+                                    Back
+                                </button>
+                                <button class="timeline_button btn btn-outline-dark" onclick="goToNextEventTwo()">Next
+                                </button>
+                            </div>
+                        </div>
+                    </li>
 
-                    <div class="form-group">
-                        <label for="abdomen"><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20">   Abdomen</label>
-                        <input type="text" class="form-control" id="abdomen" name="abdomen"
-                               th:value="(${mea} != null ? ${mea.getAbdomen()} : '')" required
-                               placeholder="Enter abdomen size">
-                    </div>
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">YOUR FITNESS GOAL?</h2>
+                            <p class="cd-h-timeline__event-description color-contrast-medium">
+                                <button class="cd-h-timeline__button" onclick="goToNextEventThree()">Lose Weight
+                                </button>
+                                <br>
+                                <button class="cd-h-timeline__button" onclick="goToNextEventThree()">Gain Strength
+                                </button>
+                                <br>
+                                <button class="cd-h-timeline__button" onclick="goToNextEventThree()">Gain Muscle
+                                </button>
 
-                    <div class="form-group">
-                        <label for="hip">Hips size</label>
-                        <input type="text" class="form-control" id="hip" name="hip"
-                               th:value="(${mea} != null ? ${mea.getHip()} : '')" required
-                               placeholder="Enter hip size">
-                    </div>
+                            </p>
+                        </div>
+                    </li>
 
-                    <div class="form-group">
-                        <label for="leg"><img src="/icons/leg.png" alt="Leg icon" width="20" height="20">   Leg size</label>
-                        <input type="text" class="form-control" id="leg" name="leg"
-                               th:value="(${mea} != null ? ${mea.getLeg()} : '')" required
-                               placeholder="Enter leg size">
-                    </div>
-                </div>
-            </div>
 
-            <div class="text-left">
-                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-                <a type="button" class="btn btn-secondary" href="/measurement">Back</a>
-            </div>
-        </form>
-    </div>
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">YOUR FITNESS LEVEL?</h2>
+                            <div class="cd-h-timeline__event-description color-contrast-medium">
+                                <input type="radio" id="level_beginner" name="level" value="beginner">
+                                <label class="level-label" for="level_beginner">
+                                    Beginner
+                                    <button type="button" class="opener">i</button>
+                                </label>
+
+                                <div class="dialog" title="Basic dialog">
+                                    <button type="button" class="close-btn">x</button>
+                                    <h4 style="font-weight: bold">Beginner</h4>
+                                    <p>The lists provided are not all-encompassing as there is large variation from
+                                        person to person. Use these lists to help you get a general sense of where you
+                                        stand.</p>
+                                    <ul>
+                                        <li>0-9 months in the gym</li>
+                                        <li>10 min mile</li>
+                                        <li>1-3 pushups</li>
+                                        <li>Bench Press .5x your BW</li>
+                                        <li>Squat .75x your BW</li>
+                                        <li>Deadlift 1x your BW</li>
+                                    </ul>
+                                </div>
+                                <br>
+
+                                <input type="radio" id="level_intermediate" name="level" value="intermediate">
+                                <label class="level-label" for="level_intermediate">
+                                    Intermediate
+                                    <button type="button" class="opener">i</button>
+                                </label>
+
+                                <div class="dialog" title="Basic dialog">
+                                    <button type="button" class="close-btn">x</button>
+                                    <h4 style="font-weight: bold">Intermediate</h4>
+                                    <p>Use these list to help you get a general sense of where you stand.</p>
+                                    <ul>
+                                        <li>9-24 months in the gym</li>
+                                        <li>9 min mile</li>
+                                        <li>3-8 pushups</li>
+                                        <li>Bench Press .75x your BW</li>
+                                        <li>Squat 1x your BW</li>
+                                        <li>Deadlift 1.25x your BW</li>
+                                    </ul>
+                                </div>
+
+                                <br>
+                                <input type="radio" id="level_advanced" name="level" value="advanced">
+                                <label class="level-label" for="level_advanced">
+                                    Advanced
+                                    <button type="button" class="opener">i</button>
+                                </label>
+
+                                <div class="dialog" title="Basic dialog">
+                                    <button type="button" class="close-btn">x</button>
+                                    <h4 style="font-weight: bold">Advanced</h4>
+                                    <p>Use these list to help you get a general sense of where you stand.</p>
+                                    <ul>
+                                        <li>24+ months in the gym</li>
+                                        <li>8 min mile</li>
+                                        <li>8+ pushups</li>
+                                        <li>Bench Press 1x your BW</li>
+                                        <li>Squat 1.25x your BW</li>
+                                        <li>Deadlift 1.5x your BW</li>
+                                    </ul>
+                                </div>
+                                <br>
+                                <button class="btn btn-outline-dark" onclick="goToNextEventB()">Next</button>
+                            </div>
+                        </div>
+                    </li>
+
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Please enter your measurement</h2>
+                            <div class="container">
+                                <label for="weight">Weight</label>
+                                <input type="text" class="form-control" id="weight" name="weight"
+                                       th:value="(${mea} != null ? ${mea.getWeight()} : '')" required
+                                       placeholder="Enter weight">
+
+                                <label for="height">Height</label>
+                                <input type="text" class="form-control" id="height" name="height"
+                                       th:value="(${mea} != null ? ${mea.getHeight()} : '')" required
+                                       placeholder="Enter height">
+
+                            </div>
+                            <button class="btn btn-outline-dark" onclick="goToNextEventC()">Next</button>
+
+                        </div>
+                    </li>
+
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">These are also important</h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="shouldersSize">Shoulders Size</label>
+                                    <input type="text" class="form-control" id="shouldersSize" name="shouldersSize"
+                                           th:value="(${mea} != null ? ${mea.getShouldersSize()} : '')" required
+                                           placeholder="Enter shoulders size">
+
+                                    <label for="chestSize">Chest Size</label>
+                                    <input type="text" class="form-control" id="chestSize" name="chestSize"
+                                           th:value="(${mea} != null ? ${mea.getChestSize()} : '')" required
+                                           placeholder="Enter chest size">
+
+                                    <label for="hand">Arm size</label>
+                                    <input type="text" class="form-control" id="hand" name="hand"
+                                           th:value="(${mea} != null ? ${mea.getHand()} : '')" required
+                                           placeholder="Enter hand size">
+
+                                    <label for="waist">Waist</label>
+                                    <input type="text" class="form-control" id="waist" name="waist"
+                                           th:value="(${mea} != null ? ${mea.getWaist()} : '')" required
+                                           placeholder="Enter waist size">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="abdomen">Abdomen</label>
+                                    <input type="text" class="form-control" id="abdomen" name="abdomen"
+                                           th:value="(${mea} != null ? ${mea.getAbdomen()} : '')" required
+                                           placeholder="Enter abdomen size">
+
+                                    <label for="hip">Hips size</label>
+                                    <input type="text" class="form-control" id="hip" name="hip"
+                                           th:value="(${mea} != null ? ${mea.getHip()} : '')" required
+                                           placeholder="Enter hip size">
+
+                                    <label for="leg">Leg size</label>
+                                    <input type="text" class="form-control" id="leg" name="leg"
+                                           th:value="(${mea} != null ? ${mea.getLeg()} : '')" required
+                                           placeholder="Enter leg size">
+                                </div>
+                            </div>
+                            <br>
+                            <button id="submit" type="submit" class="btn btn-outline-dark">Submit</button>
+                        </div>
+                    </li>
+
+
+                </ol>
+            </div> <!-- .cd-h-timeline__events -->
+        </section>
+    </form>
+    <script src="/assetsN/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+    <script src="/assetsN/js/swipe-content.js"></script>
+    <!-- A Vanilla JavaScript plugin to detect touch interactions -->
+    <script src="/assetsN/js/main.js"></script>
+
 </div>
+<script>
+
+    function goToNextEvent() {
+        var eventLink = document.querySelector('[data-date="28/02/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToPreviousEvent() {
+        var eventLink = document.querySelector('[data-date="16/01/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToNextEventTwo() {
+        var eventLink = document.querySelector('[data-date="20/04/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToNextEventThree() {
+        var eventLink = document.querySelector('[data-date="20/05/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToNextEventB() {
+        var eventLink = document.querySelector('[data-date="09/07/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+    function goToNextEventC() {
+        var eventLink = document.querySelector('[data-date="30/08/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var dialogs = document.getElementsByClassName('dialog');
+        var openers = document.getElementsByClassName('opener');
+        var closeBtns = document.getElementsByClassName('close-btn');
+
+        // Function to open a dialog
+        function openDialog(index) {
+            dialogs[index].style.display = 'block';
+            dialogs[index].classList.add('blind');
+            setTimeout(function () {
+                dialogs[index].classList.add('open');
+            }, 10); // Delay to ensure the transition effect
+        }
+
+        // Function to close a dialog
+        function closeDialog(index) {
+            dialogs[index].classList.remove('open');
+            setTimeout(function () {
+                dialogs[index].style.display = 'none';
+                dialogs[index].classList.remove('blind');
+            }, 500); // Match the duration of the transition
+        }
+
+        // Attach event listeners to each opener and close button
+        for (let i = 0; i < openers.length; i++) {
+            openers[i].addEventListener('click', function () {
+                openDialog(i);
+            });
+            closeBtns[i].addEventListener('click', function () {
+                closeDialog(i);
+            });
+        }
+
+        // Close the dialog when clicking outside of it
+        window.addEventListener('click', function (event) {
+            for (let i = 0; i < dialogs.length; i++) {
+                if (event.target === dialogs[i]) {
+                    closeDialog(i);
+                }
+            }
+        });
+    });
+</script>
+
