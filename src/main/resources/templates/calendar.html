@@ -11,18 +11,36 @@
   #eventForm {
     display: none;
     position: absolute;
-    background: white;
+    background: lightgray;
     border: 1px solid #ccc;
-    padding: 10px;
     z-index: 1000;
     width: 270px;
-    height: 200px;
+    height: 240px;
+  }
+  #eventFormElement{
+    margin: 10px;
   }
   .fc-event-title {
     font-weight: bold;
   }
-  .fc-button-group{
+  .fc .fc-button-group>.fc-button{
     background-color: #253241;
+  }
+  #closeButton{
+    float: right;
+    border: none;
+    background-color: transparent;
+    color: whitesmoke;
+  }
+  #closeButton:hover{
+    color: lightcoral;
+
+  }
+  .upper-div{
+    background-color: #253241;
+    width: 100%;
+    height: 35px;
+    margin: 0 auto;
   }
 </style>
 </head>
@@ -34,16 +52,19 @@
 
 
 <div id="eventForm" class="rounded">
-  <form id="eventFormElement" >
-    <label class="text-black" for="selectedDate">Selected Date:</label>
-    <input type="text" id="selectedDate" readonly><br>
+  <div class="upper-div rounded">
+    <button  class="mt-1 me-3" type="button" id="closeButton"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <form id="eventFormElement" class="pt-0">
+    <label class="text-black mt-2" for="selectedDate">Selected date</label>
+    <input class="rounded border-0 bold" type="text" id="selectedDate" readonly><br>
     <div class="width-100%">
-      <label class="text-black" for="events" th:if="${workouts.size() > 0}">Choose workout:</label>
-      <select id="events" class="form-select mb-3 width-100%" th:if="${workouts.size() > 0}">
+      <label class="text-black" for="events" th:if="${workouts.size() > 0}">Choose workout</label>
+      <select id="events" class="form-select rounded p-1 mb-3 width-100%" th:if="${workouts.size() > 0}">
         <option th:each="workout : ${workouts}" th:value="${workout.getId()}" th:text="${workout.getWorkoutName()}"></option>
       </select>
       <div>
-        <input class="btn btn-success px-3 py-1" th:if="${workouts.size() > 0}" type="submit" value="Save">
+        <input class="btn btn-primary px-3 py-1" th:if="${workouts.size() > 0}" type="submit" value="Save">
       </div>
       <div th:if="${workouts.size() == 0}">
         <p>There are no workouts!</p>
@@ -75,7 +96,7 @@
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,dayGridWeek,dayGridDay'
+          right: 'dayGridMonth,dayGridWeek'
         },
         selectable: true,
         events: jsonFormat,
@@ -134,6 +155,10 @@
                 .catch((error) => {
                   alert('Error saving event!');
                 });
+      };
+
+      document.getElementById('closeButton').onclick = function() {
+        eventForm.style.display = 'none';
       };
     }
 
