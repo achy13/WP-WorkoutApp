@@ -79,13 +79,13 @@
               <div class="card-body">
                 <div class="user-profile">
                   <div class="user-avatar">
-                    <img src="/img/prof.png" alt="User Avatar">
+                    <img th:src="${user.getImage()}" alt="User Avatar">
                   </div>
                   <h5 class="user-name" th:text="${user.getFirstName() + ' ' + user.getLastName()}"></h5>
                   <h6 class="user-email" th:text="${user.getEmail()}"></h6>
                   <div class="upload-btn-wrapper mt-3">
                     <button class="btn btn1">Upload a picture</button>
-                    <input type="file" name="myfile" />
+                    <input type="file" name="image" />
                   </div>
                 </div>
               </div>
@@ -125,13 +125,11 @@
                       <input type="email" class="form-control" id="email" name="email" th:value = "${user.getEmail()}" >
                     </div>
                   </div>
-                <div class="row gutters">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="form-group">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                      <button class="btn btn-success me-5" type="submit">Update</button>
-                      <a href="/user/profile-info" class="btn btn-primary" role="button" aria-pressed="true">Cancel</a>
+                      <button class="btn btn-success " type="submit">Update</button>
+                      <a href="/user/profile-info" class="btn btn-primary " role="button" aria-pressed="true">Cancel</a>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>

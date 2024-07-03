@@ -9959,7 +9959,8 @@ input[type="button"].btn-block {
 .btn-group-vertical {
   position: relative;
   display: inline-flex;
-  vertical-align: middle; }
+  vertical-align: middle;
+}
   .btn-group > .btn, .fc .fc-button-group > .btn, .fc .btn-group > button, .fc .fc-button-group > button, .ajax-upload-dragdrop .btn-group > .ajax-file-upload, .fc .ajax-upload-dragdrop .fc-button-group > .ajax-file-upload, .ajax-upload-dragdrop .fc .fc-button-group > .ajax-file-upload, .swal2-modal .swal2-buttonswrapper .btn-group > .swal2-styled, .fc .swal2-modal .swal2-buttonswrapper .fc-button-group > .swal2-styled, .swal2-modal .swal2-buttonswrapper .fc .fc-button-group > .swal2-styled, .wizard > .actions .btn-group > a, .fc .wizard > .actions .fc-button-group > a, .wizard > .actions .fc .fc-button-group > a,
   .btn-group-vertical > .btn,
   .fc .btn-group-vertical > button,
@@ -9967,8 +9968,9 @@ input[type="button"].btn-block {
   .swal2-modal .swal2-buttonswrapper .btn-group-vertical > .swal2-styled,
   .wizard > .actions .btn-group-vertical > a {
     position: relative;
-    flex: 1 1 auto; }
-    .btn-group > .btn:hover, .fc .fc-button-group > .btn:hover, .fc .btn-group > button:hover, .fc .fc-button-group > button:hover, .ajax-upload-dragdrop .btn-group > .ajax-file-upload:hover, .fc .ajax-upload-dragdrop .fc-button-group > .ajax-file-upload:hover, .ajax-upload-dragdrop .fc .fc-button-group > .ajax-file-upload:hover, .swal2-modal .swal2-buttonswrapper .btn-group > .swal2-styled:hover, .fc .swal2-modal .swal2-buttonswrapper .fc-button-group > .swal2-styled:hover, .swal2-modal .swal2-buttonswrapper .fc .fc-button-group > .swal2-styled:hover, .wizard > .actions .btn-group > a:hover, .fc .wizard > .actions .fc-button-group > a:hover, .wizard > .actions .fc .fc-button-group > a:hover,
+    flex: 1 1 auto;
+  }
+    .btn-group > .btn:hover, .fc .fcbackground-color: #253140;-button-group > .btn:hover, .fc .btn-group > button:hover, .fc .fc-button-group > button:hover, .ajax-upload-dragdrop .btn-group > .ajax-file-upload:hover, .fc .ajax-upload-dragdrop .fc-button-group > .ajax-file-upload:hover, .ajax-upload-dragdrop .fc .fc-button-group > .ajax-file-upload:hover, .swal2-modal .swal2-buttonswrapper .btn-group > .swal2-styled:hover, .fc .swal2-modal .swal2-buttonswrapper .fc-button-group > .swal2-styled:hover, .swal2-modal .swal2-buttonswrapper .fc .fc-button-group > .swal2-styled:hover, .wizard > .actions .btn-group > a:hover, .fc .wizard > .actions .fc-button-group > a:hover, .wizard > .actions .fc .fc-button-group > a:hover,
     .btn-group-vertical > .btn:hover,
     .fc .btn-group-vertical > button:hover,
     .ajax-upload-dragdrop .btn-group-vertical > .ajax-file-upload:hover,

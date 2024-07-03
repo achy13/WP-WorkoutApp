@@ -1,7 +1,6 @@
 package com.finki.wp.workoutapp.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.finki.wp.workoutapp.model.TrainingDay;
@@ -9,9 +8,8 @@ import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.Workouts;
 import com.finki.wp.workoutapp.service.ITrainingDayService;
 import com.finki.wp.workoutapp.service.IUserService;
-import com.finki.wp.workoutapp.service.IWorkoutsService;
+import com.finki.wp.workoutapp.service.IWorkoutService;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Data;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,9 +28,9 @@ public class EventController {
     private final IUserService userService;
     private final ITrainingDayService trainingDayService;
 
-    private final IWorkoutsService workoutsService;
+    private final IWorkoutService workoutsService;
 
-    public EventController(IUserService userService, ITrainingDayService trainingDayService, IWorkoutsService workoutsService) {
+    public EventController(IUserService userService, ITrainingDayService trainingDayService, IWorkoutService workoutsService) {
         this.userService = userService;
         this.trainingDayService = trainingDayService;
         this.workoutsService = workoutsService;

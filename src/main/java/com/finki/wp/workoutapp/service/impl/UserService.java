@@ -29,8 +29,8 @@ public class UserService implements IUserService  {
     }
 
     @Override
-    public User register(String username, String password, String repeatPassword, String firstName, String lastName, String email) {
-        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+    public User register(String username, String password, String repeatPassword, String firstName, String lastName, String email, String image) {
+        if (username == null || password == null || username.isEmpty() || password.isEmpty() || image.isEmpty()) {
             throw new InvalidUsernameOrPasswordException();
         }
 
@@ -48,7 +48,8 @@ public class UserService implements IUserService  {
                 email,
                 firstName,
                 lastName,
-                Role.ROLE_USER
+                Role.ROLE_USER,
+                image
         );
 
         return userRepository.save(user);
@@ -87,7 +88,7 @@ public class UserService implements IUserService  {
     }
 
     @Override
-    public User update(String firstName, String lastName, String username, String email) {
+    public User update(String firstName, String lastName, String username, String email, String image) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authUser = authentication.getName();
 
@@ -123,6 +124,9 @@ public class UserService implements IUserService  {
             }
             else {
                 user.setEmail(email);
+            }
+            if (image != null || !image.isEmpty()){
+                user.setImage(image);
             }
         }
         else {

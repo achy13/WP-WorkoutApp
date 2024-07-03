@@ -15,9 +15,14 @@
     border: 1px solid #ccc;
     padding: 10px;
     z-index: 1000;
+    width: 270px;
+    height: 200px;
   }
   .fc-event-title {
     font-weight: bold;
+  }
+  .fc-button-group{
+    background-color: #253241;
   }
 </style>
 </head>
@@ -27,16 +32,19 @@
   <div id='calendar'></div>
 </div>
 
-<div id="eventForm">
+
+<div id="eventForm" class="rounded">
   <form id="eventFormElement" >
-    <label for="selectedDate">Selected Date:</label>
+    <label class="text-black" for="selectedDate">Selected Date:</label>
     <input type="text" id="selectedDate" readonly><br>
-    <div>
-      <label for="events" th:if="${workouts.size() > 0}">Choose workout:</label>
-      <select id="events" th:if="${workouts.size() > 0}">
+    <div class="width-100%">
+      <label class="text-black" for="events" th:if="${workouts.size() > 0}">Choose workout:</label>
+      <select id="events" class="form-select mb-3 width-100%" th:if="${workouts.size() > 0}">
         <option th:each="workout : ${workouts}" th:value="${workout.getId()}" th:text="${workout.getWorkoutName()}"></option>
       </select>
-      <input th:if="${workouts.size() > 0}" type="submit" value="Save">
+      <div>
+        <input class="btn btn-success px-3 py-1" th:if="${workouts.size() > 0}" type="submit" value="Save">
+      </div>
       <div th:if="${workouts.size() == 0}">
         <p>There are no workouts!</p>
         <a href="#">Create workout</a>

@@ -5,9 +5,8 @@ import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.Workouts;
 import com.finki.wp.workoutapp.service.ITrainingDayService;
 import com.finki.wp.workoutapp.service.IUserService;
-import com.finki.wp.workoutapp.service.IWorkoutsService;
+import com.finki.wp.workoutapp.service.IWorkoutService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +18,11 @@ import java.util.List;
 @RequestMapping("/calendar")
 public class CalendarController {
 
-    private final IWorkoutsService workoutsService;
+    private final IWorkoutService workoutsService;
     private final IUserService userService;
     private final ITrainingDayService trainingDayService;
 
-    public CalendarController(IWorkoutsService workoutsService, IUserService userService, ITrainingDayService trainingDayService) {
+    public CalendarController(IWorkoutService workoutsService, IUserService userService, ITrainingDayService trainingDayService) {
         this.workoutsService = workoutsService;
         this.userService = userService;
         this.trainingDayService = trainingDayService;
