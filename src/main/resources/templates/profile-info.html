@@ -79,14 +79,16 @@
               <div class="card-body">
                 <div class="user-profile">
                   <div class="user-avatar">
-                    <img th:src="${user.getImage()}" alt="User Avatar">
+                    <img class="img-xs rounded-circle " src="/img/prof.png" alt="User avatar">
                   </div>
                   <h5 class="user-name" th:text="${user.getFirstName() + ' ' + user.getLastName()}"></h5>
                   <h6 class="user-email" th:text="${user.getEmail()}"></h6>
+                  <!--
                   <div class="upload-btn-wrapper mt-3">
                     <button class="btn btn1">Upload a picture</button>
                     <input type="file" name="image" />
                   </div>
+                  -->
                 </div>
               </div>
             </div>
