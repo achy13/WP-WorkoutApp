@@ -39,13 +39,13 @@ public class WorkoutService implements IWorkoutService {
     }
 
     @Override
-    public Workouts save(String workoutName, Date workoutDate, String level, List<Long> exercisesId) {
+    public Workouts save(String workoutName, String level, List<Long> exercisesId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<User> userOptional = userRepository.findByUsername(username);
         if(userOptional.isPresent()) {
             User user = userOptional.get();
-            Workouts workout = new Workouts(workoutName, workoutDate, level, exercisesId.stream().map(id -> this.exerciseService.findExerciseById(id).orElseThrow(() -> new RuntimeException("no"))).collect(Collectors.toList()), user);
+            Workouts workout = new Workouts(workoutName, level, exercisesId.stream().map(id -> this.exerciseService.findExerciseById(id).orElseThrow(() -> new RuntimeException("no"))).collect(Collectors.toList()), user);
             return workoutRepository.save(workout);
         }else {
             throw new RuntimeException("User not found");

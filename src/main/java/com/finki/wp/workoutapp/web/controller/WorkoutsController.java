@@ -61,8 +61,8 @@ public class WorkoutsController {
     }
 
     @PostMapping("/add")
-    public String saveWorkout(@RequestParam String workoutName, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date workoutDate, @RequestParam String level, @RequestParam List<Long> exercisesId) {
-        this.workoutService.save(workoutName, workoutDate, level, exercisesId);
+    public String saveWorkout(@RequestParam String workoutName, @RequestParam String level, @RequestParam List<Long> exercisesId) {
+        this.workoutService.save(workoutName, level, exercisesId);
         return "redirect:/workouts";
     }
 }

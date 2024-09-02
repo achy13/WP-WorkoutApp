@@ -27,10 +27,13 @@ public class Measurement {
     private double abdomen;
     private double hip;
     private double leg;
+    private String level;
     @Enumerated(EnumType.STRING)
     private MeasurementType type;
     @ManyToOne
     private User user;
+
+
 
     public Measurement(double weight, double height, int years, double shouldersSize, double chestSize, double hand,
                        double waist, double abdomen, double hip, double leg, MeasurementType type, User user) {

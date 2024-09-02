@@ -19,8 +19,6 @@ public class Workouts {
 
     private String workoutName;
 
-    private Date workoutDate;
-
     private String level;
 
     @ManyToMany
@@ -33,18 +31,16 @@ public class Workouts {
     @ManyToMany
     private List<TrainingDay> trainingDays;
 
-    public Workouts(String workoutName, Date workoutDate, String level, List<Exercise> exercises, User user) {
+    public Workouts(String workoutName, String level, List<Exercise> exercises, User user) {
         this.workoutName = workoutName;
-        this.workoutDate = workoutDate;
         this.level = level;
         this.exercises = exercises;
         this.user = user;
     }
 
 
-    public Workouts(String workoutName, Date workoutDate, List<Exercise> exercises, User user) {
+    public Workouts(String workoutName, List<Exercise> exercises, User user) {
         this.workoutName = workoutName;
-        this.workoutDate = workoutDate;
         this.exercises = exercises;
         this.user = user;
         this.trainingDays = new ArrayList<>();
