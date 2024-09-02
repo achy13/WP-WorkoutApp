@@ -6,54 +6,27 @@
     <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
 
     <!-- Username input -->
-    <div data-mdb-input-init class="form-outline mb-4">
+    <div data-mdb-input-init class="form-outline mb-4 w-75">
       <input type="text" id="username" name="username" class="form-control" required/>
       <label class="form-label" for="username" name="username">Username</label>
     </div>
 
     <!-- Password input -->
-    <div data-mdb-input-init class="form-outline mb-4">
+    <div data-mdb-input-init class="form-outline mb-4 w-75">
       <input type="password" id="password" name="password" class="form-control" required />
       <label class="form-label" for="password" name="password">Password</label>
     </div>
 
     <!-- 2 column grid layout for inline styling -->
     <div class="row mb-4">
-      <div class="col d-flex justify-content-center">
-        <!-- Checkbox
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-          <label class="form-check-label" for="form2Example31"> Remember me </label>
-        </div>
+      <div class="d-flex justify-content-center w-75">
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary mb-4 w-25 ">Sign in</button>
       </div>
-      -->
 
-      <div class="col">
-        <!-- Simple link -->
-        <a href="#!">Forgot password?</a>
+      <!-- Register buttons -->
+      <div class="d-flex justify-content-center w-75">
+        <a class="text-decoration-underline" th:href="@{/register}">Create account</a>
       </div>
-    </div>
-
-    <!-- Submit button -->
-    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Sign in</button>
-
-    <!-- Register buttons -->
-    <div class="text-center">
-      <p>Not a member? <a th:href="@{/register}">Sign up</a></p>
-
-
-      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-        <i class="fab fa-google"></i>
-      </button>
-
-      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-        <i class="fab fa-twitter"></i>
-      </button>
-
-      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-        <i class="fab fa-github"></i>
-      </button>
-    </div>
     </div>
   </form>
 

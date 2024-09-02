@@ -36,6 +36,8 @@ public class User implements UserDetails {
 
     private String lastName;
 
+    private String image;
+
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
@@ -57,7 +59,8 @@ public class User implements UserDetails {
     private boolean isEnabled = true;
 
 
-    public User(String username, String password, String email, String firstName, String lastName, Role role) {
+    public User(String username, String password, String email, String firstName,
+                String lastName, Role role, String image) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -65,6 +68,7 @@ public class User implements UserDetails {
         this.lastName = lastName;
         this.role = role;
         this.trainingDays = new ArrayList<>();
+        this.image = image;
     }
 
     @Override

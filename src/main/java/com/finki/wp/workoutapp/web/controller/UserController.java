@@ -57,9 +57,10 @@ public class UserController {
 
     @PostMapping("/save/update")
     public String update(@RequestParam String firstName, @RequestParam String lastName,
-                         @RequestParam String username, @RequestParam String email){
+                         @RequestParam String username, @RequestParam String email,
+                         @RequestParam String image){
         try{
-            this.userService.update(firstName, lastName, username, email);
+            this.userService.update(firstName, lastName, username, email, image);
             return "redirect:/user/profile-info?success=Changes have been saved successfully!";
         } catch (CannotBeEmptyException | InvalidArgumentsException | UsernameAlreadyExistsException |
                  UsernameNotFoundException exception) {

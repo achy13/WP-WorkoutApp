@@ -3,7 +3,7 @@ package com.finki.wp.workoutapp.service.impl;
 import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.Workouts;
 import com.finki.wp.workoutapp.repository.UserRepository;
-import com.finki.wp.workoutapp.repository.WorkoutRepository;
+import com.finki.wp.workoutapp.repository.WorkoutsRepository;
 import com.finki.wp.workoutapp.service.IExerciseService;
 import com.finki.wp.workoutapp.service.IWorkoutService;
 import org.springframework.security.core.Authentication;
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 @Service
 public class WorkoutService implements IWorkoutService {
 
-    private final WorkoutRepository workoutRepository;
+    private final WorkoutsRepository workoutRepository;
     private final UserRepository userRepository;
     private final IExerciseService exerciseService;
 
-    public WorkoutService(WorkoutRepository workoutRepository, UserRepository userRepository, IExerciseService exerciseService) {
+    public WorkoutService(WorkoutsRepository workoutRepository, UserRepository userRepository, IExerciseService exerciseService) {
         this.workoutRepository = workoutRepository;
         this.userRepository = userRepository;
         this.exerciseService = exerciseService;
@@ -57,4 +57,15 @@ public class WorkoutService implements IWorkoutService {
     public void deleteWorkoutById(Long id) {
         workoutRepository.deleteById(id);
     }
+
+    @Override
+    public Workouts findByWorkoutName(String name) {
+        return workoutRepository.findByWorkoutName(name);
+    }
+
+    @Override
+    public List<Workouts> findAllWorkoutsByUser(User user) {
+        return workoutRepository.findAllByUser(user);
+    }
+
 }
