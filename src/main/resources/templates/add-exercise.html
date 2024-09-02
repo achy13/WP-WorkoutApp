@@ -4,6 +4,11 @@
             <h1 class="jumbotron-heading">Add new exercise</h1>
         </div>
     </section>
+    <div>
+        <div class="alert alert-custom mx-auto" role="alert">
+            You can add a new exercise if it doesn't already exist in this category. The exercise will be saved in the selected category.
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">
@@ -40,12 +45,23 @@
                     </div>
                     <button id="submit" type="submit" class="btn btn-primary">Submit</button>
                     <a type="button" class="btn btn-secondary" th:href="@{'/exercises?categoryId=' + ${selectedCategoryId}}">Back</a>
-
                 </form>
             </div>
         </div>
     </div>
+
 </div>
+
+<style>
+    .alert-custom {
+        background-color: #3498db; /* Custom color (e.g., blue) */
+        color: white; /* Text color */
+        padding: 15px;
+        border-radius: 5px;
+        width: 70%; /* Adjust width */
+        text-align: center;
+    }
+</style>
 
 <script th:inline="javascript">
     /*<![CDATA[*/
