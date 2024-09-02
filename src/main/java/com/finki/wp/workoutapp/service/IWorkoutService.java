@@ -14,10 +14,10 @@ public interface IWorkoutService {
     Optional<Workouts> findWorkoutById(Long id);
     Workouts save (String workoutName, String level, List<Long> exercisesId);
 
-    Workouts save (String workoutName, Date workoutDate, String level, List<Long> exercisesId);
+    //Workouts save (String workoutName, Date workoutDate, String level, List<Long> exercisesId);
 
     void deleteWorkoutById(Long id);
     Workouts findByWorkoutName(String name);
     List<Workouts> findAllWorkoutsByUser(User user);
-    Optional<Workouts> findWorkoutById(Long id);
+
 }

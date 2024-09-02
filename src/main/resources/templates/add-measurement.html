@@ -236,7 +236,7 @@
                         <ol>
                             <li><a href="#0" data-date="5/01/2014"
                                    class="cd-h-timeline__date cd-h-timeline__date--selected"><span
-                                    class="mdi mdi-gender-male-female"></span></a></li>
+                                    class="mdi mdi-play-box-outline"></span></a></li>
                             <li><a href="#0" data-date="16/01/2014" class="cd-h-timeline__date"><span
                                     class="mdi mdi-gender-male-female"></span></a></li>
                             <li><a href="#0" data-date="28/02/2014" class="cd-h-timeline__date"><span
@@ -271,8 +271,13 @@
                     <li class="cd-h-timeline__event cd-h-timeline__event--selected text-component">
                         <div class="cd-h-timeline__event-content container">
                             <br><br>
-                            <div class="container">Welcome to our app! <br> For the best experience, please add your measurements.<br>
-                                By providing your body measurements, you unlock personalized workout recommendations and more accurate progress tracking, <br> helping you achieve your fitness goals more effectively.</div>
+                            <div class="container">
+                                <span style="font-weight: bold; margin-bottom: 5px">Welcome to our app! </span>
+                                <br> For the best experience, please add your measurements.<br>
+                                By providing your body measurements, you unlock personalized workout recommendations and more accurate progress tracking, <br> helping you achieve your fitness goals more effectively.
+                            </div>
+                            <button class="cd-h-timeline__button" onclick="goToNextEventZero()">Let's get started</button>
+
 
                         </div>
                     </li>
@@ -479,6 +484,13 @@
 
 </div>
 <script>
+
+    function goToNextEventZero() {
+        var eventLink = document.querySelector('[data-date="16/01/2014"]');
+        if (eventLink) {
+            eventLink.click();
+        }
+    }
 
     function goToNextEvent() {
         var eventLink = document.querySelector('[data-date="28/02/2014"]');

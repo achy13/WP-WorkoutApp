@@ -40,10 +40,16 @@
         <p>First add your current <a th:href="@{/measurement}">measurement</a></p>
     </div>
 
+
     <div class="container" th:if="${measurement != null}">
         <form method="post" action="/goals/add">
             <button type="submit" class="btn btn-light ml-4">Add new goal <img src="/icons/add.png" alt="Add icon" width="20" height="20"></button>
         </form>
+    </div>
+
+    <div class="container p-3">
+            Set your fitness goals here by choosing a target date and your desired measurement changes, such as weight loss or muscle gain. <br>
+        Track your progress by comparing these goals with your current measurements, and easily edit or delete goals once you've achieved them.
     </div>
 
     <div class="container mt-3">
