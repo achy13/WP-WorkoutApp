@@ -11,10 +11,10 @@ import java.util.Optional;
 public interface IGoalService {
 
     List<Goal> findAllGoals();
-    List<Goal> findAllGoalsByUser(User user);
+    //List<Goal> findAllGoalsByUser(User user);
     Optional<Goal> findGoalById(Long id);
     List<Goal> findGoalByUser(User user);
-    Optional<Goal> findGoalByMeasurement(Measurement measurement);
+    //Optional<Goal> findGoalByMeasurement(Measurement measurement);
     Optional<Goal> edit(Long id, String name, Date goalDate, Double weight, Double shouldersSize, Double chestSize,
                         Double hand, Double waist, Double abdomen, Double hip, Double leg);
 

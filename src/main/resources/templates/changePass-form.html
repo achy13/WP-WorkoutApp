@@ -1,38 +1,43 @@
 <div class="container tab-pane" id="account">
-  <h6>CHANGE YOUR PASSWORD</h6>
-  <hr>
-  <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
-  <div th:if="${param.success}" th:text="${param.success}" class="text-success"></div>
+    <h6>CHANGE YOUR PASSWORD</h6>
+    <hr>
+    <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+    <div th:if="${param.success}" th:text="${param.success}" class="text-success"></div>
 
-  <div class="form-group">
-    <form th:method="post" role="form" th:action="@{/user/save/changePassword}">
-      <input hidden type="text" id="username" name="username" th:value="${username}" class="form-control" required/>
+    <div class="form-group">
+        <form th:method="post" role="form" th:action="@{/user/save/changePassword}">
+            <input hidden type="text" id="username" name="username" th:value="${username}" class="form-control"
+                   required/>
 
-      <label for="oldPassword">Old password</label>
-      <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Enter your password" required>
+            <label for="oldPassword">Old password</label>
+            <input type="password" class="form-control" id="oldPassword" name="oldPassword"
+                   placeholder="Enter your password" required>
 
-      <label for="newPassword">New password</label>
-      <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Enter your new password" required>
+            <label for="newPassword">New password</label>
+            <input type="password" class="form-control" id="newPassword" name="newPassword"
+                   placeholder="Enter your new password" required>
 
-      <label for="repeatedPassword">Repeat password</label>
-      <input type="password" class="form-control" id="repeatedPassword" name="repeatedPassword" placeholder="Repeat your new password" required>
+            <label for="repeatedPassword">Repeat password</label>
+            <input type="password" class="form-control" id="repeatedPassword" name="repeatedPassword"
+                   placeholder="Repeat your new password" required>
 
-      <hr>
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <button class="btn btn-success" type="submit">Save changes</button>
-      </div>
-    </form>
-  </div>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <button class="btn btn-success" type="submit">Save changes</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <style>
-  body {
-    margin-top: 20px;
-    color: #1a202c;
-    text-align: left;
-    background-color: #e2e8f0;
-  }
-  .container {
-    width: 50%;
-  }
+    body {
+        margin-top: 20px;
+        color: #1a202c;
+        text-align: left;
+        background-color: #e2e8f0;
+    }
+
+    .container {
+        width: 50%;
+    }
 </style>

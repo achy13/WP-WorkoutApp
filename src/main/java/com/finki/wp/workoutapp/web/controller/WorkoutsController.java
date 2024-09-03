@@ -12,10 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -63,6 +60,12 @@ public class WorkoutsController {
     @PostMapping("/add")
     public String saveWorkout(@RequestParam String workoutName, @RequestParam String level, @RequestParam List<Long> exercisesId) {
         this.workoutService.save(workoutName, level, exercisesId);
+        return "redirect:/workouts";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteWorkout(@PathVariable Long id) {
+        this.workoutService.deleteWorkoutById(id);
         return "redirect:/workouts";
     }
 }

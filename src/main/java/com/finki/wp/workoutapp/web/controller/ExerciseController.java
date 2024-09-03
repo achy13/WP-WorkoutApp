@@ -2,9 +2,11 @@ package com.finki.wp.workoutapp.web.controller;
 
 import com.finki.wp.workoutapp.model.Category;
 import com.finki.wp.workoutapp.model.Exercise;
+import com.finki.wp.workoutapp.model.Measurement;
 import com.finki.wp.workoutapp.service.ICategoryService;
 import com.finki.wp.workoutapp.service.IExerciseService;
 import com.finki.wp.workoutapp.service.ITrainingDayService;
+import com.finki.wp.workoutapp.service.MeasurementService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -21,11 +23,14 @@ public class ExerciseController {
     private final IExerciseService iExerciseService;
     private final ICategoryService iCategoryService;
     private final ITrainingDayService trainingDayService;
+    private final MeasurementService measurementService;
 
-    public ExerciseController(IExerciseService iExerciseService, ICategoryService iCategoryService, ITrainingDayService trainingDayService) {
+
+    public ExerciseController(IExerciseService iExerciseService, ICategoryService iCategoryService, ITrainingDayService trainingDayService, MeasurementService measurementService) {
         this.iExerciseService = iExerciseService;
         this.iCategoryService = iCategoryService;
         this.trainingDayService = trainingDayService;
+        this.measurementService = measurementService;
     }
 
     @GetMapping
@@ -48,6 +53,8 @@ public class ExerciseController {
         }
 
         List<Exercise> exercises;
+        List<Measurement> measurements = measurementService.findAllMeasurements();
+
         if(categoryId == null) {
             exercises = this.iExerciseService.findAllExercises();
         } else {
@@ -61,6 +68,8 @@ public class ExerciseController {
         model.addAttribute("selectedCategoryId", categoryId);
         model.addAttribute("bodyContent","exercises-page");
         model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
+        model.addAttribute("measurements", measurements);
+
         return "index";
     }
 
@@ -147,8 +156,6 @@ public class ExerciseController {
 
     @PostMapping("/add")
     public String saveExercise (@RequestParam String name, String image, @RequestParam String description, @RequestParam Long categoryId) {
-        //Category categoryOptional = iCategoryService.findCategoryById(categoryId);
-        //String categoryImage = categoryOptional.getImagePath();
         this.iExerciseService.save(name, image, description, categoryId);
         return "redirect:/exercises?categoryId=" + categoryId;
     }

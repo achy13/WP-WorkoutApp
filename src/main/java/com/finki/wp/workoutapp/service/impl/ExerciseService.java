@@ -70,7 +70,6 @@ public class ExerciseService implements IExerciseService {
 
     @Override
     public void deleteExerciseById(Long id) {
-        //exerciseRepository.deleteById(id);
         Optional<Exercise> exerciseOptional = this.exerciseRepository.findById(id);
         if(exerciseOptional.isPresent()) {
             Exercise exercise = exerciseOptional.get();
@@ -103,10 +102,10 @@ public class ExerciseService implements IExerciseService {
         return exerciseRepository.findByCategory_IdAndNameContainingIgnoreCase(categoryId, name);
     }
 
-    @Override
-    public List<Exercise> getExercisesByCategoryId(Long categoryId) {
-        return exerciseRepository.findByCategoryId(categoryId);
-    }
+//    @Override
+//    public List<Exercise> getExercisesByCategoryId(Long categoryId) {
+//        return exerciseRepository.findByCategoryId(categoryId);
+//    }
 
 
 

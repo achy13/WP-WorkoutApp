@@ -1,97 +1,3 @@
-<!--<div xmlns:th="http://www.thymeleaf.org">-->
-<!--    <div class="container text-center">-->
-<!--        <h2>Add your current measurements here!</h2>-->
-<!--    </div>-->
-
-<!--    <div class="container">-->
-<!--        <form action="/measurement/add" method="POST">-->
-<!--            <input id="id" type="hidden" name="id" th:value="(${mea} != null ? ${mea.getId()} : '')">-->
-
-<!--            <div class="row">-->
-<!--                <div class="col-md-6">-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="weight"><img src="/icons/scales.png" alt="Arm icon" width="20" height="20">  Weight</label>-->
-<!--                        <input type="text" class="form-control" id="weight" name="weight"-->
-<!--                               th:value="(${mea} != null ? ${mea.getWeight()} : '')" required-->
-<!--                               placeholder="Enter weight">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="height"><img src="/icons/height.png" alt="Height icon" width="20" height="20">   Height</label>-->
-<!--                        <input type="text" class="form-control" id="height" name="height"-->
-<!--                               th:value="(${mea} != null ? ${mea.getHeight()} : '')" required-->
-<!--                               placeholder="Enter height">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="years"><img src="/icons/years.png" alt="Years icon" width="20" height="20">   Years</label>-->
-<!--                        <input type="text" class="form-control" id="years" name="years"-->
-<!--                               th:value="(${mea} != null ? ${mea.getYears()} : '')" required-->
-<!--                               placeholder="Enter years">-->
-
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="shouldersSize"><img src="/icons/shoulder.png" alt="Shoulders icon" width="20" height="20">   Shoulders Size</label>-->
-<!--                        <input type="text" class="form-control" id="shouldersSize" name="shouldersSize"-->
-<!--                               th:value="(${mea} != null ? ${mea.getShouldersSize()} : '')" required-->
-<!--                               placeholder="Enter shoulders size">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="chestSize"><img src="/icons/chest.png" alt="Chest icon" width="20" height="20">   Chest Size</label>-->
-<!--                        <input type="text" class="form-control" id="chestSize" name="chestSize"-->
-<!--                               th:value="(${mea} != null ? ${mea.getChestSize()} : '')" required-->
-<!--                               placeholder="Enter chest size">-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="col-md-6">-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="hand"><img src="/icons/arm.png" alt="Arm icon" width="20" height="20">   Arm size</label>-->
-<!--                        <input type="text" class="form-control" id="hand" name="hand"-->
-<!--                               th:value="(${mea} != null ? ${mea.getHand()} : '')" required-->
-<!--                               placeholder="Enter hand size">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="waist"><img src="/icons/waist.png" alt="Waist icon" width="20" height="20">   Waist</label>-->
-<!--                        <input type="text" class="form-control" id="waist" name="waist"-->
-<!--                               th:value="(${mea} != null ? ${mea.getWaist()} : '')" required-->
-<!--                               placeholder="Enter waist size">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="abdomen"><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20">   Abdomen</label>-->
-<!--                        <input type="text" class="form-control" id="abdomen" name="abdomen"-->
-<!--                               th:value="(${mea} != null ? ${mea.getAbdomen()} : '')" required-->
-<!--                               placeholder="Enter abdomen size">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="hip">Hips size</label>-->
-<!--                        <input type="text" class="form-control" id="hip" name="hip"-->
-<!--                               th:value="(${mea} != null ? ${mea.getHip()} : '')" required-->
-<!--                               placeholder="Enter hip size">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="leg"><img src="/icons/leg.png" alt="Leg icon" width="20" height="20">   Leg size</label>-->
-<!--                        <input type="text" class="form-control" id="leg" name="leg"-->
-<!--                               th:value="(${mea} != null ? ${mea.getLeg()} : '')" required-->
-<!--                               placeholder="Enter leg size">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <div class="text-left">-->
-<!--                <button id="submit" type="submit" class="btn btn-primary">Submit</button>-->
-<!--                <a type="button" class="btn btn-secondary" href="/measurement">Back</a>-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</div>-->
-
 <style>
     .cd-h-timeline__event-description .level-label,
     .cd-h-timeline__button {
@@ -113,7 +19,6 @@
         background-color: #ccc;
     }
 
-    /* Custom styling for select */
     .cat-select {
         width: 100%;
         padding: 10px;
@@ -128,7 +33,6 @@
         cursor: pointer;
     }
 
-    /* Styling for selected options */
     .cat-select option:checked {
         background-color: #ddd;
     }
@@ -159,7 +63,6 @@
         background-color: #0056b3;
     }
 
-    /* Basic styles for the dialog */
     .dialog {
         display: none;
         position: fixed;
@@ -173,19 +76,17 @@
         z-index: 1000;
     }
 
-    /* Blind effect for show/hide */
     .blind {
         overflow: hidden;
         max-height: 0;
-        transition: max-height 0.5s ease-in-out; /* Faster transition */
+        transition: max-height 0.5s ease-in-out;
     }
 
     .blind.open {
         display: block;
-        max-height: 1000px; /* Large enough value to show full content */
+        max-height: 1000px;
     }
 
-    /* Styles for the close button */
     .close-btn {
         position: absolute;
         top: 10px;
@@ -196,7 +97,6 @@
         cursor: pointer;
     }
 
-    /* Flexbox styles for aligning radio buttons and buttons */
     .level-label {
         display: flex;
         align-items: center;
@@ -249,13 +149,11 @@
                                     class="mdi mdi-dumbbell"></span></a></li>
                             <li><a href="#0" data-date="30/08/2014" class="cd-h-timeline__date"><span
                                     class="mdi mdi-weight-lifter"></span></a></li>
-
-
                         </ol>
 
                         <span class="cd-h-timeline__filling-line" aria-hidden="true"></span>
-                    </div> <!-- .cd-h-timeline__line -->
-                </div> <!-- .cd-h-timeline__dates -->
+                    </div>
+                </div>
 
                 <ul>
                     <li><a href="#0"
@@ -264,7 +162,7 @@
                     <li><a href="#0"
                            class="text-replace cd-h-timeline__navigation cd-h-timeline__navigation--next">Next</a></li>
                 </ul>
-            </div> <!-- .cd-h-timeline__container -->
+            </div>
 
             <div class="cd-h-timeline__events text-center">
                 <ol>
@@ -274,11 +172,12 @@
                             <div class="container">
                                 <span style="font-weight: bold; margin-bottom: 5px">Welcome to our app! </span>
                                 <br> For the best experience, please add your measurements.<br>
-                                By providing your body measurements, you unlock personalized workout recommendations and more accurate progress tracking, <br> helping you achieve your fitness goals more effectively.
+                                By providing your body measurements, you unlock personalized workout recommendations and
+                                more accurate progress tracking, <br> helping you achieve your fitness goals more
+                                effectively.
                             </div>
-                            <button class="cd-h-timeline__button" onclick="goToNextEventZero()">Let's get started</button>
-
-
+                            <button class="cd-h-timeline__button" onclick="goToNextEventZero()">Let's get started
+                            </button>
                         </div>
                     </li>
 
@@ -324,7 +223,6 @@
                                 <br>
                                 <button class="cd-h-timeline__button" onclick="goToNextEventThree()">Gain Muscle
                                 </button>
-
                             </p>
                         </div>
                     </li>
@@ -417,13 +315,10 @@
                                 <input type="text" class="form-control" id="height" name="height"
                                        th:value="(${mea} != null ? ${mea.getHeight()} : '')" required
                                        placeholder="Enter height">
-
                             </div>
                             <button class="btn btn-outline-dark" onclick="goToNextEventC()">Next</button>
-
                         </div>
                     </li>
-
 
                     <li class="cd-h-timeline__event text-component">
                         <div class="cd-h-timeline__event-content container">
@@ -471,15 +366,12 @@
                             <button id="submit" type="submit" class="btn btn-outline-dark">Submit</button>
                         </div>
                     </li>
-
-
                 </ol>
-            </div> <!-- .cd-h-timeline__events -->
+            </div>
         </section>
     </form>
-    <script src="/assetsN/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+    <script src="/assetsN/js/util.js"></script>
     <script src="/assetsN/js/swipe-content.js"></script>
-    <!-- A Vanilla JavaScript plugin to detect touch interactions -->
     <script src="/assetsN/js/main.js"></script>
 
 </div>
@@ -535,7 +427,6 @@
     }
 
 
-
     document.addEventListener('DOMContentLoaded', function () {
         var dialogs = document.getElementsByClassName('dialog');
         var openers = document.getElementsByClassName('opener');
@@ -547,7 +438,7 @@
             dialogs[index].classList.add('blind');
             setTimeout(function () {
                 dialogs[index].classList.add('open');
-            }, 10); // Delay to ensure the transition effect
+            }, 10);
         }
 
         // Function to close a dialog

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
     List<Exercise> findByCategory (Category category);
-    void deleteByName(String name);
+    //void deleteByName(String name);
 
     List<Exercise> findByCategory_IdAndNameContainingIgnoreCase(Long categoryId, String name);
 

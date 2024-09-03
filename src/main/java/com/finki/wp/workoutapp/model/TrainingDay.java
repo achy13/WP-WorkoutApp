@@ -32,4 +32,10 @@ public class TrainingDay {
         this.workouts = workouts;
     }
 
+    public void removeWorkout(Workouts workout) {
+        if (this.workouts != null) {
+            this.workouts.remove(workout);
+        }
+    }
+
 }

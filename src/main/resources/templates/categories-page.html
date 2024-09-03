@@ -6,7 +6,7 @@
             height: 100%;
             object-fit: cover;
         }
-        /* Styles to make the title black */
+
         .card-title {
             color: black;
         }
@@ -30,7 +30,6 @@
                     </div>
                 </div>
             </a>
-            <!-- Add a clearfix div after every 4th card to clear floats -->
             <div th:if="${rowStat.index % 4 == 3}" class="clearfix"></div>
         </div>
     </div>

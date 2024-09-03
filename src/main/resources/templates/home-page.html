@@ -1,60 +1,184 @@
 <style>
-h1 {
-color: #bfbab6;
-}
-p {
-color: whitesmoke;
-font-size: 18px;
-margin-top: 20px;
-}
-#quote{
-    font-size: 20px;
-}
-#motivationDiv{
-    width: 50%;
-    border-width: medium;
-}
+
+
+    .welcome-section {
+        background-color: #f8f9fa;
+        padding: 40px 0;
+        text-align: center;
+    }
+
+    .quick-stats, .today-workout, .progress-section, .quick-links, .motivational-section, .community-section {
+        margin-bottom: 30px;
+    }
+
+    .stat-box, .workout-box, .progress-box, .link-box, .motivation-box, .community-box {
+        background-color: #e9ecef;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .stat-box h3, .workout-box h3, .progress-box h3, .link-box h3, .motivation-box h3, .community-box h3 {
+        margin-bottom: 15px;
+    }
+
+    .playlist-box {
+        background-color: #e9ecef;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .playlist-box img {
+        border-radius: 8px;
+        max-width: 100%;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .playlist-box h4 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .playlist-box p {
+        font-size: 14px;
+        margin-bottom: 15px;
+        color: #6c757d;
+    }
+
+    .playlist-box a {
+        display: inline-block;
+        padding: 10px 15px;
+        color: #fff;
+        background-color: #007bff;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .playlist-box a:hover {
+        background-color: #0056b3;
+    }
+
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
-<div xmlns:th="http://www.thymeleaf.org">
-    <div class="container text-center" style="margin-top: 150px" sec:authorize="isAnonymous()">
-        <h1>Hello, welcome to your Workout App!</h1>
-        <p>This app helps you keep track of your workouts, exercises, and measurements.</p>
-        <p>Start by logging in to access your personalized dashboard.</p>
-        <a href="/login" class="btn btn-primary btn-lg">Login</a>
-        <p>If you don't have an account yet, <a href="/register" >Sign up here</a></p>
-    </div>
+<div xmlns:th="http://www.thymeleaf.org" style="color: black">
+    <!-- Welcome Section -->
+    <section class="welcome-section mb-4">
+        <div class="container">
+            <h1>Welcome back, <span th:text="${name.getFirstName()}"></span>!</h1>
+            <p>Ready for your next workout?</p>
+        </div>
+    </section>
 
-    <div id="motivationDiv" class="container text-center" style="margin-top: 150px" sec:authorize="isAuthenticated()">
-        <div class="container" th:if="${measurement == null}">
-            <p>The whole page works better if you add your measurements.</p>
-            <a th:href="@{/measurement/add-form}"
-               class="btn btn-light add-measurement-btn">Add new measurement </a>
+    <div class="container">
+        <div class="row">
+            <!-- Quick Stats -->
+            <div class="col-md-6 quick-stats">
+                <div class="stat-box">
+                    <h3>Quick Stats</h3>
+                    <p>Completed Workouts: 15</p>
+                    <p>Current Weight: <span th:text="${weight}"></span></p>
+                    <p th:if="${goal != null}">Upcoming Goals: <span th:text="${goal.name}"></span> by <span
+                            th:text="${#dates.format(goal.goalDate, 'yyyy-MM-dd')}"></span></p>
+                    <p th:if="${noGoals}"> Upcoming Goals: You don't have any goals</p>
+                </div>
+            </div>
+
+            <!-- Today's Workout -->
+            <div class="col-md-6 today-workout">
+                <div class="workout-box">
+                    <h3>Today's Workout</h3>
+                    <p th:if="${workout != null}"><span th:text="${workout.workoutName}"></span></p>
+                    <p th:if="${noWorkouts}">You don't have any workouts for today</p>
+                    <button class="btn btn-primary">Start Now</button>
+                </div>
+            </div>
         </div>
 
-    <div id="motivationDiv" class="container text-center" style="margin-top: 150px;
-                                                                 background-image: url('static/img/backround.jpg')" sec:authorize="isAuthenticated()">
+        <!-- Music Section -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="playlist-box">
+                    <img src="https://i2o.scdn.co/image/ab67706c0000cfa33a9102428ef26bea957cd401"
+                         alt="High Energy Playlist">
+                    <h4>High Energy Playlist</h4>
+                    <p>Boost your workout with this high-energy playlist designed to keep you moving.</p>
+                    <a href="https://spotify.com" target="_blank">Listen on Spotify</a>
+                </div>
+            </div>
 
+            <div class="col-md-4">
+                <div class="playlist-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP8aYxDF2rNXpfA1XZSMVZL9jr8-o8aAy9Lg&s"
+                         alt="Focus & Strength">
+                    <h4>Focus & Strength</h4>
+                    <p>Get in the zone with this playlist perfect for strength training and focus.</p>
+                    <a href="https://apple.com" target="_blank">Listen on Apple Music</a>
+                </div>
+            </div>
 
-        <figure >
-            <blockquote class="blockquote">
-                <p id="quote"></p>
-            </blockquote>
-            <figcaption class="blockquote-footer" id="author"></figcaption>
-        </figure>
+            <div class="col-md-4">
+                <div class="playlist-box">
+                    <img src="https://static.owayo-cdn.com/newhp/img/magazin/cooldownEN/cool-down-670.jpg"
+                         alt="Cool Down Vibes">
+                    <h4>Cool Down Vibes</h4>
+                    <p>Relax and unwind after your workout with these soothing tunes.</p>
+                    <a href="https://spotify.com" target="_blank">Listen on Spotify</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Motivational Section -->
+            <div class="col-md-12 motivational-section">
+                <div class="motivation-box">
+                    <h3>Motivation</h3>
+                    <p>"Success is the sum of small efforts, repeated day in and day out."</p>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!--    <div class="container text-center" style="margin-top: 150px" sec:authorize="isAnonymous()">-->
+    <!--        <h1>Hello, welcome to your Workout App!</h1>-->
+    <!--        <p>This app helps you keep track of your workouts, exercises, and measurements.</p>-->
+    <!--        <p>Start by logging in to access your personalized dashboard.</p>-->
+    <!--        <a href="/login" class="btn btn-primary btn-lg">Login</a>-->
+    <!--        <p>If you don't have an account yet, <a href="/register" >Sign up here</a></p>-->
+    <!--    </div>-->
 
+    <!--    <div id="motivationDiv" class="container text-center" style="margin-top: 150px" sec:authorize="isAuthenticated()">-->
+    <!--        <div class="container" th:if="${measurement == null}">-->
+    <!--            <p>The whole page works better if you add your measurements.</p>-->
+    <!--            <a th:href="@{/measurement/add-form}"-->
+    <!--               class="btn btn-light add-measurement-btn">Add new measurement </a>-->
+    <!--        </div>-->
+
+    <!--    <div id="motivationDiv" class="container text-center" style="margin-top: 150px;-->
+    <!--                                                                 background-image: url('static/img/backround.jpg')" sec:authorize="isAuthenticated()">-->
+
+
+    <!--        <figure >-->
+    <!--            <blockquote class="blockquote">-->
+    <!--                <p id="quote"></p>-->
+    <!--            </blockquote>-->
+    <!--            <figcaption class="blockquote-footer" id="author"></figcaption>-->
+    <!--        </figure>-->
+    <!--    </div>-->
 </div>
 
 <script th:inline="javascript">
     fetch("https://type.fit/api/quotes")
-        .then(function(response) {
+        .then(function (response) {
             return response.json();
         })
-        .then(function(data) {
+        .then(function (data) {
             const quoteElement = document.getElementById('quote');
             const authorElement = document.getElementById('author');
 
@@ -72,7 +196,8 @@ margin-top: 20px;
             motivationSection.appendChild(quoteElement);
             motivationSection.appendChild(authorElement);
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.error("Error " + error);
         });
 </script>
+

@@ -25,7 +25,8 @@
         <div class="row justify-content-center">
             <div class="col-10">
                 <div class="custom-rounded">
-                    <p style="font-size: 20px"><i class="mdi mdi-bookmark-multiple"></i> <strong><span class="pl-1">How to take your measurements?</span></strong> </p>
+                    <p style="font-size: 20px"><i class="mdi mdi-bookmark-multiple"></i> <strong><span class="pl-1">How to take your measurements?</span></strong>
+                    </p>
                 </div>
             </div>
             <div class="col-2">
@@ -38,21 +39,30 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="measurement" style="margin-bottom: 20px;">
-                    <p><img src="/icons/scales.png" alt="Arm icon" width="20" height="20">  Weight: <span th:text="${measurement.getWeight()}"></span></p>
-                    <p><img src="/icons/height.png" alt="Height icon" width="20" height="20">   Height: <span th:text="${measurement.getHeight()}"></span></p>
-                    <p><img src="/icons/years.png" alt="Years icon" width="20" height="20">   Years: <span th:text="${measurement.getYears()}"></span></p>
-                    <p><img src="/icons/shoulder.png" alt="Shoulders icon" width="20" height="20">  Shoulders Size: <span th:text="${measurement.getShouldersSize()}"></span></p>
-                    <p><img src="/icons/chest.png" alt="Chest icon" width="20" height="20">   Chest Size: <span th:text="${measurement.getChestSize()}"></span></p>
+                    <p><img src="/icons/scales.png" alt="Arm icon" width="20" height="20"> Weight: <span
+                            th:text="${measurement.getWeight()}"></span></p>
+                    <p><img src="/icons/height.png" alt="Height icon" width="20" height="20"> Height: <span
+                            th:text="${measurement.getHeight()}"></span></p>
+                    <p><img src="/icons/years.png" alt="Years icon" width="20" height="20"> Years: <span
+                            th:text="${measurement.getYears()}"></span></p>
+                    <p><img src="/icons/shoulder.png" alt="Shoulders icon" width="20" height="20"> Shoulders Size: <span
+                            th:text="${measurement.getShouldersSize()}"></span></p>
+                    <p><img src="/icons/chest.png" alt="Chest icon" width="20" height="20"> Chest Size: <span
+                            th:text="${measurement.getChestSize()}"></span></p>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="measurement" style="margin-bottom: 20px;">
-                    <p><img src="/icons/arm.png" alt="Arm icon" width="20" height="20">   Arm: <span th:text="${measurement.getHand()}"></span></p>
-                    <p><img src="/icons/waist.png" alt="Waist icon" width="20" height="20">   Waist: <span th:text="${measurement.getWaist()}"></span></p>
-                    <p><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20">   Abdomen: <span th:text="${measurement.getAbdomen()}"></span></p>
+                    <p><img src="/icons/arm.png" alt="Arm icon" width="20" height="20"> Arm: <span
+                            th:text="${measurement.getHand()}"></span></p>
+                    <p><img src="/icons/waist.png" alt="Waist icon" width="20" height="20"> Waist: <span
+                            th:text="${measurement.getWaist()}"></span></p>
+                    <p><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20"> Abdomen: <span
+                            th:text="${measurement.getAbdomen()}"></span></p>
                     <p>Hip: <span th:text="${measurement.getHip()}"></span></p>
-                    <p><img src="/icons/leg.png" alt="Leg icon" width="20" height="20">   Leg: <span th:text="${measurement.getLeg()}"></span></p>
+                    <p><img src="/icons/leg.png" alt="Leg icon" width="20" height="20"> Leg: <span
+                            th:text="${measurement.getLeg()}"></span></p>
                 </div>
             </div>
         </div>
@@ -60,13 +70,16 @@
 
     <div class="container mt-3" th:if="${measurement == null}">
         <a th:href="@{/measurement/add-form}"
-           class="btn btn-light add-measurement-btn">Add new measurement   <img src="/icons/add.png" alt="Add icon" width="20" height="20"></a>
+           class="btn btn-light add-measurement-btn">Add new measurement <img src="/icons/add.png" alt="Add icon"
+                                                                              width="20" height="20"></a>
     </div>
 
     <div class="container mt-3" th:if="${measurement != null}">
-        <div class="btn-group" >
-            <a th:href="@{'/measurement/edit-form/{id}' (id = ${measurement.getId()})}" class="btn btn-light">Edit measurement</a>
-            <form th:action="@{'/measurement/delete/{id}' (id = ${measurement.getId()})}" th:method="DELETE" style="display: inline;">
+        <div class="btn-group">
+            <a th:href="@{'/measurement/edit-form/{id}' (id = ${measurement.getId()})}" class="btn btn-light">Edit
+                measurement</a>
+            <form th:action="@{'/measurement/delete/{id}' (id = ${measurement.getId()})}" th:method="DELETE"
+                  style="display: inline;">
                 <button type="submit" class="btn btn-light ml-4">Delete measurement</button>
             </form>
         </div>

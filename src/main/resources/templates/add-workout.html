@@ -19,7 +19,6 @@
         background-color: #ccc;
     }
 
-    /* Custom styling for select */
     .cat-select {
         width: 100%;
         padding: 10px;
@@ -34,7 +33,6 @@
         cursor: pointer;
     }
 
-    /* Styling for selected options */
     .cat-select option:checked {
         background-color: #ddd;
     }
@@ -65,7 +63,6 @@
         background-color: #0056b3;
     }
 
-    /* Basic styles for the dialog */
     .dialog {
         display: none;
         position: fixed;
@@ -79,19 +76,17 @@
         z-index: 1000;
     }
 
-    /* Blind effect for show/hide */
     .blind {
         overflow: hidden;
         max-height: 0;
-        transition: max-height 0.5s ease-in-out; /* Faster transition */
+        transition: max-height 0.5s ease-in-out;
     }
 
     .blind.open {
         display: block;
-        max-height: 1000px; /* Large enough value to show full content */
+        max-height: 1000px;
     }
 
-    /* Styles for the close button */
     .close-btn {
         position: absolute;
         top: 10px;
@@ -102,7 +97,6 @@
         cursor: pointer;
     }
 
-    /* Flexbox styles for aligning radio buttons and buttons */
     .level-label {
         display: flex;
         align-items: center;
@@ -153,8 +147,8 @@
                         </ol>
 
                         <span class="cd-h-timeline__filling-line" aria-hidden="true"></span>
-                    </div> <!-- .cd-h-timeline__line -->
-                </div> <!-- .cd-h-timeline__dates -->
+                    </div>
+                </div>
 
                 <ul>
                     <li><a href="#0"
@@ -163,12 +157,10 @@
                     <li><a href="#0"
                            class="text-replace cd-h-timeline__navigation cd-h-timeline__navigation--next">Next</a></li>
                 </ul>
-            </div> <!-- .cd-h-timeline__container -->
+            </div>
 
             <div class="cd-h-timeline__events text-center">
                 <ol>
-
-
                     <li class="cd-h-timeline__event cd-h-timeline__event--selected text-component">
                         <div class="cd-h-timeline__event-content container">
                             <h2 class="cd-h-timeline__event-title">YOUR FITNESS LEVEL?</h2>
@@ -242,13 +234,11 @@
                         </div>
                     </li>
 
-
                     <li class="cd-h-timeline__event text-component">
                         <div class="cd-h-timeline__event-content container">
                             <h2 class="cd-h-timeline__event-title">Categories</h2>
                             <div class="row">
                                 <div th:each="category, rowStat : ${categories}" class="col-md-3">
-                                    <!-- Change col-md-4 to col-md-3 -->
                                     <div class="card mb-4"
                                          style="background-color: #f8f9fa; border-radius: 10px; padding: 10px;">
                                         <div style="background-color: #e9ecef; border-radius: 10px; padding: 10px; height: 200px">
@@ -271,7 +261,6 @@
                             </select>
 
                             <button class="btn btn-outline-dark" onclick="goToNextEventTwo()">Next</button>
-
                         </div>
                     </li>
 
@@ -305,15 +294,12 @@
                             <button id="submit" type="submit" class="btn btn-outline-dark">Submit</button>
                         </div>
                     </li>
-
-
                 </ol>
-            </div> <!-- .cd-h-timeline__events -->
+            </div>
         </section>
     </form>
-    <script src="/assetsN/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+    <script src="/assetsN/js/util.js"></script>
     <script src="/assetsN/js/swipe-content.js"></script>
-    <!-- A Vanilla JavaScript plugin to detect touch interactions -->
     <script src="/assetsN/js/main.js"></script>
 
 </div>
@@ -369,7 +355,6 @@
 
             if (!exercisesVisible) {
                 alert("No exercises available for the selected category.");
-                // Optionally, you can reset the selected category to prompt the user to select a different one.
                 // document.getElementById("categorySelect").selectedIndex = 0;
             }
         }
@@ -396,7 +381,7 @@
             setTimeout(function () {
                 dialogs[index].style.display = 'none';
                 dialogs[index].classList.remove('blind');
-            }, 500); // Match the duration of the transition
+            }, 500);
         }
 
         // Attach event listeners to each opener and close button
