@@ -45,7 +45,6 @@ public class MainController {
         User user = userService.findUserByUsername(userDetails.getUsername());
         List<Goal> goals = goalService.findAllGoals();
         List<Workouts> workouts = workoutService.findAllWorkouts();
-        List<Measurement> measurements = measurementService.findAllMeasurements();
 
 
         Optional<Measurement> optionalMeasurement = measurementService.findMeasurementByUserAndType(user, MeasurementType.MEASUREMENT);
@@ -55,7 +54,6 @@ public class MainController {
             model.addAttribute("bodyContent", "home-page");
             model.addAttribute("name", user);
             model.addAttribute("weight", measurement.getWeight());
-            model.addAttribute("measurements", measurements);
             if(!goals.isEmpty()) {
                 Random random = new Random();
                 Goal randomGoal = goals.get(random.nextInt(goals.size()));
@@ -83,6 +81,12 @@ public class MainController {
     //MeasurementsHelp
     @GetMapping("/help")
     public String getMeasurementsHelp(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        User user = userService.findUserByUsername(userDetails.getUsername());
+        Optional<Measurement> optionalMeasurement = measurementService.findMeasurementByUserAndType(user, MeasurementType.MEASUREMENT);
+        if (optionalMeasurement.isPresent()) {
+            Measurement measurement = optionalMeasurement.get();
+            model.addAttribute("measurement", measurement);
+        }
         model.addAttribute("bodyContent", "measurements-help");
         model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
         return "index";

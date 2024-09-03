@@ -3,10 +3,9 @@ package com.finki.wp.workoutapp.web.controller;
 import com.finki.wp.workoutapp.model.Category;
 import com.finki.wp.workoutapp.model.Exercise;
 import com.finki.wp.workoutapp.model.Measurement;
-import com.finki.wp.workoutapp.service.ICategoryService;
-import com.finki.wp.workoutapp.service.IExerciseService;
-import com.finki.wp.workoutapp.service.ITrainingDayService;
-import com.finki.wp.workoutapp.service.MeasurementService;
+import com.finki.wp.workoutapp.model.User;
+import com.finki.wp.workoutapp.model.enums.MeasurementType;
+import com.finki.wp.workoutapp.service.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/exercises")
@@ -24,13 +24,16 @@ public class ExerciseController {
     private final ICategoryService iCategoryService;
     private final ITrainingDayService trainingDayService;
     private final MeasurementService measurementService;
+    private final IUserService userService;
 
 
-    public ExerciseController(IExerciseService iExerciseService, ICategoryService iCategoryService, ITrainingDayService trainingDayService, MeasurementService measurementService) {
+
+    public ExerciseController(IExerciseService iExerciseService, ICategoryService iCategoryService, ITrainingDayService trainingDayService, MeasurementService measurementService, IUserService userService) {
         this.iExerciseService = iExerciseService;
         this.iCategoryService = iCategoryService;
         this.trainingDayService = trainingDayService;
         this.measurementService = measurementService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -53,7 +56,8 @@ public class ExerciseController {
         }
 
         List<Exercise> exercises;
-        List<Measurement> measurements = measurementService.findAllMeasurements();
+        User user = userService.findUserByUsername(userDetails.getUsername());
+        Optional<Measurement> optionalMeasurement = measurementService.findMeasurementByUserAndType(user, MeasurementType.MEASUREMENT);
 
         if(categoryId == null) {
             exercises = this.iExerciseService.findAllExercises();
@@ -68,7 +72,13 @@ public class ExerciseController {
         model.addAttribute("selectedCategoryId", categoryId);
         model.addAttribute("bodyContent","exercises-page");
         model.addAttribute("hasEvent", trainingDayService.hasEvent(userDetails));
-        model.addAttribute("measurements", measurements);
+        if (optionalMeasurement.isPresent()){
+            Measurement measurement = optionalMeasurement.get();
+            model.addAttribute("measurement", measurement);
+        }
+        else {
+            model.addAttribute("measurement", null);
+        }
 
         return "index";
     }
@@ -128,6 +138,12 @@ public class ExerciseController {
                 selectedCategoryName = category.getName();
             }
         }
+        User user = userService.findUserByUsername(userDetails.getUsername());
+        Optional<Measurement> optionalMeasurement = measurementService.findMeasurementByUserAndType(user, MeasurementType.MEASUREMENT);
+        if (optionalMeasurement.isPresent()) {
+            Measurement measurement = optionalMeasurement.get();
+            model.addAttribute("measurement", measurement);
+        }
         model.addAttribute("categories", categories);
         model.addAttribute("selectedCategoryName", selectedCategoryName);
         model.addAttribute("selectedCategoryId", categoryId);
@@ -141,6 +157,12 @@ public class ExerciseController {
     public String editExercisePage(@AuthenticationPrincipal UserDetails userDetails,
                                    @PathVariable Long id, Model model) {
         if (this.iExerciseService.findExerciseById(id).isPresent()) {
+            User user = userService.findUserByUsername(userDetails.getUsername());
+            Optional<Measurement> optionalMeasurement = measurementService.findMeasurementByUserAndType(user, MeasurementType.MEASUREMENT);
+            if (optionalMeasurement.isPresent()) {
+                Measurement measurement = optionalMeasurement.get();
+                model.addAttribute("measurement", measurement);
+            }
             Exercise exercise = this.iExerciseService.findExerciseById(id).get();
             List<Category> categories = this.iCategoryService.findAllCategories();
             Long categoryId = exercise.getCategory() != null ? exercise.getCategory().getId() : null;
@@ -156,6 +178,7 @@ public class ExerciseController {
 
     @PostMapping("/add")
     public String saveExercise (@RequestParam String name, String image, @RequestParam String description, @RequestParam Long categoryId) {
+
         this.iExerciseService.save(name, image, description, categoryId);
         return "redirect:/exercises?categoryId=" + categoryId;
     }

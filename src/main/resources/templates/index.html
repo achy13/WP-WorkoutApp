@@ -80,7 +80,7 @@
               <span class="menu-title">Home</span>
             </a>
           </li>
-          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
+          <li th:if="${measurement != null}" class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" th:href="@{/measurement}">
               <span class="menu-icon">
                 <i class="mdi mdi-ruler"></i>
@@ -88,7 +88,7 @@
               <span class="menu-title">My measurement</span>
             </a>
           </li>
-          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
+          <li th:if="${measurement != null}" class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" th:href="@{/goals}">
               <span class="menu-icon">
                 <i class="mdi mdi-star-box"></i>
@@ -96,7 +96,7 @@
               <span class="menu-title">Measurements goals</span>
             </a>
           </li>
-          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
+          <li th:if="${measurement != null}" class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" th:href="@{/category}">
               <span class="menu-icon">
                 <i class="mdi mdi-weight-kilogram"></i>
@@ -104,7 +104,7 @@
               <span class="menu-title">Exercises</span>
             </a>
           </li>
-          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
+          <li th:if="${measurement != null}" class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" th:href="@{/workouts}">
               <span class="menu-icon">
                 <i class="mdi mdi-dumbbell"></i>
@@ -112,7 +112,7 @@
               <span class="menu-title">My Workouts</span>
             </a>
           </li>
-          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
+          <li th:if="${measurement != null}" class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" th:href="@{/calendar}">
               <span class="menu-icon">
                 <i class="mdi mdi-calendar-blank-outline"></i>
@@ -120,7 +120,7 @@
               <span class="menu-title">My calendar</span>
             </a>
           </li>
-          <li class="nav-item menu-items" sec:authorize="isAuthenticated()">
+          <li th:if="${measurement != null}" class="nav-item menu-items" sec:authorize="isAuthenticated()">
             <a class="nav-link" th:href="@{/help}">
               <span class="menu-icon">
                 <i class="mdi mdi-help-circle"></i>

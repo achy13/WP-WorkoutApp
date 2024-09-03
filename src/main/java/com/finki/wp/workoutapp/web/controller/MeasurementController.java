@@ -55,7 +55,7 @@ public class MeasurementController {
     @PostMapping("/delete/{id}")
     public String deleteMeasurement(@PathVariable Long id) {
         this.measurementService.deleteMeasurementAndGoalsByMeasurementId(id);
-        return "redirect:/measurement";
+        return "redirect:/homePage";
     }
 
     @GetMapping("/add-form")
