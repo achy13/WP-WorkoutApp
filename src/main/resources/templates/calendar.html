@@ -1,167 +1,175 @@
-<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet'/>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.11.3/main.min.js'></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
-  #calendar {
-    max-width: 1100px;
-    width: 100%;
-  }
-  #eventForm {
-    display: none;
-    position: absolute;
-    background: lightgray;
-    border: 1px solid #ccc;
-    z-index: 1000;
-    width: 270px;
-    height: 240px;
-  }
-  #eventFormElement{
-    margin: 10px;
-  }
-  .fc-event-title {
-    font-weight: bold;
-  }
-  .fc .fc-button-group>.fc-button{
-    background-color: #253241;
-  }
-  #closeButton{
-    float: right;
-    border: none;
-    background-color: transparent;
-    color: whitesmoke;
-  }
-  #closeButton:hover{
-    color: lightcoral;
+    #calendar {
+        max-width: 1100px;
+        width: 100%;
+    }
 
-  }
-  .upper-div{
-    background-color: #253241;
-    width: 100%;
-    height: 35px;
-    margin: 0 auto;
-  }
+    #eventForm {
+        display: none;
+        position: absolute;
+        background: lightgray;
+        border: 1px solid #ccc;
+        z-index: 1000;
+        width: 270px;
+        height: 240px;
+    }
+
+    #eventFormElement {
+        margin: 10px;
+    }
+
+    .fc-event-title {
+        font-weight: bold;
+    }
+
+    .fc .fc-button-group > .fc-button {
+        background-color: #253241;
+    }
+
+    #closeButton {
+        float: right;
+        border: none;
+        background-color: transparent;
+        color: whitesmoke;
+    }
+
+    #closeButton:hover {
+        color: lightcoral;
+
+    }
+
+    .upper-div {
+        background-color: #253241;
+        width: 100%;
+        height: 35px;
+        margin: 0 auto;
+    }
 </style>
 </head>
 <body>
 
 <div class="justify-content-center align-items-center">
-  <div id='calendar'></div>
+    <div id='calendar'></div>
 </div>
 
 
 <div id="eventForm" class="rounded">
-  <div class="upper-div rounded">
-    <button  class="mt-1 me-3" type="button" id="closeButton"><i class="bi bi-x-lg"></i></button>
-  </div>
-  <form id="eventFormElement" class="pt-0">
-    <label class="text-black mt-2" for="selectedDate">Selected date</label>
-    <input class="rounded border-0 bold" type="text" id="selectedDate" readonly><br>
-    <div class="width-100%">
-      <label class="text-black" for="events" th:if="${workouts.size() > 0}">Choose workout</label>
-      <select id="events" class="form-select rounded p-1 mb-3 width-100%" th:if="${workouts.size() > 0}">
-        <option th:each="workout : ${workouts}" th:value="${workout.getId()}" th:text="${workout.getWorkoutName()}"></option>
-      </select>
-      <div>
-        <input class="btn btn-primary px-3 py-1" th:if="${workouts.size() > 0}" type="submit" value="Save">
-      </div>
-      <div th:if="${workouts.size() == 0}">
-        <p>There are no workouts!</p>
-        <a href="#">Create workout</a>
-      </div>
+    <div class="upper-div rounded">
+        <button class="mt-1 me-3" type="button" id="closeButton"><i class="bi bi-x-lg"></i></button>
     </div>
-  </form>
+    <form id="eventFormElement" class="pt-0">
+        <label class="text-black mt-2" for="selectedDate">Selected date</label>
+        <input class="rounded border-0 bold" type="text" id="selectedDate" readonly><br>
+        <div class="width-100%">
+            <label class="text-black" for="events" th:if="${workouts.size() > 0}">Choose workout</label>
+            <select id="events" class="form-select rounded p-1 mb-3 width-100%" th:if="${workouts.size() > 0}">
+                <option th:each="workout : ${workouts}" th:value="${workout.getId()}"
+                        th:text="${workout.getWorkoutName()}"></option>
+            </select>
+            <div>
+                <input class="btn btn-primary px-3 py-1" th:if="${workouts.size() > 0}" type="submit" value="Save">
+            </div>
+            <div th:if="${workouts.size() == 0}">
+                <p>There are no workouts!</p>
+                <a href="#">Create workout</a>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
 
-    $.ajax({
-      url: '/events',
-      type: 'GET',
-      success: function(data) {
-        initializeCalendar(data);
-        console.log(data);
-      },
-      error: function(xhr, status, error) {
-        console.error('Error fetching events:', error);
-      }
-    });
+        $.ajax({
+            url: '/events',
+            type: 'GET',
+            success: function (data) {
+                initializeCalendar(data);
+                console.log(data);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching events:', error);
+            }
+        });
 
-    function initializeCalendar(events) {
-      var jsonFormat = JSON.parse(events);
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,dayGridWeek'
-        },
-        selectable: true,
-        events: jsonFormat,
-        dateClick: function(info) {
-          // Превери дали кликнатиот датум е подоцна од денешниот
-          var today = new Date();
-          if (info.date > today) {
-            // Доколку е подоцна, не прави ништо
-            return;
-          }
+        function initializeCalendar(events) {
+            var jsonFormat = JSON.parse(events);
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek'
+                },
+                selectable: true,
+                events: jsonFormat,
+                dateClick: function (info) {
+                    // Превери дали кликнатиот датум е подоцна од денешниот
+                    var today = new Date();
+                    if (info.date > today) {
+                        // Доколку е подоцна, не прави ништо
+                        return;
+                    }
 
-          // Ако не е подоцна, прикажи го формуларот за додавање на настан
-          showEventForm(info);
-        },
-        eventContent: function(arg) {
-          let title = arg.event.title;
-          let html = `<div class="fc-event-title"><i class="bi bi-check-circle"></i>  ${title}</div>`;
-          return { html: html };
+                    // Ако не е подоцна, прикажи го формуларот за додавање на настан
+                    showEventForm(info);
+                },
+                eventContent: function (arg) {
+                    let title = arg.event.title;
+                    let html = `<div class="fc-event-title"><i class="bi bi-check-circle"></i>  ${title}</div>`;
+                    return {html: html};
+                }
+            });
+            calendar.render();
         }
-      });
-      calendar.render();
-    }
 
-    function showEventForm(info) {
-      var eventForm = document.getElementById('eventForm');
-      var eventFormElement = document.getElementById('eventFormElement');
-      var selectedDateInput = document.getElementById('selectedDate');
+        function showEventForm(info) {
+            var eventForm = document.getElementById('eventForm');
+            var eventFormElement = document.getElementById('eventFormElement');
+            var selectedDateInput = document.getElementById('selectedDate');
 
-      // Постави го датумот во полето
-      selectedDateInput.value = info.dateStr;
+            // Постави го датумот во полето
+            selectedDateInput.value = info.dateStr;
 
-      // Прикажи ја формата
-      eventForm.style.display = 'block';
-      eventForm.style.top = info.jsEvent.pageY + 'px';
-      eventForm.style.left = info.jsEvent.pageX + 'px';
+            // Прикажи ја формата
+            eventForm.style.display = 'block';
+            eventForm.style.top = info.jsEvent.pageY + 'px';
+            eventForm.style.left = info.jsEvent.pageX + 'px';
 
-      eventFormElement.onsubmit = function(event) {
-        event.preventDefault();
-        var selectedEvent = document.getElementById('events').value;
+            eventFormElement.onsubmit = function (event) {
+                event.preventDefault();
+                var selectedEvent = document.getElementById('events').value;
 
-        fetch('/saveEvent', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            date: info.dateStr,
-            event: selectedEvent
-          })
-        })
-                .then(response => response.text())
-                .then(data => {
-                  alert(data);
-                  window.location.reload();
+                fetch('/saveEvent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: info.dateStr,
+                        event: selectedEvent
+                    })
                 })
-                .catch((error) => {
-                  alert('Error saving event!');
-                });
-      };
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data);
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        alert('Error saving event!');
+                    });
+            };
 
-      document.getElementById('closeButton').onclick = function() {
-        eventForm.style.display = 'none';
-      };
-    }
+            document.getElementById('closeButton').onclick = function () {
+                eventForm.style.display = 'none';
+            };
+        }
 
-  });
+    });
 </script>
 

@@ -1,145 +1,158 @@
 <style xmlns="http://www.w3.org/1999/html">
-  body {
-    margin-top: 20px;
-    color: #bcd0f7;
-    background: #e2e8f0;
-  }
-  .account-settings .user-profile {
-    margin: 0 0 1rem 0;
-    padding-bottom: 1rem;
-    text-align: center;
-  }
-  .account-settings .user-profile .user-avatar {
-    margin: 0 0 1rem 0;
-  }
-  .account-settings .user-profile .user-avatar img {
-    width: 90px;
-    height: 90px;
-    border-radius: 100px;
-  }
-  .account-settings .user-profile h5.user-name {
-    margin: 0 0 0.5rem 0;
-  }
-  .account-settings .user-profile h6.user-email {
-    margin: 0;
-    font-size: 0.8rem;
-    font-weight: 400;
-  }
-  .account-settings .about {
-    margin: 1rem 0 0 0;
-    font-size: 0.8rem;
-    text-align: center;
-  }
-  .card {
-    background: #272E48;
-    border-radius: 5px;
-    border: 0;
-    margin-bottom: 1rem;
-  }
-  .form-control {
-    border: 1px solid #596280;
-    border-radius: 2px;
-    font-size: .825rem;
-    background: #1A233A;
-    color: #bcd0f7;
-  }
-  .upload-btn-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-  }
-  .btn1 {
-    border: 2px solid gray;
-    color: white;
-    background-color: #272E48;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .upload-btn-wrapper input[type=file] {
-    font-size: 100px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-  }
-  input{
-    background-color: #1a233a;
-  }
+    body {
+        margin-top: 20px;
+        color: #bcd0f7;
+        background: #e2e8f0;
+    }
+
+    .account-settings .user-profile {
+        margin: 0 0 1rem 0;
+        padding-bottom: 1rem;
+        text-align: center;
+    }
+
+    .account-settings .user-profile .user-avatar {
+        margin: 0 0 1rem 0;
+    }
+
+    .account-settings .user-profile .user-avatar img {
+        width: 90px;
+        height: 90px;
+        border-radius: 100px;
+    }
+
+    .account-settings .user-profile h5.user-name {
+        margin: 0 0 0.5rem 0;
+    }
+
+    .account-settings .user-profile h6.user-email {
+        margin: 0;
+        font-size: 0.8rem;
+        font-weight: 400;
+    }
+
+    .account-settings .about {
+        margin: 1rem 0 0 0;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .card {
+        background: #272E48;
+        border-radius: 5px;
+        border: 0;
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        border: 1px solid #596280;
+        border-radius: 2px;
+        font-size: .825rem;
+        background: #1A233A;
+        color: #bcd0f7;
+    }
+
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .btn1 {
+        border: 2px solid gray;
+        color: white;
+        background-color: #272E48;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    input {
+        background-color: #1a233a;
+    }
 </style>
 </head>
 <body>
 <form th:method="post" role="form" th:action="@{/user/save/update}">
-  <div class="container">
-    <div class="row">
-          <!-- Profile Card -->
-          <div class="col-md-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="user-profile">
-                  <div class="user-avatar">
-                    <img class="img-xs rounded-circle " src="/img/prof.png" alt="User avatar">
-                  </div>
-                  <h5 class="user-name" th:text="${user.getFirstName() + ' ' + user.getLastName()}"></h5>
-                  <h6 class="user-email" th:text="${user.getEmail()}"></h6>
-                  <!--
-                  <div class="upload-btn-wrapper mt-3">
-                    <button class="btn btn1">Upload a picture</button>
-                    <input type="file" name="image" />
-                  </div>
-                  -->
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Form Card -->
-          <div class="col-md-8">
-            <div class="card h-100">
-              <div class="card-body">
-                <div class="row gutters">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
-                    <div th:if="${param.success}" th:text="${param.success}" class="text-success"></div>
-                    <h6 class="mb-2 text-primary">Personal Details</h6>
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="lastName">Last Name</label>
-                      <input type="text" class="form-control" id="lastName" name="lastName" th:value = "${user.getLastName()}" >
-                    </div>
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="username">Username</label>
-                      <input type="text" class="form-control" id="username" name="username" th:value = "${user.getUsername()}" >
-                    </div>
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="firstName">First Name</label>
-                      <input type="text" class="form-control" id="firstName" name="firstName" th:value = "${user.getFirstName()}" >
-                    </div>
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="email" class="form-control" id="email" name="email" th:value = "${user.getEmail()}" >
-                    </div>
-                  </div>
-                <div class="form-group">
-                    <div class="ms-5">
-                      <button class="btn btn-success me-3" type="submit">Update</button>
-                      <a href="/user/profile-info" class="btn btn-primary " role="button" aria-pressed="true">Cancel</a>
+    <div class="container">
+        <div class="row">
+            <!-- Profile Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <img class="img-xs rounded-circle " src="/img/prof.png" alt="User avatar">
+                            </div>
+                            <h5 class="user-name" th:text="${user.getFirstName() + ' ' + user.getLastName()}"></h5>
+                            <h6 class="user-email" th:text="${user.getEmail()}"></h6>
+                        </div>
                     </div>
                 </div>
-              </div>
             </div>
-          </div>
+            <!-- Form Card -->
+            <div class="col-md-8">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+                                <div th:if="${param.success}" th:text="${param.success}" class="text-success"></div>
+                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName"
+                                           th:value="${user.getLastName()}">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                           th:value="${user.getUsername()}">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstName"
+                                           th:value="${user.getFirstName()}">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           th:value="${user.getEmail()}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="ms-5">
+                                    <button class="btn btn-success me-3" type="submit">Update</button>
+                                    <a href="/user/profile-info" class="btn btn-primary " role="button"
+                                       aria-pressed="true">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-  </div>
-  </div>
+    </div>
 </form>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

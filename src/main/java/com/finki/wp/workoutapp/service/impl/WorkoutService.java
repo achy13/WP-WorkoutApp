@@ -1,7 +1,9 @@
 package com.finki.wp.workoutapp.service.impl;
 
+import com.finki.wp.workoutapp.model.TrainingDay;
 import com.finki.wp.workoutapp.model.User;
 import com.finki.wp.workoutapp.model.Workouts;
+import com.finki.wp.workoutapp.repository.TrainingRepository;
 import com.finki.wp.workoutapp.repository.UserRepository;
 import com.finki.wp.workoutapp.repository.WorkoutsRepository;
 import com.finki.wp.workoutapp.service.IExerciseService;
@@ -21,11 +23,13 @@ public class WorkoutService implements IWorkoutService {
     private final WorkoutsRepository workoutRepository;
     private final UserRepository userRepository;
     private final IExerciseService exerciseService;
+    private final TrainingRepository trainingRepository;
 
-    public WorkoutService(WorkoutsRepository workoutRepository, UserRepository userRepository, IExerciseService exerciseService) {
+    public WorkoutService(WorkoutsRepository workoutRepository, UserRepository userRepository, IExerciseService exerciseService, TrainingRepository trainingRepository) {
         this.workoutRepository = workoutRepository;
         this.userRepository = userRepository;
         this.exerciseService = exerciseService;
+        this.trainingRepository = trainingRepository;
     }
 
     @Override
@@ -55,13 +59,26 @@ public class WorkoutService implements IWorkoutService {
 
     @Override
     public void deleteWorkoutById(Long id) {
-        workoutRepository.deleteById(id);
+        Workouts workout = workoutRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Workout not found"));
+
+        List<TrainingDay> trainingDays = trainingRepository.findByWorkouts(workout);
+        for (TrainingDay trainingDay : trainingDays) {
+            trainingDay.removeWorkout(workout);
+            if (trainingDay.getWorkouts().isEmpty()) {
+                trainingRepository.delete(trainingDay);
+            } else {
+                trainingRepository.save(trainingDay);
+            }
+        }
+
+        workoutRepository.delete(workout);
     }
 
-    @Override
-    public Workouts findByWorkoutName(String name) {
-        return workoutRepository.findByWorkoutName(name);
-    }
+//    @Override
+//    public Workouts findByWorkoutName(String name) {
+//        return workoutRepository.findByWorkoutName(name);
+//    }
 
     @Override
     public List<Workouts> findAllWorkoutsByUser(User user) {

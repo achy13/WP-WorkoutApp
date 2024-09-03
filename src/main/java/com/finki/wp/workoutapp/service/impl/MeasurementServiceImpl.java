@@ -33,11 +33,11 @@ public class MeasurementServiceImpl implements MeasurementService {
     public List<Measurement> findAllMeasurements() {
         return this.measurementRepository.findAll();
     }
-
-    @Override
-    public List<Measurement> findAllMeasurementsByUser(User user) {
-        return measurementRepository.findAllByUser(user);
-    }
+//
+//    @Override
+//    public List<Measurement> findAllMeasurementsByUser(User user) {
+//        return measurementRepository.findAllByUser(user);
+//    }
 
     @Override
     public Optional<Measurement> findMeasurementById(Long id) {
@@ -66,20 +66,20 @@ public class MeasurementServiceImpl implements MeasurementService {
         }
     }
 
-    @Override
-    public void deleteMeasurementById(Long id) {
-        Optional<Measurement> measurementOptional = this.measurementRepository.findById(id);
-        if (measurementOptional.isPresent()) {
-            Measurement measurement = measurementOptional.get();
-            User user = measurement.getUser();
-            if (user != null) {
-                user.getMeasurements().remove(measurement);
-            }
-            measurementRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Measurement not found with id: " + id);
-        }
-    }
+//    @Override
+//    public void deleteMeasurementById(Long id) {
+//        Optional<Measurement> measurementOptional = this.measurementRepository.findById(id);
+//        if (measurementOptional.isPresent()) {
+//            Measurement measurement = measurementOptional.get();
+//            User user = measurement.getUser();
+//            if (user != null) {
+//                user.getMeasurements().remove(measurement);
+//            }
+//            measurementRepository.deleteById(id);
+//        } else {
+//            throw new RuntimeException("Measurement not found with id: " + id);
+//        }
+//    }
 
     @Override
     public void deleteMeasurementAndGoalsByMeasurementId(Long id) {
@@ -90,10 +90,10 @@ public class MeasurementServiceImpl implements MeasurementService {
             if (user != null) {
                 user.getMeasurements().remove(measurement);
                 user.getGoals().clear();
-                userRepository.save(user); // Update the user to reflect the removal of the measurement
+                userRepository.save(user);
             }
             goalService.findAllGoals();
-            measurementRepository.deleteById(id); // Delete the measurement
+            measurementRepository.deleteById(id);
         } else {
             throw new RuntimeException("Measurement not found with id: " + id);
         }

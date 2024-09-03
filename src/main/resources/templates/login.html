@@ -1,33 +1,35 @@
 <div class="container col-6 my-5">
-  <form th:method="post" action="/login">
+    <form th:method="post" action="/login">
 
-    <h2 class="form-signin-heading">Sign in</h2>
+        <h2 class="form-signin-heading">Sign in</h2>
 
-    <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+        <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
 
-    <!-- Username input -->
-    <div data-mdb-input-init class="form-outline mb-4 w-75">
-      <input type="text" id="username" name="username" class="form-control" required/>
-      <label class="form-label" for="username" name="username">Username</label>
-    </div>
+        <!-- Username input -->
+        <div data-mdb-input-init class="form-outline mb-4 w-75">
+            <input type="text" id="username" name="username" class="form-control" required/>
+            <label class="form-label" for="username" name="username">Username</label>
+        </div>
 
-    <!-- Password input -->
-    <div data-mdb-input-init class="form-outline mb-4 w-75">
-      <input type="password" id="password" name="password" class="form-control" required />
-      <label class="form-label" for="password" name="password">Password</label>
-    </div>
+        <!-- Password input -->
+        <div data-mdb-input-init class="form-outline mb-4 w-75">
+            <input type="password" id="password" name="password" class="form-control" required/>
+            <label class="form-label" for="password" name="password">Password</label>
+        </div>
 
-    <!-- 2 column grid layout for inline styling -->
-    <div class="row mb-4">
-      <div class="d-flex justify-content-center w-75">
-        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary mb-4 w-25 ">Sign in</button>
-      </div>
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+            <div class="d-flex justify-content-center w-75">
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary mb-4 w-25 ">Sign
+                    in
+                </button>
+            </div>
 
-      <!-- Register buttons -->
-      <div class="d-flex justify-content-center w-75">
-        <a class="text-decoration-underline" th:href="@{/register}">Create account</a>
-      </div>
-    </div>
-  </form>
+            <!-- Register buttons -->
+            <div class="d-flex justify-content-center w-75">
+                <a class="text-decoration-underline" th:href="@{/register}">Create account</a>
+            </div>
+        </div>
+    </form>
 
 </div>

@@ -1,120 +1,129 @@
 <div xmlns:th="http://www.thymeleaf.org">
-  <div class="container text-center">
-    <h1 class="jumbotron-heading">Workout Application</h1>
-    <h2>Edit your goals here!</h2>
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-5">
-        <form th:action="'/goals/edit/' +${goal.getId()}" method="POST">
-          <input id="id" type="hidden" name="id"
-                 th:value="(${goal} != null ? ${goal.getId()} : '')">
-          <div class="form-group">
-            <label for="name"><img src="/icons/goal.png" alt="Goal icon" width="20" height="20">  Name</label>
-            <input type="text"
-                   class="form-control"
-                   id="name"
-                   name="name"
-                   th:value="(${goal} != null ? ${goal.getName()} : '')"
-                   required
-                   placeholder="Enter goal name">
-          </div>
-          <div class="form-group">
-            <label for="date"><img src="/icons/calendar.png" alt="Calendar icon" width="20" height="20">  Goal date</label>
-            <input type="date"
-                   class="form-control"
-                   id="date"
-                   name="date"
-                   th:value="(${goal} != null ? ${goal.getGoalDate()} : '')"
-                   required
-                   placeholder="Enter goal date">
-          </div>
-          <div class="form-group">
-            <label for="weight"><img src="/icons/scales.png" alt="Weight icon" width="20" height="20">  Weight</label>
-            <input type="text"
-                   class="form-control"
-                   id="weight"
-                   name="weight"
-                   th:value="(${goal} != null ? ${goal.getMeasurement().getWeight()} : '')"
-                   required
-                   placeholder="Enter m weight">
-          </div>
-          <div class="form-group">
-            <label for="shouldersSize"><img src="/icons/shoulder.png" alt="Sholders icon" width="20" height="20">  Shoulders Size</label>
-            <input type="text"
-                   class="form-control"
-                   id="shouldersSize"
-                   name="shouldersSize"
-                   th:value="(${goal} != null ? ${goal.getMeasurement().getShouldersSize()} : '')"
-                   required
-                   placeholder="Enter m shouldersSize">
-          </div>
-          <div class="form-group">
-            <label for="chestSize"><img src="/icons/chest.png" alt="Chest icon" width="20" height="20">   Chest Size</label>
-            <input type="text"
-                   class="form-control"
-                   id="chestSize"
-                   name="chestSize"
-                   th:value="(${goal} != null ? ${goal.getMeasurement().getChestSize()} : '')"
-                   required
-                   placeholder="Enter m chestSize">
-          </div>
-          <div class="form-group">
-            <label for="hand"><img src="/icons/arm.png" alt="Arm icon" width="20" height="20">   Arm size</label>
-            <input type="text"
-                   class="form-control"
-                   id="hand"
-                   name="hand"
-                   th:value="(${goal} != null ? ${goal.getMeasurement().getHand()} : '')"
-                   required
-                   placeholder="Enter m hand">
-          </div>
-          <div class="form-group">
-            <label for="waist"><img src="/icons/waist.png" alt="Waist icon" width="20" height="20">   Waist</label>
-            <input type="text"
-                   class="form-control"
-                   id="waist"
-                   name="waist"
-                   th:value="(${goal} != null ? ${goal.getMeasurement().getWaist()} : '')"
-                   required
-                   placeholder="Enter m waist">
-          </div>
-          <div class="form-group">
-            <label for="abdomen"><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20">  Abdomen</label>
-            <input type="text"
-                   class="form-control"
-                   id="abdomen"
-                   name="abdomen"
-                   th:value="(${goal} != null ? ${goal.getMeasurement().getAbdomen()} : '')"
-                   required
-                   placeholder="Enter m abdomen">
-          </div>
-          <div class="form-group">
-            <label for="hip">Hips size</label>
-            <input type="text"
-                   class="form-control"
-                   id="hip"
-                   name="hip"
-                   th:value="(${goal} != null ? ${goal.getMeasurement().getHip()} : '')"
-                   required
-                   placeholder="Enter m hip">
-          </div>
-          <div class="form-group">
-            <label for="leg"><img src="/icons/leg.png" alt="Leg icon" width="20" height="20">   Leg size</label>
-            <input type="text"
-                   class="form-control"
-                   id="leg"
-                   name="leg"
-                   th:value="(${goal} != null ? ${goal.getMeasurement().getLeg()} : '')"
-                   required
-                   placeholder="Enter m leg">
-          </div>
-          <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-          <a type="button" class="btn btn-secondary" th:href="@{/goals}">Back</a>
-
-        </form>
-      </div>
+    <div class="container text-center">
+        <h1 class="jumbotron-heading">Workout Application</h1>
+        <h2>Edit your goals here!</h2>
     </div>
-  </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form th:action="'/goals/edit/' +${goal.getId()}" method="POST">
+                    <input id="id" type="hidden" name="id"
+                           th:value="(${goal} != null ? ${goal.getId()} : '')">
+                    <div class="form-group">
+                        <label for="name"><img src="/icons/goal.png" alt="Goal icon" width="20" height="20">
+                            Name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               th:value="(${goal} != null ? ${goal.getName()} : '')"
+                               required
+                               placeholder="Enter goal name">
+                    </div>
+                    <div class="form-group">
+                        <label for="date"><img src="/icons/calendar.png" alt="Calendar icon" width="20" height="20">
+                            Goal date</label>
+                        <input type="date"
+                               class="form-control"
+                               id="date"
+                               name="date"
+                               th:value="(${goal} != null ? ${goal.getGoalDate()} : '')"
+                               required
+                               placeholder="Enter goal date">
+                    </div>
+                    <div class="form-group">
+                        <label for="weight"><img src="/icons/scales.png" alt="Weight icon" width="20" height="20">
+                            Weight</label>
+                        <input type="text"
+                               class="form-control"
+                               id="weight"
+                               name="weight"
+                               th:value="(${goal} != null ? ${goal.getMeasurement().getWeight()} : '')"
+                               required
+                               placeholder="Enter m weight">
+                    </div>
+                    <div class="form-group">
+                        <label for="shouldersSize"><img src="/icons/shoulder.png" alt="Sholders icon" width="20"
+                                                        height="20"> Shoulders Size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="shouldersSize"
+                               name="shouldersSize"
+                               th:value="(${goal} != null ? ${goal.getMeasurement().getShouldersSize()} : '')"
+                               required
+                               placeholder="Enter m shouldersSize">
+                    </div>
+                    <div class="form-group">
+                        <label for="chestSize"><img src="/icons/chest.png" alt="Chest icon" width="20" height="20">
+                            Chest Size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="chestSize"
+                               name="chestSize"
+                               th:value="(${goal} != null ? ${goal.getMeasurement().getChestSize()} : '')"
+                               required
+                               placeholder="Enter m chestSize">
+                    </div>
+                    <div class="form-group">
+                        <label for="hand"><img src="/icons/arm.png" alt="Arm icon" width="20" height="20"> Arm
+                            size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="hand"
+                               name="hand"
+                               th:value="(${goal} != null ? ${goal.getMeasurement().getHand()} : '')"
+                               required
+                               placeholder="Enter m hand">
+                    </div>
+                    <div class="form-group">
+                        <label for="waist"><img src="/icons/waist.png" alt="Waist icon" width="20" height="20">
+                            Waist</label>
+                        <input type="text"
+                               class="form-control"
+                               id="waist"
+                               name="waist"
+                               th:value="(${goal} != null ? ${goal.getMeasurement().getWaist()} : '')"
+                               required
+                               placeholder="Enter m waist">
+                    </div>
+                    <div class="form-group">
+                        <label for="abdomen"><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20">
+                            Abdomen</label>
+                        <input type="text"
+                               class="form-control"
+                               id="abdomen"
+                               name="abdomen"
+                               th:value="(${goal} != null ? ${goal.getMeasurement().getAbdomen()} : '')"
+                               required
+                               placeholder="Enter m abdomen">
+                    </div>
+                    <div class="form-group">
+                        <label for="hip">Hips size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="hip"
+                               name="hip"
+                               th:value="(${goal} != null ? ${goal.getMeasurement().getHip()} : '')"
+                               required
+                               placeholder="Enter m hip">
+                    </div>
+                    <div class="form-group">
+                        <label for="leg"><img src="/icons/leg.png" alt="Leg icon" width="20" height="20"> Leg
+                            size</label>
+                        <input type="text"
+                               class="form-control"
+                               id="leg"
+                               name="leg"
+                               th:value="(${goal} != null ? ${goal.getMeasurement().getLeg()} : '')"
+                               required
+                               placeholder="Enter m leg">
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-secondary" th:href="@{/goals}">Back</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

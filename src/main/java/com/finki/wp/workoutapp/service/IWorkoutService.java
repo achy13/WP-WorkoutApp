@@ -17,7 +17,7 @@ public interface IWorkoutService {
     //Workouts save (String workoutName, Date workoutDate, String level, List<Long> exercisesId);
 
     void deleteWorkoutById(Long id);
-    Workouts findByWorkoutName(String name);
+    //Workouts findByWorkoutName(String name);
     List<Workouts> findAllWorkoutsByUser(User user);
 
 }

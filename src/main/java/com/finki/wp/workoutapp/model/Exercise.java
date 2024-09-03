@@ -24,9 +24,6 @@ public class Exercise {
     private Category category;
 
     @ManyToMany
-    private List<Repeats> repeats;
-
-    @ManyToMany
     private List<Workouts> workouts;
 
     public Exercise() {
@@ -40,13 +37,12 @@ public class Exercise {
         this.category = category;
     }
 
-    public Exercise(String name, String image, String description, Category category, List<Repeats> repeats,
+    public Exercise(String name, String image, String description, Category category,
                     List<Workouts> workouts) {
         this.name = name;
         this.image = image;
         this.description = description;
         this.category = category;
-        this.repeats = repeats;
         this.workouts = workouts;
     }
 }

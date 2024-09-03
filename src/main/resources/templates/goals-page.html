@@ -1,40 +1,44 @@
 <style>
-  .goals p {
-    font-size: 18px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 0; /* Remove default margin */
-  }
-
-  .btn-group {
-    margin-top: 20px;
-  }
-
-  .goal-card {
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  .goal-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-
-  @media (max-width: 768px) {
-    .goal-card {
-      width: 100%;
+    .goals p {
+        font-size: 18px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 0;
     }
-  }
+
+    .btn-group {
+        margin-top: 20px;
+    }
+
+    .header-text {
+        font-size: 24px;
+        color: white;
+    }
+
+    .goal-card {
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .goal-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    @media (max-width: 768px) {
+        .goal-card {
+            width: 100%;
+        }
+    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <div xmlns:th="http://www.thymeleaf.org">
-  <div class="container text-center mt-5">
-    <h3 class="jumbotron-heading">All Goals</h3>
-  </div>
+    <div class="container text-center mt-5">
+    </div>
 
     <div class="container" th:if="${measurement == null}">
         <p>First add your current <a th:href="@{/measurement}">measurement</a></p>
@@ -42,41 +46,64 @@
 
 
     <div class="container" th:if="${measurement != null}">
-        <form method="post" action="/goals/add">
-            <button type="submit" class="btn btn-light ml-4">Add new goal <img src="/icons/add.png" alt="Add icon" width="20" height="20"></button>
-        </form>
-    </div>
-
-    <div class="container p-3">
-            Set your fitness goals here by choosing a target date and your desired measurement changes, such as weight loss or muscle gain. <br>
-        Track your progress by comparing these goals with your current measurements, and easily edit or delete goals once you've achieved them.
-    </div>
-
-    <div class="container mt-3">
-      <div th:each="goal : ${goals}" >
-        <div class="row goal-card">
-          <div class="col-md-6">
-            <p><strong><img src="/icons/goal.png" alt="Goal icon" width="20" height="20">  Name:</strong> <span th:text="${goal.getName()}"></span></p>
-            <p><strong><img src="/icons/calendar.png" alt="Calendar icon" width="20" height="20">  Goal date:</strong> <span th:text="${goal.getGoalDate()}"></span></p>
-            <p><strong><img src="/icons/scales.png" alt="Weight icon" width="20" height="20">  Weight:</strong> <span th:text="${goal.getMeasurement().getWeight()}"></span></p>
-            <p><strong><img src="/icons/shoulder.png" alt="Sholders icon" width="20" height="20">  Shoulders Size:</strong> <span th:text="${goal.getMeasurement().getShouldersSize()}"></span></p>
-            <p><strong><img src="/icons/chest.png" alt="Chest icon" width="20" height="20">   Chest Size:</strong> <span th:text="${goal.getMeasurement().getChestSize()}"></span></p>
-          </div>
-          <div class="col-md-6">
-              <p><strong><img src="/icons/arm.png" alt="Arm icon" width="20" height="20">   Arm:</strong> <span th:text="${goal.getMeasurement().getHand()}"></span></p>
-              <p><strong><img src="/icons/waist.png" alt="Waist icon" width="20" height="20">   Waist:</strong> <span th:text="${goal.getMeasurement().getWaist()}"></span></p>
-              <p><strong><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20">   Abdomen:</strong> <span th:text="${goal.getMeasurement().getAbdomen()}"></span></p>
-              <p><strong>Hip:</strong> <span th:text="${goal.getMeasurement().getHip()}"></span></p>
-              <p><strong><img src="/icons/leg.png" alt="Leg icon" width="20" height="20">   Leg:</strong> <span th:text="${goal.getMeasurement().getLeg()}"></span></p>
-              <div class="goal-actions">
-                <a th:href="@{'/goals/edit-form/{id}' (id = ${goal.getId()})}" class="btn btn-light">Edit Goal</a>
-                <form th:action="@{'/goals/delete/{id}' (id = ${goal.getId()})}" th:method="DELETE" style="display: inline; padding-left: 30px">
-                  <button type="submit" class="btn btn-danger">Delete Goal</button>
+        <div class="row align-items-center mb-4">
+            <div class="col-9">
+                <p class="header-text ml-2">My Goals</p>
+                <!-- Purpose Message -->
+                <p class="text-muted ml-2">
+                    Set your fitness goals here by choosing a target date and your desired measurement changes, such as
+                    weight loss or muscle gain. <br>
+                    Track your progress by comparing these goals with your current measurements, and easily edit or
+                    delete goals once you've achieved them.
+                </p>
+            </div>
+            <div class="col-3 text-end">
+                <form method="post" action="/goals/add">
+                    <button type="submit" class="btn btn-light ml-4">Add new goal <img src="/icons/add.png"
+                                                                                       alt="Add icon" width="20"
+                                                                                       height="20"></button>
                 </form>
             </div>
-          </div>
         </div>
     </div>
+
+
+    <div class="container mt-3">
+        <div th:each="goal : ${goals}">
+            <div class="row goal-card">
+                <div class="col-md-6">
+                    <p><strong><img src="/icons/goal.png" alt="Goal icon" width="20" height="20"> Name:</strong> <span
+                            th:text="${goal.getName()}"></span></p>
+                    <p><strong><img src="/icons/calendar.png" alt="Calendar icon" width="20" height="20"> Goal
+                        date:</strong> <span th:text="${goal.getGoalDate()}"></span></p>
+                    <p><strong><img src="/icons/scales.png" alt="Weight icon" width="20" height="20"> Weight:</strong>
+                        <span th:text="${goal.getMeasurement().getWeight()}"></span></p>
+                    <p><strong><img src="/icons/shoulder.png" alt="Sholders icon" width="20" height="20"> Shoulders
+                        Size:</strong> <span th:text="${goal.getMeasurement().getShouldersSize()}"></span></p>
+                    <p><strong><img src="/icons/chest.png" alt="Chest icon" width="20" height="20"> Chest Size:</strong>
+                        <span th:text="${goal.getMeasurement().getChestSize()}"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong><img src="/icons/arm.png" alt="Arm icon" width="20" height="20"> Arm:</strong> <span
+                            th:text="${goal.getMeasurement().getHand()}"></span></p>
+                    <p><strong><img src="/icons/waist.png" alt="Waist icon" width="20" height="20"> Waist:</strong>
+                        <span th:text="${goal.getMeasurement().getWaist()}"></span></p>
+                    <p><strong><img src="/icons/abdomen.png" alt="Abdomen icon" width="20" height="20">
+                        Abdomen:</strong> <span th:text="${goal.getMeasurement().getAbdomen()}"></span></p>
+                    <p><strong>Hip:</strong> <span th:text="${goal.getMeasurement().getHip()}"></span></p>
+                    <p><strong><img src="/icons/leg.png" alt="Leg icon" width="20" height="20"> Leg:</strong> <span
+                            th:text="${goal.getMeasurement().getLeg()}"></span></p>
+                    <div class="goal-actions">
+                        <a th:href="@{'/goals/edit-form/{id}' (id = ${goal.getId()})}" class="btn btn-light">Edit
+                            Goal</a>
+                        <form th:action="@{'/goals/delete/{id}' (id = ${goal.getId()})}" th:method="DELETE"
+                              style="display: inline; padding-left: 30px">
+                            <button type="submit" class="btn btn-success">Done</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>

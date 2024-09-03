@@ -37,10 +37,10 @@ public class GoalService implements IGoalService {
         return goalRepository.findAll();
     }
 
-    @Override
-    public List<Goal> findAllGoalsByUser(User user) {
-        return goalRepository.findAllByUser(user);
-    }
+//    @Override
+//    public List<Goal> findAllGoalsByUser(User user) {
+//        return goalRepository.findAllByUser(user);
+//    }
 
     @Override
     public Optional<Goal> findGoalById(Long id) {
@@ -52,10 +52,10 @@ public class GoalService implements IGoalService {
         return goalRepository.findAllByUser(user);
     }
 
-    @Override
-    public Optional<Goal> findGoalByMeasurement(Measurement measurement) {
-        return goalRepository.findGoalByMeasurement(measurement);
-    }
+//    @Override
+//    public Optional<Goal> findGoalByMeasurement(Measurement measurement) {
+//        return goalRepository.findGoalByMeasurement(measurement);
+//    }
 
     @Override
     public Optional<Goal> edit(Long id, String name, Date goalDate, Double weight, Double shouldersSize, Double chestSize, Double hand, Double waist, Double abdomen, Double hip, Double leg) {
