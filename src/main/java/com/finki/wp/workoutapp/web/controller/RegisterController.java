@@ -34,11 +34,10 @@ public class RegisterController {
                                @RequestParam String repeatedPassword,
                                @RequestParam String email,
                                @RequestParam String firstName,
-                               @RequestParam String lastName,
-                               @RequestParam String image)
+                               @RequestParam String lastName)
     {
         try{
-            this.userService.register(username, password, repeatedPassword, firstName, lastName, email, image);
+            this.userService.register(username, password, repeatedPassword, firstName, lastName, email);
             return "redirect:/login";
         } catch (InvalidArgumentsException | PasswordsDoNotMatchException | UsernameAlreadyExistsException exception) {
             return "redirect:/register?error=" + exception.getMessage();

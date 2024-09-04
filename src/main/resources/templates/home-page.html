@@ -96,7 +96,7 @@
                     <h3>Today's Workout</h3>
                     <p th:if="${workout != null}"><span th:text="${workout.workoutName}"></span></p>
                     <p th:if="${noWorkouts}">You don't have any workouts for today</p>
-                    <button class="btn btn-primary">Start Now</button>
+                    <a th:href="@{/workouts}" class="btn btn-outline-dark">Start Now</a>
                 </div>
             </div>
         </div>

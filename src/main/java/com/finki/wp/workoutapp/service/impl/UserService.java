@@ -29,8 +29,8 @@ public class UserService implements IUserService  {
     }
 
     @Override
-    public User register(String username, String password, String repeatPassword, String firstName, String lastName, String email, String image) {
-        if (username == null || password == null || username.isEmpty() || password.isEmpty() || image.isEmpty()) {
+    public User register(String username, String password, String repeatPassword, String firstName, String lastName, String email) {
+        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
             throw new InvalidUsernameOrPasswordException();
         }
 
