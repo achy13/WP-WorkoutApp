@@ -145,53 +145,7 @@
         </div>
     </div>
 
-
-
-    <!--    <div id="motivationDiv" class="container text-center" style="margin-top: 150px" sec:authorize="isAuthenticated()">-->
-    <!--        <div class="container" th:if="${measurement == null}">-->
-    <!--            <p>The whole page works better if you add your measurements.</p>-->
-    <!--            <a th:href="@{/measurement/add-form}"-->
-    <!--               class="btn btn-light add-measurement-btn">Add new measurement </a>-->
-    <!--        </div>-->
-
-    <!--    <div id="motivationDiv" class="container text-center" style="margin-top: 150px;-->
-    <!--                                                                 background-image: url('static/img/backround.jpg')" sec:authorize="isAuthenticated()">-->
-
-
-    <!--        <figure >-->
-    <!--            <blockquote class="blockquote">-->
-    <!--                <p id="quote"></p>-->
-    <!--            </blockquote>-->
-    <!--            <figcaption class="blockquote-footer" id="author"></figcaption>-->
-    <!--        </figure>-->
-    <!--    </div>-->
 </div>
 
-<script th:inline="javascript">
-    fetch("https://type.fit/api/quotes")
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            const quoteElement = document.getElementById('quote');
-            const authorElement = document.getElementById('author');
 
-            const randomIndex = Math.floor(Math.random() * data.length);
-            const quote = data[randomIndex].text;
-            let author = data[randomIndex].author;
-
-            if (author.endsWith("type.fit")) {
-                author = author.substring(0, author.length - 11).trim();
-            }
-
-            quoteElement.textContent = `"${quote}"`;
-            authorElement.textContent = `${author}`;
-
-            motivationSection.appendChild(quoteElement);
-            motivationSection.appendChild(authorElement);
-        })
-        .catch(function (error) {
-            console.error("Error " + error);
-        });
-</script>
 
