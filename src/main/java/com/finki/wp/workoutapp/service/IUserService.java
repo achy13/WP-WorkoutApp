@@ -10,5 +10,5 @@ public interface IUserService {
     UserDetails loadUserByUsername(String username);
     User findUserByUsername(String username);
     User changePassword(String username, String oldPassword, String newPassword, String repeatedPassword);
-    User update(String firstName, String lastName, String username, String email, String image);
+    User update(String firstName, String lastName, String username, String email);
 }

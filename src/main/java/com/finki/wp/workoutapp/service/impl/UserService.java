@@ -48,8 +48,7 @@ public class UserService implements IUserService  {
                 email,
                 firstName,
                 lastName,
-                Role.ROLE_USER,
-                image
+                Role.ROLE_USER
         );
 
         return userRepository.save(user);
@@ -88,7 +87,7 @@ public class UserService implements IUserService  {
     }
 
     @Override
-    public User update(String firstName, String lastName, String username, String email, String image) {
+    public User update(String firstName, String lastName, String username, String email) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authUser = authentication.getName();
 
@@ -125,9 +124,9 @@ public class UserService implements IUserService  {
             else {
                 user.setEmail(email);
             }
-            if (image != null || !image.isEmpty()){
-                user.setImage(image);
-            }
+//            if (image != null || !image.isEmpty()){
+//                user.setImage(image);
+//            }
         }
         else {
             throw new UsernameNotFoundException(username);

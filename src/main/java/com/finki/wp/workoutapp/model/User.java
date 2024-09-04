@@ -60,7 +60,7 @@ public class User implements UserDetails {
 
 
     public User(String username, String password, String email, String firstName,
-                String lastName, Role role, String image) {
+                String lastName, Role role) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -68,7 +68,7 @@ public class User implements UserDetails {
         this.lastName = lastName;
         this.role = role;
         this.trainingDays = new ArrayList<>();
-        this.image = image;
+        //this.image = image;
     }
 
     @Override
